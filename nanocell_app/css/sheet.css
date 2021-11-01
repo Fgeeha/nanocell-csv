@@ -1,0 +1,63 @@
+.sheet {
+width: 100%;
+height: 100%;
+background: var(--table-borders);
+border-spacing: 1px;
+}
+
+
+.sheet td, .sheet th{color: var(--txt);overflow: hidden;white-space: nowrap;box-sizing: border-box;position:relative;max-width: 0;background-color: var(--body-bg);padding: 0; font-weight: normal;}
+
+
+.sheet th{/* position:relative; */color: var(--th-num);background-color: var(--th-bg); padding:2px; }
+
+.sheet tr:first-child{
+    /*max-height: 1.5em;*/
+    height: 1.7em;
+   
+}
+.sheet tr:first-child div{line-height:1.5em}
+.sheet tr th:first-child{text-align: end;width: 1%;max-width: 1%;padding:0 .5em 0 .5em;white-space: nowrap;}
+
+
+.sheet td div {margin: 0 .5em 0 .5em;}
+
+.sheet div{pointer-events: none;}
+
+.sheet input:focus {
+box-sizing: border-box;
+position: absolute;
+padding: 0 .5em 0 .5em;
+font-size:inherit;
+top: 0;
+left: 0;
+width: 100%;
+border-radius:0;
+height: 100%;
+color: var(--input-txt);
+background-color: var(--input-bg);
+z-index:1;
+}
+
+
+
+.slct {
+color:inherit;
+background-color: var(--slct-bg)!important;
+}
+
+
+.formula {color: var(--blue);}
+
+
+.num {
+text-align: right;
+color: var(--orange);
+}
+.error{
+color: var(--red);
+}
+
+.sheet td div:nth-child(2) {color:var(--blue);float: left;text-align: left;margin-top: 1em;}
+
+.sheet td div:nth-child(3) {float:right;/* line-height: normal; *//* width: 100%; */margin-top: 1em;}

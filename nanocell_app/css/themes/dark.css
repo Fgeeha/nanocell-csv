@@ -1,0 +1,25 @@
+:root{
+  --th-bg: #000000;
+  --th-txt: #606492;
+  --th-num: grey;
+  --body-bg: #272822;
+  --slct-bg: #3b3b3b;
+  --found-bg: #1c1c1c;
+  --fh-bg: #1e1e1e;
+  --table-borders: #5a5a5a;
+  --fh-txt: #888888;
+  --input-txt: #000;
+  --activeTab: var(--table-txt);
+  --decimal-txt:var(--grey);
+  --table-txt:var(--white);
+  --input-bg: #aaa;
+  --formula-txt: var(--blue);
+  --unit-txt: var(--purple);
+  --currency: var(--green);
+  --num-txt: var(--orange);
+  --toast-txt: var(--yellow);
+  --filter: invert(40%);
+  --dots:var(--orange);
+}
+
+
