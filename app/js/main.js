@@ -14,21 +14,6 @@ let is_installed = window.matchMedia('(display-mode: standalone)').matches
 let sheet = undefined;
 
 
-ask_for_install = function (){
-	window.addEventListener('beforeinstallprompt', (e) => {
-		dom.body.innerHTML = "";
-		instB =   document.createElement("button")
-		instB.innerHTML = "Click here to install Nanocell"
-		instB.addEventListener('click', async () => { 
-			e.prompt();
-	        const { outcome } = await e.userChoice;
-	        if (outcome === 'accepted') location.reload()
-	    });
-		dom.body.appendChild(instB)
-	});	
-}
-
-
 clean_start = function (){
 	Setting.init()
 	Setting.setTheme()

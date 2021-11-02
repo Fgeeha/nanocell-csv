@@ -1,0 +1,30 @@
+{
+  "name": "Nanocell",
+  "short_name": "Nanocell",
+  "theme_color": "#e7e7e7",
+  "background_color": "#e7e7e7",  
+  "orientation": "portrait",
+  "start_url": "/app/home.html",
+  "scope": "/app/",
+  "id": "/app/",
+  "prefer_related_applications": false,
+  "display": "standalone",
+  "description":"CSV editor fast, lightweight, cross platform (Windows, OSX, Linux, ChromeOS), works 100% offline, has customizable themes, is keyboard shortcut driven, is perfect for handling super large files and has all the functionalities you'd expect.",
+  "capture_links": "new-client",
+  "file_handlers": [{"action": "/app/home.html","accept": {"text/csv": [".csv"]}}],
+  "icons": [
+    {"src": "app/logo/png/nanocell_32.png","type": "image/png","sizes": "32x32"},
+    {"src": "app/logo/png/nanocell_64.png","type": "image/png","sizes": "64x64"},
+    {"src": "app/logo/png/nanocell_128.png","type": "image/png","sizes": "128x128"},
+    {"src": "app/logo/png/nanocell_192.png","type": "image/png","sizes": "192x192"},
+    {"src": "app/logo/png/nanocell_512.png","type": "image/png","sizes": "512x512"}
+  ]
+}
+
+
+
+
+
+
+
+
