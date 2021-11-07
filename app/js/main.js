@@ -1,8 +1,17 @@
+
+window.addEventListener('beforeunload', function (e) {
+	if (false){ // if csv not saved ask before quit
+    	e.preventDefault();
+    	e.returnValue =   "";
+	}    
+});
+
+
+
+
 let sampleData = [
 	["", 0 , 1,2,3, "a", "b","c"],
 	["", "" , 2,"x",3, "a", "b","c"],
-
-
 ]
 
 
@@ -15,11 +24,8 @@ let sheet = undefined;
 
 
 clean_start = function (){
-	console.log("ok")
-	Setting.log();
+	Setting.log()
 	Setting.init();
-	Setting.log();
-
 	Setting.setTheme();
 	buildCommands();
 	buildMenu();

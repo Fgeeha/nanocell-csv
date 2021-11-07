@@ -20,8 +20,8 @@ constructor(df=new Dataframe()) {
   this.inputField.addEventListener("focusout",e=>{this.inputBlur()});
   this.inputField.addEventListener("keydown",e=>{
     switch(e.key.toUpperCase()) {
-        case "ENTER"          :e.stopPropagation();this.inputField.blur(); this.y++;this.slctRefresh();this.refresh();break;
-        case "TAB"            :this.inputField.blur() ;break;
+        case "ENTER"          :e.stopPropagation();this.inputField.blur();this.y++;this.slctRefresh();this.refresh();break;
+        case "TAB"            :e.stopPropagation();this.inputField.blur();this.x++;this.slctRefresh();this.refresh();break;
         case "ESCAPE"         :this.escape=true;sheet.inputField.blur();break;
     }
   });
@@ -36,10 +36,10 @@ constructor(df=new Dataframe()) {
 expand(){
   if (this.rangeInit ===undefined ) return;
 
-  var xStart = Math.min(this.x, this.rangeInit.x) - this.baseX;
-  var yStart = Math.min(this.y, this.rangeInit.y) - this.baseY;
-  var xEnd   = Math.max(this.x ,this.rangeInit.x) - this.baseX;
-  var yEnd   = Math.max(this.y, this.rangeInit.y) - this.baseY; 
+  var xStart = Math.min(this.x, this.rangeInit.x) ;
+  var yStart = Math.min(this.y, this.rangeInit.y) ;
+  var xEnd   = Math.max(this.x ,this.rangeInit.x) ;
+  var yEnd   = Math.max(this.y, this.rangeInit.y) ; 
   if (yStart == yEnd){
       var direction = this.rangeInit.x < this.x? 1:-1;
       var base0  = this.df.get(this.rangeInit.x, this.rangeInit.y)

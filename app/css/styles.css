@@ -9,7 +9,7 @@ footer          {padding: .2em;text-align:center;}
 #dragSpace      {min-width: 1em;-webkit-app-region: drag;flex-grow: 1;height: 100%;}
 #menu           {flex-wrap: wrap; margin: .5em;}
 header img:hover, #menu img:hover {background-color: #ccc}
-.dialog_small         {line-height:normal;max-height: 50vh;align-items: start;}
+.dialog_small         {line-height:normal;max-height: 50vh;align-items: start; position: relative;}
 
 .dialog_large{
     line-height:normal;
@@ -24,7 +24,6 @@ header img:hover, #menu img:hover {background-color: #ccc}
 }
 
 #closeDialog{
-    position: absolute;
     right: 0;
     top: 0;
     margin-top: 1em;
@@ -64,7 +63,7 @@ img {pointer:none;margin-left: .5em;height: 1.3em;padding: .2em;margin: .2em;bor
 footer img {
     height:1em;
     padding: 0em;
-    margin: 0 1em 0 1em;
+    /*margin: 0 1em 0 1em;*/
     }
 
 

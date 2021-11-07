@@ -37,10 +37,15 @@ dom.dialog.push = function (e, fullscreen = false, closeButton = true){
  if (closeButton){
     var img = document.createElement("img");
     img.src = "icn/off.svg";
+    img.style.position = (fullscreen)? "fixed":"absolute";
     img.setAttribute("title","close");
     img.setAttribute("id","closeDialog");
     img.addEventListener("click",function(){dom.dialog.clear()})
     img.style.cursor = "pointer"
+    if(!fullscreen){
+      img.style.height ="1.3em";
+      img.style.marginTop =".5em";
+    }
     dom.dialog.appendChild(img)
  }
 }

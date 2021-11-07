@@ -4,7 +4,7 @@ var stg = {};
 class Setting {
 constructor(s){
     var stored_val = localStorage.getItem(s.key);
-    if (! isNaN(stored_val) && ! stored_val==null ) stored_val = Number(stored_val)
+    if (! (isNaN(stored_val) ||  stored_val==null) ) stored_val = Number(stored_val)
     this.key = s.key;
     this.value = (stored_val == null)? s.dflt : stored_val;
     this.cb = s.cb;
