@@ -15,8 +15,12 @@ let sheet = undefined;
 
 
 clean_start = function (){
-	Setting.init()
-	Setting.setTheme()
+	console.log("ok")
+	Setting.log();
+	Setting.init();
+	Setting.log();
+
+	Setting.setTheme();
 	buildCommands();
 	buildMenu();
 	buildKeys()
@@ -25,8 +29,7 @@ clean_start = function (){
 }
 
 
-if (is_installed)clean_start();
-else ask_for_install();
+clean_start();
 
 
 
@@ -58,7 +61,7 @@ else ask_for_install();
 
 // opening multiple times a file should refocus that file 
 // increment should work with YYYY-MM-DD date
-
+// autogen R/panda/spark code for basic view 
 
 
 

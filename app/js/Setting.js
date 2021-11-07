@@ -4,13 +4,14 @@ var stg = {};
 class Setting {
 constructor(s){
     var stored_val = localStorage.getItem(s.key);
-    if (! isNaN(stored_val)) stored_val = Number(stored_val)
+    if (! isNaN(stored_val) && ! stored_val==null ) stored_val = Number(stored_val)
     this.key = s.key;
     this.value = (stored_val == null)? s.dflt : stored_val;
     this.cb = s.cb;
     Object.defineProperty(stg, this.key, {
         get:( )=>{return this.value},
         set:(e)=>{
+            // console.log( "setting ",this.key)
             this.value=e;
             localStorage.setItem(this.key, e);
             if(this.cb)this.cb(this.value);
@@ -82,6 +83,7 @@ static show(){
 
 
 static setTheme(){
+    console.log("setting theme callback")
     dom.theme.href = "css/themes/"+stg.theme+".css";
     dom.palette.href = "css/palettes/"+stg.theme+".css";
 }

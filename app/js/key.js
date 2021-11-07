@@ -5,7 +5,7 @@ let buildKeys = function (){
 
 document.onkeydown = function(e) {
   var k = e.key.toUpperCase(); 
-  console.log(k)
+  // console.log(k)
   var ctrlDown  =e.metaKey || e.ctrlKey; 
   var alt = e.altKey;
   if (alt && k =="TAB") return; // enable switching window 
