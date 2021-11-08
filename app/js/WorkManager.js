@@ -33,6 +33,9 @@ file_chunk_loaded(d){
 }
 
 
+
+
+
 read(file, cb=null){
   this.file = file;
   this.file_chunks = [];

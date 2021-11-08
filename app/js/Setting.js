@@ -75,6 +75,7 @@ static show(){
     for(var s of Setting.list) table.appendChild(Setting.build(s));
     var b = document.createElement("button");
     b.innerHTML = "Reset to default settings";
+    b.style.marginTop = "1em"
     b.onclick = Setting.resetDefault;
     content.appendChild(table);
     content.appendChild(b);
@@ -105,17 +106,19 @@ static resetDefault(){
 Object.defineProperty(Setting, 'list', {value: [
 {title:"Appearance"},
     {key:"theme"            ,dflt:"light"       ,name:"Theme", list:[ "light" , "dark"],hide:true, cb:Setting.setTheme},
-    {key:"font"             ,dflt:16            ,name:"Font-size",   min:7, max:24 ,cb:n=>{dom.body.style.fontSize = n+"px"; }   },
+    {key:"font"             ,dflt:13            ,name:"Font-size",   min:7, max:24 ,cb:n=>{dom.body.style.fontSize = n+"px"; }   },
     {key:"rows"             ,dflt:25            ,name:"Rows",        min:5, max:60 ,cb:n=>{if (sheet)sheet.reload()}   },
-    {key:"cols"             ,dflt:10            ,name:"Cols",        min:3, max:30 ,cb:n=>{if (sheet)sheet.reload()} },
+    {key:"cols"             ,dflt:7             ,name:"Cols",        min:3, max:30 ,cb:n=>{if (sheet)sheet.reload()} },
+
 {title:"Csv Read"},
-    {key:"viewFirst"        ,dflt:false         ,name:"Always view before edit"},
+    {key:"viewFirst"        ,dflt:true          ,name:"Show overview before edit"},
     {key:"editMaxFileSize"  ,dflt:"100"         ,name:"Editor max file size (Mo)",list:["1", "10" , "30", "60","100", "250", "500"],hide:true },
 
 {title:"Csv Write"},
     {key:"encoding"         ,dflt:"utf-8"       ,name:"Encoding"},
     {key:"delimiter"        ,dflt:","           ,name:"Delimiter", list:[",", ";" , ":"],hide:true},
-    {key:"strict"           ,dflt:false         ,name:"Save-Strict (error on comma or double quote)"},
+    {key:"strictComma"      ,dflt:false         ,name:"Save-Strict (error on comma)"},
+    {key:"strictQuote"      ,dflt:false         ,name:"Save-Strict (error on double quote)"},
     
     
 ]});

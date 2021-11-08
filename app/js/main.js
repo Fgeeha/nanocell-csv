@@ -87,8 +87,10 @@ window.launchQueue.setConsumer(async (params) => {
 // new open read write save (implement strict mode)
 // saved file icon + close tab
 // about / help 
+// strict comma to dot 
 // insert today date
 // finder click close  & finder advanced input rework, text input click focus 
 // context click col menu 
 // toggle commas to dots
 // have a nice install page 
+// left to right scroll on ctrl scroll 

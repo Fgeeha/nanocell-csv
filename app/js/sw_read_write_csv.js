@@ -1,8 +1,22 @@
 // const  CHUNK_SIZE = 1000000 ; // = 1 Mo
 const  CHUNK_SIZE = 1000 ; // = 1 Ko
+const  n_chars_for_separator_detection = 500; 
+
+separatorDetection= function (txt){
+  if (txt.length > n_chars_for_separator_detection) txt = txt.substring(0, n_chars_for_separator_detection)
+  d = [',','\t',';',':']
+  n = [ 0 , 0  , 0 , 0 ]
+  for (var i = 0; i < txt.length; i++) {
+    for (var j = 0; j < d.length; j++) {
+      if (txt[i]==d[j]) n[j]++;
+    }
+  }
+  return d[n.indexOf(Math.max(...n))]
+}
+
 
 csv_parse = function(txt, d = ","){
-  return  txt.split(/\r?\n/).map(s=>{
+  return  txt.split(/[;\r]?\n/).map(s=>{
     var r = [];     //result;
     var q = '"';    //quote
     var f = false;  //force
@@ -29,51 +43,86 @@ csv_parse = function(txt, d = ","){
 })
 }
 
+initColInfo=function(){
+  return {
+    count_null  : 0,
+    count_num   : 0,
+    count_txt   : 0,
+    total_sum   : 0,
+    distinct_value : [],
+    distinct_count : []
+  }
+}
+
+
+  chunkStats= function  (m){
+    let info = []
+    for (var y = 0; y < m.length; y++) {
+      let row = m[y];
+      for (var x = 0; x < row.length; x++) {
+        if (info[x]===undefined) info[x] = initColInfo()
+        let d = row[x];
+        let n = Number(d);
+        if (d=="")info[x].count_null++;
+        else if (n){
+          info[x].count_num++;
+          info[x].total_sum+= n;
+        }else{
+          info[x].count_txt++;
+        }
+
+        if (d!="" && info[x].distinct_value.length < 30){
+          let idx = info[x].distinct_value.indexOf(d);
+          if (idx>=0) info[x].distinct_count[idx]++;
+          else{
+            info[x].distinct_value.push(d);
+            info[x].distinct_count.push(1);
+          } 
+        }
+
+        
+      }
+    }
+    return info
+  } 
+
 
 loadcsv  = function(file){
   console.log("sw loading : ", file.name)
-
-  // let df=[]
   let fileSize = file.size
   let offset =  0 
   let iteration = 0;
+  let sep = ';'
   var reader = new FileReader();
-  
+
   reader.onloadend =e=>{ 
     iteration ++;
     let result = e.target.result
-    console.log(result)
     let increment = CHUNK_SIZE -1
-    
+    if(iteration == 1)sep = separatorDetection(result);
 
     while(result[increment] != '\n' && increment>1) increment--;
     if (increment>1 && result.length + offset < fileSize){
       result = result.substring(0,increment);
       for (var i = 0; i < result.length; i++)  if (result.charCodeAt(i)>127) offset++;
-    
-
       offset += increment +1;
-
-
-
-
     }else{
       offset = fileSize;
     }
     // df.push(csv_parse(result))
     console.log(offset, "/", fileSize)
-
     let matrix = csv_parse(result);
- 
+    let statistics = chunkStats(matrix)
+    let status =  offset/fileSize;
     postMessage({
       cmd       : "chunk_loaded",
-      status    : offset/fileSize,
-      chunk     : matrix
-
+      status    : status,
+      chunk     : (iteration==1 || status>=1 || !file.viewOnly )? matrix:null,
+      stats     : statistics,
+      chunk_id  : iteration,
+      viewOnly  : file.viewOnly,
+      sep       : sep
     })
-
-      // ["chunk_loaded", [offset/fileSize, csv_parse(result)]]
-
 
     if (offset/fileSize < 1) seek()
   };
