@@ -21,6 +21,7 @@ let sampleData = [
 // localStorage.clear();
 let is_installed = window.matchMedia('(display-mode: standalone)').matches
 let sheet = undefined;
+let worker = new WorkManager()
 
 
 clean_start = function (){
@@ -40,18 +41,27 @@ clean_start();
 
 
 
-// window.launchQueue.setConsumer(async (params) => {
-//   const [handle] = params.files;
-//   if (handle) {
+window.launchQueue.setConsumer(async (params) => {
+  const [handle] = params.files;
+  if (handle) {
 
-//     const file = await handle.getFile();
+    const file = await handle.getFile();
     
-//     console.log("Loading : " , file.name)
-//     Dataframe.fromFile( file, df=>{
-//     	console.log(df)
-//     } )
-//   }
-// });
+    console.log("Loading : " , file.name)
+    worker.read(file, dataMatrix=> {
+    	sheet = new Sheet(new Dataframe(dataMatrix))
+    	dom.content.innerHTML="";
+    	dom.content.appendChild(sheet);
+    	// sheet.reload();
+    })
+    
+
+
+    // Dataframe.fromFile( file, df=>{
+    // 	console.log(df)
+    // } )
+  }
+});
 
 
 

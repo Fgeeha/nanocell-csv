@@ -1,4 +1,5 @@
-const  CHUNK_SIZE = 1000000
+// const  CHUNK_SIZE = 1000000 ; // = 1 Mo
+const  CHUNK_SIZE = 1000 ; // = 1 Ko
 
 csv_parse = function(txt, d = ","){
   return  txt.split(/\r?\n/).map(s=>{
@@ -30,37 +31,62 @@ csv_parse = function(txt, d = ","){
 
 
 loadcsv  = function(file){
-  let df=[]
+  console.log("sw loading : ", file.name)
+
+  // let df=[]
   let fileSize = file.size
   let offset =  0 
+  let iteration = 0;
   var reader = new FileReader();
+  
   reader.onloadend =e=>{ 
-    result = e.target.result
-    increment = CHUNK_SIZE -1
+    iteration ++;
+    let result = e.target.result
+    console.log(result)
+    let increment = CHUNK_SIZE -1
     
-    while(result[increment] != '\n' && increment>1 && offset + CHUNK_SIZE <= fileSize) increment--;
-    result = result.substring(0,increment)
-    offset += increment +1
-    df.push(csv_parse(result))
-    postMessage(["chunk_loaded", [offset/fileSize, csv_parse(result)]])
-    seek()
+
+    while(result[increment] != '\n' && increment>1) increment--;
+    if (increment>1 && result.length + offset < fileSize){
+      result = result.substring(0,increment);
+      for (var i = 0; i < result.length; i++)  if (result.charCodeAt(i)>127) offset++;
+    
+
+      offset += increment +1;
+
+
+
+
+    }else{
+      offset = fileSize;
+    }
+    // df.push(csv_parse(result))
+    console.log(offset, "/", fileSize)
+
+    let matrix = csv_parse(result);
+ 
+    postMessage({
+      cmd       : "chunk_loaded",
+      status    : offset/fileSize,
+      chunk     : matrix
+
+    })
+
+      // ["chunk_loaded", [offset/fileSize, csv_parse(result)]]
+
+
+    if (offset/fileSize < 1) seek()
   };
   
 
-	seek=function () {
-      if (offset >= file.size)return postMessage(["chunk_loaded",[1,null]]  );
-      reader.readAsText(file.slice(offset, offset + CHUNK_SIZE), "utf-8");
-  }
-
+	seek=function () {reader.readAsText(file.slice(offset, offset + CHUNK_SIZE), "utf-8");}
   seek()
 }
 
 
 addEventListener("message",e=>{
-	pipe = e.data [0]
-	content = e.data [1]
-	switch(pipe) {
-      case "load_csv": loadcsv(content)
+	switch(e.data.cmd) {
+      case "read": loadcsv(e.data.data)
     }
 })
 

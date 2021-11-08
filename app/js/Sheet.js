@@ -166,17 +166,20 @@ scrollLeft(){
     r.insertBefore(c, r.cells[1]);
   }
 
- this.rows[0].cells[1].innerHTML = this.baseX+1;
+ let header_value = this.df.get(this.baseX+1,0)
+ this.rows[0].cells[1].innerHTML = (this.fixTop && header_value != ""  )? header_value: this.baseX+1;
  
 }
 scrollRight(){
- this.rows[0].cells[1].innerHTML = this.baseX+this.width;
+ let header_value = this.df.get(this.baseX+this.width,0)
+ this.rows[0].cells[1].innerHTML =  (this.fixTop && header_value != "" )? header_value: this.baseX+this.width;
  for(var y = 0 ; y < this.rows.length; y ++){
     var r = this.rows[y];
     var c = r.cells[1];
     if (y>0) this.loadCell(c, this.baseX+this.width-1, this.baseY+y-1);
     r.appendChild(c);
   }
+
 }
 
 
@@ -185,7 +188,9 @@ scrollUp(){
   for (var x = 1 ; x < r.cells.length ; x++ ){
     this.loadCell(r.cells[x], this.baseX+x-1, this.baseY);
   }
-  r.cells[0].innerHTML =this.baseY+1;
+  let header_value = this.df.get(0, this.baseY+1)
+
+  r.cells[0].innerHTML =(this.fixLeft && header_value != "" )? header_value: this.baseY+1;
   this.insertBefore(r, this.rows[1]);
 
 }
@@ -195,7 +200,8 @@ scrollDown(){
   for (var x = 1 ; x < r.cells.length ; x++ ){
     this.loadCell(r.cells[x], this.baseX+x-1, this.baseY+this.height-1);
   }
-  r.cells[0].innerHTML =this.baseY+this.height;
+  let header_value = this.df.get(0,this.baseY+this.height)
+  r.cells[0].innerHTML =(this.fixLeft && header_value != "" )? header_value: this.baseY+this.height;
   this.appendChild(r);
   
 }
@@ -222,45 +228,45 @@ insert(direction){
   this.refresh();
   this.slctRefresh();
 }
-delta(direction){this.deltaRatio(direction,true )}
-ratio(direction){this.deltaRatio(direction,false)}
-deltaRatio(direction, delta){
-  var m;
-  switch(direction){
-    case 0: m=this.df.get(this.x, this.y+1);break;
-    case 1: m=this.df.get(this.x-1, this.y);break;
-    case 2: m=this.df.get(this.x, this.y-1);break;
-    case 3: m=this.df.get(this.x+1, this.y);break;
-  }
-  var n = this.df.get(this.x, this.y);
-  if (!isNaN(n) && !isNaN(m))n= delta? Number(n)*2 - Number(m):Number(n)*Number(n)/Number(m) ;
-  switch(direction){
-    case 0: this.y--;break;
-    case 1: this.x++;break;
-    case 2: this.y++;break;
-    case 3: this.x--;break;
-  }
-  this.df.edit(this.x, this.y, n);
-  this.slctRefresh();
-  this.refresh();
-}
+// delta(direction){this.deltaRatio(direction,true )}
+// ratio(direction){this.deltaRatio(direction,false)}
+// deltaRatio(direction, delta){
+//   var m;
+//   switch(direction){
+//     case 0: m=this.df.get(this.x, this.y+1);break;
+//     case 1: m=this.df.get(this.x-1, this.y);break;
+//     case 2: m=this.df.get(this.x, this.y-1);break;
+//     case 3: m=this.df.get(this.x+1, this.y);break;
+//   }
+//   var n = this.df.get(this.x, this.y);
+//   if (!isNaN(n) && !isNaN(m))n= delta? Number(n)*2 - Number(m):Number(n)*Number(n)/Number(m) ;
+//   switch(direction){
+//     case 0: this.y--;break;
+//     case 1: this.x++;break;
+//     case 2: this.y++;break;
+//     case 3: this.x--;break;
+//   }
+//   this.df.edit(this.x, this.y, n);
+//   this.slctRefresh();
+//   this.refresh();
+// }
 
 
-increment(direction){this.incdec(direction,true )}
-decrement(direction){this.incdec(direction,false)}
-incdec(direction, inc){
-  var n = this.df.get(this.x, this.y);
-  if (!isNaN(n))n= inc? Number(n)+1:Number(n)-1;
-  switch(direction){
-    case 0: this.y--;break;
-    case 1: this.x++;break;
-    case 2: this.y++;break;
-    case 3: this.x--;break;
-  }
-  this.df.edit(this.x, this.y, n);
-  this.slctRefresh();
-  this.refresh();
-}
+// increment(direction){this.incdec(direction,true )}
+// decrement(direction){this.incdec(direction,false)}
+// incdec(direction, inc){
+//   var n = this.df.get(this.x, this.y);
+//   if (!isNaN(n))n= inc? Number(n)+1:Number(n)-1;
+//   switch(direction){
+//     case 0: this.y--;break;
+//     case 1: this.x++;break;
+//     case 2: this.y++;break;
+//     case 3: this.x--;break;
+//   }
+//   this.df.edit(this.x, this.y, n);
+//   this.slctRefresh();
+//   this.refresh();
+// }
 
 
 
@@ -488,7 +494,7 @@ loadTopHeader(x){
    if (this.fixTop){
       var d = this.df.get(this.baseX+x,0);
       if(d.length>0){  
-      this.rows[0].cells[x+1].innerHTML =  "<div>"+this.df.get(this.baseX+x,0)+"</div>";
+        this.rows[0].cells[x+1].innerHTML =  "<div>"+this.df.get(this.baseX+x,0)+"</div>";
         return ;
       }
    }
@@ -500,7 +506,7 @@ loadLeftHeader(y){
    if (this.fixLeft){
       var d = this.df.get(0,this.baseY+y);
       if(d.length>0){  
-      this.rows[y+1].cells[0].innerHTML =  "<div>"+this.df.get(0,this.baseY+y)+"</div>";
+        this.rows[y+1].cells[0].innerHTML =  "<div>"+this.df.get(0,this.baseY+y)+"</div>";
         return ;
       }
    }

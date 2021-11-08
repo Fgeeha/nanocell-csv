@@ -11,9 +11,9 @@ constructor(d=[[""]]) {
     // this.solver = new Solver(this); 
 }
 
-static sw  = new SW_read_write();
+// static sw  = new SW_read_write();
 
-static fromFile(file, cb){Dataframe.sw.read(file,data=>{cb( new Dataframe(data));})}
+// static fromFile(file, cb){Dataframe.sw.read(file,data=>{cb( new Dataframe(data));})}
 
 
 
