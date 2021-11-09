@@ -43,8 +43,9 @@ csv_parse = function(txt, d = ","){
 })
 }
 
-initColInfo=function(){
+initColInfo=function(h=""){
   return {
+    header      : h,
     count_null  : 0,
     count_num   : 0,
     count_txt   : 0,
@@ -55,8 +56,15 @@ initColInfo=function(){
 }
 
 
-  chunkStats= function  (m){
-    let info = []
+  addChunkStats = function  (m, info){
+    let first_chunk = info.length < 1
+    if (first_chunk){
+      for (var x = 0; x < m[0].length; x++) {
+        info[x] = initColInfo(m[0][x])
+      }
+
+    }
+      
     for (var y = 0; y < m.length; y++) {
       let row = m[y];
       for (var x = 0; x < row.length; x++) {
@@ -96,7 +104,7 @@ loadcsv  = function(file){
   let sep = ';'
   let prepend = "";
   let reader = new FileReader();
-
+  let statistics = []
 
   reader.onloadend =e=>{ 
     iteration ++;
@@ -118,7 +126,7 @@ loadcsv  = function(file){
     }
     console.log(offset, "/", fileSize)
     let matrix = csv_parse(result);
-    let statistics = chunkStats(matrix)
+    statistics = addChunkStats(matrix,statistics)
     postMessage({
       cmd       : "chunk_loaded",
       status    : status,

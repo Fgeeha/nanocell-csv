@@ -13,15 +13,8 @@ constructor() {
       case "chunk_loaded": this.file_chunk_loaded(d)
     }
 })
-
-
-
-
-  // addEventListener("message", e => {
-  // status = e.data[0]
-  
-  // });
 }
+
 
 file_chunk_loaded(d){
   document.getElementById("footerCenter").innerHTML = Math.round (d.status*100) +"%"
