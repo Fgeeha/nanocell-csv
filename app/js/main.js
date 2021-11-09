@@ -64,6 +64,9 @@ window.launchQueue.setConsumer(async (params) => {
 });
 
 
+// BUGS 
+// potential issue when reading chunk cuts 16 bit char in 2 diff chunks, unlucky but possible, requires testing  
+
 
 
 // TODO BIG
@@ -87,7 +90,10 @@ window.launchQueue.setConsumer(async (params) => {
 // new open read write save (implement strict mode)
 // saved file icon + close tab
 // about / help 
-// strict comma to dot 
+// slct strict comma to dot 
+// slct strict replace spe chars ex : é => e
+// slct to upper 
+// slct to lower 
 // insert today date
 // finder click close  & finder advanced input rework, text input click focus 
 // context click col menu 

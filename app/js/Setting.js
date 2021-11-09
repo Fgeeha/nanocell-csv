@@ -112,7 +112,7 @@ Object.defineProperty(Setting, 'list', {value: [
 
 {title:"Csv Read"},
     {key:"viewFirst"        ,dflt:true          ,name:"Show overview before edit"},
-    {key:"editMaxFileSize"  ,dflt:"100"         ,name:"Editor max file size (Mo)",list:["1", "10" , "30", "60","100", "250", "500"],hide:true },
+    {key:"editMaxFileSize"  ,dflt:"100"         ,name:"Quick-view file size threshold (Mo)",list:["1", "10" , "30", "60","100", "250", "500"],hide:true },
 
 {title:"Csv Write"},
     {key:"encoding"         ,dflt:"utf-8"       ,name:"Encoding"},

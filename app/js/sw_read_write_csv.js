@@ -1,6 +1,6 @@
 // const  CHUNK_SIZE = 1000000 ; // = 1 Mo
-const  CHUNK_SIZE = 1000 ; // = 1 Ko
-const  n_chars_for_separator_detection = 500; 
+const  CHUNK_SIZE = 100 ; // = 1 Ko
+const  n_chars_for_separator_detection = 50; 
 
 separatorDetection= function (txt){
   if (txt.length > n_chars_for_separator_detection) txt = txt.substring(0, n_chars_for_separator_detection)
@@ -87,33 +87,38 @@ initColInfo=function(){
   } 
 
 
+
 loadcsv  = function(file){
   console.log("sw loading : ", file.name)
   let fileSize = file.size
   let offset =  0 
   let iteration = 0;
   let sep = ';'
-  var reader = new FileReader();
+  let prepend = "";
+  let reader = new FileReader();
+
 
   reader.onloadend =e=>{ 
     iteration ++;
-    let result = e.target.result
-    let increment = CHUNK_SIZE -1
+    let result = e.target.result;
+    let status = offset/fileSize;
     if(iteration == 1)sep = separatorDetection(result);
+    else result = prepend + result;
+    if (status <1){
+      let increment = result.length -1
+      while(result[increment] != '\n' && increment>0) increment--;
+      if (increment>0){
 
-    while(result[increment] != '\n' && increment>1) increment--;
-    if (increment>1 && result.length + offset < fileSize){
-      result = result.substring(0,increment);
-      for (var i = 0; i < result.length; i++)  if (result.charCodeAt(i)>127) offset++;
-      offset += increment +1;
-    }else{
-      offset = fileSize;
+      prepend = result.slice( increment +1)
+      result = result.slice(0,increment)
+      }else{
+        prepend = prepend + result;
+        return seek()
+      }
     }
-    // df.push(csv_parse(result))
     console.log(offset, "/", fileSize)
     let matrix = csv_parse(result);
     let statistics = chunkStats(matrix)
-    let status =  offset/fileSize;
     postMessage({
       cmd       : "chunk_loaded",
       status    : status,
@@ -128,7 +133,10 @@ loadcsv  = function(file){
   };
   
 
-	seek=function () {reader.readAsText(file.slice(offset, offset + CHUNK_SIZE), "utf-8");}
+	seek=function () {
+    reader.readAsText(file.slice(offset, offset + CHUNK_SIZE), "utf-8");
+    offset+= CHUNK_SIZE;
+  }
   seek()
 }
 
