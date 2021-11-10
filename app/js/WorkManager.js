@@ -19,7 +19,8 @@ constructor() {
 file_chunk_loaded(d){
   document.getElementById("footerCenter").innerHTML = Math.round (d.status*100) +"%"
   if(d.chunk != null) this.file_chunks.push(d.chunk) 
-  if(d.status>=1) {
+  overview = new Overview(this.file, d)
+  if(d.status>=1 && d.chunk != null) {
   console.log ("n chunks loaded: " , this.file_chunks.length)
   this.cb(this.file_chunks.flat(1));
   }

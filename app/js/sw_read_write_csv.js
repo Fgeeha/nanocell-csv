@@ -1,5 +1,5 @@
 // const  CHUNK_SIZE = 1000000 ; // = 1 Mo
-const  CHUNK_SIZE = 100 ; // = 1 Ko
+const  CHUNK_SIZE = 500 ; // = 1 Ko
 const  n_chars_for_separator_detection = 50; 
 
 separatorDetection= function (txt){
@@ -56,7 +56,7 @@ initColInfo=function(h=""){
 }
 
 
-  addChunkStats = function  (m, info){
+addChunkStats = function  (m, info){
     let first_chunk = info.length < 1
     if (first_chunk){
       for (var x = 0; x < m[0].length; x++) {
@@ -98,10 +98,12 @@ initColInfo=function(h=""){
 
 loadcsv  = function(file){
   console.log("sw loading : ", file.name)
+  file.viewOnly = true;
   let fileSize = file.size
   let offset =  0 
   let iteration = 0;
   let sep = ';'
+  let rowCount = 0 ;
   let prepend = "";
   let reader = new FileReader();
   let statistics = []
@@ -125,17 +127,21 @@ loadcsv  = function(file){
       }
     }
     console.log(offset, "/", fileSize)
-    let matrix = csv_parse(result);
+    let matrix = csv_parse(result,sep);
     statistics = addChunkStats(matrix,statistics)
+    rowCount += matrix.length;
     postMessage({
       cmd       : "chunk_loaded",
       status    : status,
-      chunk     : (iteration==1 || status>=1 || !file.viewOnly )? matrix:null,
+      chunk     : (iteration==1 || !file.viewOnly )? matrix:null,
       stats     : statistics,
       chunk_id  : iteration,
       viewOnly  : file.viewOnly,
-      sep       : sep
+      sep       : sep,
+      rowCount  : rowCount
     })
+    // console.log("sihsdcksjcskdjcbsdckjbswjkhbfvwkufdygvwiudf")
+    if(file.viewOnly && iteration==1) sendFinalChunk(file, sep)
 
     if (offset/fileSize < 1) seek()
   };
@@ -147,6 +153,33 @@ loadcsv  = function(file){
   }
   seek()
 }
+
+
+sendFinalChunk = function (file, sep){
+    console.log("========== === = = = = ==sending final chunk")
+    let endReader = new FileReader();
+    endReader.onloadend =e=>{ 
+      let result = e.target.result;
+      let matrix = csv_parse(result, sep);
+      matrix[0] = []
+      for (var i = 0; i < matrix[1].length; i++) {
+        matrix[0].push("! [...] !")
+      }
+      postMessage({
+        cmd       : "chunk_loaded",
+        status    : 1,
+        chunk     : matrix,
+        stats     : null,
+        chunk_id  : null,
+        viewOnly  : file.viewOnly,
+        sep       : sep,
+        rowCount  : null
+      })
+    }
+
+    endReader.readAsText(file.slice(file.size - CHUNK_SIZE, file.size), "utf-8");
+}
+
 
 
 addEventListener("message",e=>{

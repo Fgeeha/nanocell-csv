@@ -21,6 +21,7 @@ let sampleData = [
 // localStorage.clear();
 let is_installed = window.matchMedia('(display-mode: standalone)').matches
 let sheet = undefined;
+let overview = undefined;
 let worker = new WorkManager()
 
 
@@ -48,10 +49,11 @@ window.launchQueue.setConsumer(async (params) => {
     const file = await handle.getFile();
     
     console.log("Loading : " , file.name)
-    worker.read(file, dataMatrix=> {
+    worker.read(file, (dataMatrix, stats)=> {
     	sheet = new Sheet(new Dataframe(dataMatrix))
     	dom.content.innerHTML="";
     	dom.content.appendChild(sheet);
+    	
     	// sheet.reload();
     })
     

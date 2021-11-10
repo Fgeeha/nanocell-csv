@@ -471,9 +471,13 @@ slctFocus(){
 slctClear(){var td;while(  td = this.getElementsByClassName('slct')[0]) td.classList.remove('slct');}
 
 scroll(e){
+    console.log(e)
     var coef = 16;
-    this.baseX+= (e.deltaX>0)? Math.floor(e.deltaX/coef):Math.ceil(e.deltaX/coef);
-    this.baseY+= (e.deltaY>0)? Math.floor(e.deltaY/coef):Math.ceil(e.deltaY/coef);
+    if(e.altKey)  this.baseX+= (e.deltaY>0)? Math.floor(e.deltaY/coef):Math.ceil(e.deltaY/coef);
+    else{
+      this.baseX+= (e.deltaX>0)? Math.floor(e.deltaX/coef):Math.ceil(e.deltaX/coef);
+      this.baseY+= (e.deltaY>0)? Math.floor(e.deltaY/coef):Math.ceil(e.deltaY/coef);
+    }
     this.slctRefresh(false);
 
 }

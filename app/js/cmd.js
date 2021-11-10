@@ -20,6 +20,7 @@ var cmd = {
     find        :{k:"F"    ,ctrl:true, run(){sheet.finder.findMenu()}, description:"Quick find / match"},
     findAdvanced:{k:"F"    ,ctrl:true, shift:true,run(){sheet.finder.findMenu(true)}, description:"Advanced find / replace"},
     msg         :{k:"M"    ,ctrl:true, run(){stg.menu =  (!stg.menu) }, description:"Test message"},
+    overview    :{k:"I"    ,ctrl:true, run(){overview.show()}, description:"Test message"},
     open        :{k:"O"    ,ctrl:true, run(){Csv.open(file=>{new Tab( new Sheet(file))})}, description:"Open one or more CSV files"},
     save        :{k:"S"    ,ctrl:true, run(){sheet.save()}, description:"Save"},
     saveAs      :{k:"S"    ,ctrl:true, shift:true, run(){sheet.saveAs()}, description:"Save As"},
@@ -35,6 +36,10 @@ var cmd = {
     insertDown   :{k:"ARROWDOWN"  ,alt:true, shift:true, run(dir){sheet.insert(2)}, description:"Insert row below"},
     insertRight  :{k:"ARROWRIGHT" ,alt:true, shift:true, run(dir){sheet.insert(1)}, description:"Insert col right"},
     insertLeft   :{k:"ARROWLEFT"  ,alt:true, shift:true, run(dir){sheet.insert(3)}, description:"Insert col left"},
+
+    scrollLeft   :{k:"scroll ARROWUP "  ,alt:true,  description:"Scroll left"},
+    scrollRight   :{k:"scroll ARROWDOWN "  ,alt:true,  description:"Scroll right"},
+
 
 }
 

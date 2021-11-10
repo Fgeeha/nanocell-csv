@@ -8,12 +8,13 @@ br(){
     this.appendChild(this.row);
 }
 
-push(ele=""){
+push(ele="", eleClass  = undefined){
    
     var td = document.createElement("td")
+    if (eleClass) td.classList.add(eleClass);
     if(Array.isArray(ele))for (var e of ele) try{td.appendChild(e)}catch(err){td.innerHTML = e}
     else try{td.appendChild(ele)}catch(err){td.innerHTML = ele}
-    
+    if(this.row == undefined) this.br();
     this.row.appendChild(td);
 }
 
