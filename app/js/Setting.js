@@ -91,7 +91,7 @@ static setTheme(){
 
 static log(){
     for (var i = 0; i < localStorage.length; i++){
-        console.log (  localStorage.key(i) , " ==> ", (localStorage.getItem(localStorage.key(i)) + 1) ) ;
+        console.log (  localStorage.key(i) , " ==> ", (localStorage.getItem(localStorage.key(i)) ) ) ;
     }
 }
 

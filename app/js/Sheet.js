@@ -20,8 +20,8 @@ constructor(df=new Dataframe()) {
   this.inputField.addEventListener("focusout",e=>{this.inputBlur()});
   this.inputField.addEventListener("keydown",e=>{
     switch(e.key.toUpperCase()) {
-        case "ENTER"          :e.stopPropagation();this.inputField.blur();this.y++;this.slctRefresh();this.refresh();break;
-        case "TAB"            :e.stopPropagation();this.inputField.blur();this.x++;this.slctRefresh();this.refresh();break;
+        case "ENTER"          :e.stopPropagation(); e.preventDefault();this.inputField.blur();this.y++;this.slctRefresh();this.refresh();break;
+        case "TAB"            :e.stopPropagation(); e.preventDefault();this.inputField.blur();this.x++;this.slctRefresh();this.refresh();break;
         case "ESCAPE"         :this.escape=true;sheet.inputField.blur();break;
     }
   });
@@ -471,7 +471,7 @@ slctFocus(){
 slctClear(){var td;while(  td = this.getElementsByClassName('slct')[0]) td.classList.remove('slct');}
 
 scroll(e){
-    console.log(e)
+    // console.log(e)
     var coef = 16;
     if(e.altKey)  this.baseX+= (e.deltaY>0)? Math.floor(e.deltaY/coef):Math.ceil(e.deltaY/coef);
     else{

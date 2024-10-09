@@ -1,5 +1,5 @@
 // const  CHUNK_SIZE = 1000000 ; // = 1 Mo
-const  CHUNK_SIZE = 500 ; // = 1 Ko
+const  CHUNK_SIZE = 5000 ; // = 1 Ko
 const  n_chars_for_separator_detection = 50; 
 
 separatorDetection= function (txt){
@@ -96,10 +96,12 @@ addChunkStats = function  (m, info){
 
 
 
-loadcsv  = function(file){
+loadcsv  = function(data){
+  let file = data.file;
   console.log("sw loading : ", file.name)
-  file.viewOnly = true;
-  let fileSize = file.size
+  console.log(file)
+  let viewOnly = data.viewOnly;
+  let fileSize = file.size;
   let offset =  0 
   let iteration = 0;
   let sep = ';'
@@ -126,22 +128,21 @@ loadcsv  = function(file){
         return seek()
       }
     }
-    console.log(offset, "/", fileSize)
+    // console.log(offset, "/", fileSize)
     let matrix = csv_parse(result,sep);
     statistics = addChunkStats(matrix,statistics)
     rowCount += matrix.length;
     postMessage({
       cmd       : "chunk_loaded",
       status    : status,
-      chunk     : (iteration==1 || !file.viewOnly )? matrix:null,
+      chunk     : (iteration==1 || !viewOnly )? matrix:null,
       stats     : statistics,
       chunk_id  : iteration,
-      viewOnly  : file.viewOnly,
+      viewOnly  : viewOnly,
       sep       : sep,
       rowCount  : rowCount
     })
-    // console.log("sihsdcksjcskdjcbsdckjbswjkhbfvwkufdygvwiudf")
-    if(file.viewOnly && iteration==1) sendFinalChunk(file, sep)
+    if(viewOnly && iteration==1) sendFinalChunk(file, sep, viewOnly)
 
     if (offset/fileSize < 1) seek()
   };
@@ -155,7 +156,7 @@ loadcsv  = function(file){
 }
 
 
-sendFinalChunk = function (file, sep){
+sendFinalChunk = function (file, sep, viewOnly){
     console.log("========== === = = = = ==sending final chunk")
     let endReader = new FileReader();
     endReader.onloadend =e=>{ 
@@ -171,7 +172,7 @@ sendFinalChunk = function (file, sep){
         chunk     : matrix,
         stats     : null,
         chunk_id  : null,
-        viewOnly  : file.viewOnly,
+        viewOnly  : viewOnly,
         sep       : sep,
         rowCount  : null
       })

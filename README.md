@@ -32,3 +32,18 @@ Under the following terms:
 
 **No additional restrictions** — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
 
+
+
+# Testing 
+In the repo's root folder run :
+
+```
+python -m http.server 8000
+```
+and checkout : [http://localhost:8000/app/home.html](http://localhost:8000/app/home.html)
+
+
+
+
+
+

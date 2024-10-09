@@ -1,13 +1,12 @@
 let buildKeys = function (){
 
-
-
-
-document.onkeydown = function(e) {
+  document.onkeydown = function(e) {
   var k = e.key.toUpperCase(); 
   // console.log(k)
   var ctrlDown  =e.metaKey || e.ctrlKey; 
   var alt = e.altKey;
+  var shift = e.shiftKey;
+  sheet.slctRange = shift;
   if (alt && k =="TAB") return; // enable switching window 
   if (ctrlDown && (k==="C" || k==="V"))return;
   if (ctrlDown && (k==="H")) e.preventDefault(); // prevent history pop up 
@@ -29,7 +28,7 @@ document.onkeydown = function(e) {
   if (e.key.length===1 && !ctrlDown && !e.metaKey ){e.preventDefault();return sheet.input(e.key);}
 
   for (var c of Object.values(cmd)) 
-  if(k===c.k && c.ctrl === ctrlDown && c.shift===e.shiftKey && c.alt===alt){c.run();return e.preventDefault()}
+  if(k===c.k && c.ctrl === ctrlDown && c.shift===shift && c.alt===alt){c.run();return e.preventDefault()}
 
   
   switch(k) {
@@ -38,8 +37,6 @@ document.onkeydown = function(e) {
     case "ARROWLEFT"  :sheet.x--;sheet.slctRefresh(); return;
     case "ARROWRIGHT" :sheet.x++;sheet.slctRefresh(); return;
     case "TAB"        :e.preventDefault(); sheet.x++;sheet.slctRefresh(); return;
-    // case "SHIFT"      :if(!ctrlDown)sheet.slctRange=true;return;
-    case "SHIFT"      :sheet.slctRange=true;return;
     case "ENTER"      :sheet.input();return;
     case "BACKSPACE"  :sheet.delete();return;
   }
