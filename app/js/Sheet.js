@@ -95,12 +95,12 @@ expand(){
 }
 
 save(){
-  this.df.save(Csv.from2D(this.df.data),()=>{this.df.isSaved = true;} );
+  this.df.save(CsvHandle.from2D(this.df.data),()=>{this.df.isSaved = true;} );
   
 }
 
 saveAs(){
-  this.df.saveAs(Csv.from2D(this.df.data, ()=>{this.df.isSaved = true;}))
+  this.df.saveAs(CsvHandle.from2D(this.df.data, ()=>{this.df.isSaved = true;}))
 }
 
 

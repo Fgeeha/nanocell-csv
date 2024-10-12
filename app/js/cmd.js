@@ -21,7 +21,7 @@ var cmd = {
     findAdvanced:{k:"F"    ,ctrl:true, shift:true,run(){sheet.finder.findMenu(true)}, description:"Advanced find / replace"},
     msg         :{k:"M"    ,ctrl:true, run(){stg.menu =  (!stg.menu) }, description:"Test message"},
     overview    :{k:"I"    ,ctrl:true, run(){overview.show()}, description:"Test message"},
-    open        :{k:"O"    ,ctrl:true, run(){Csv.open(file=>{new Tab( new Sheet(file))})}, description:"Open one or more CSV files"},
+    open        :{k:"O"    ,ctrl:true, run(){CsvHandle.open()}, description:"Open one or more CSV files"},
     save        :{k:"S"    ,ctrl:true, run(){sheet.save()}, description:"Save"},
     saveAs      :{k:"S"    ,ctrl:true, shift:true, run(){sheet.saveAs()}, description:"Save As"},
     expand      :{k:"E"    ,ctrl:true, run(){sheet.expand()}, description:"Expand first row to selection"},
