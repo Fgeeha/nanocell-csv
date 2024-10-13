@@ -18,7 +18,7 @@ let sampleData = [
 let is_installed = window.matchMedia('(display-mode: standalone)').matches
 let sheet = undefined;
 let overview = undefined;
-let worker = new WorkManager()
+let csvHandle = new CsvHandle()
 
 
 clean_start = function () {
@@ -38,33 +38,17 @@ clean_start();
 window.launchQueue.setConsumer(async (params) => {
 	console.log(params)
 	const [handle] = params.files;
-	if (handle) launchFile(handle)
+	if (handle) csvHandle.launchFile(handle)
 });
 
 
 window.addEventListener('message', (event) => {
 	console.log(event)
-
-	if (event.data && event.data.fileHandle) launchFile(event.data.fileHandle)
+	if (event.data && event.data.fileHandle) csvHandle.launchFile(event.data.fileHandle)
 });
 
 
 
-async function launchFile(handle) {
-
-	const file = await handle.getFile();
-
-	console.log("Loading : ", file.name)
-	worker.read(file, (dataMatrix, stats) => {
-		sheet = new Sheet(new Dataframe(dataMatrix))
-		dom.content.innerHTML = "";
-		dom.content.appendChild(sheet);
-
-		// sheet.reload();
-	})
-
-
-}
 
 
 

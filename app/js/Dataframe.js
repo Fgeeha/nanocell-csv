@@ -2,7 +2,6 @@
 
 class Dataframe  {
 constructor(d=[[""]]) {
-    this.file  = null;
     this.isSaved    = true;
     this.data = d;
     this.undoStack = [];
@@ -10,10 +9,6 @@ constructor(d=[[""]]) {
     this.square();  
     // this.solver = new Solver(this); 
 }
-
-// static sw  = new SW_read_write();
-
-// static fromFile(file, cb){Dataframe.sw.read(file,data=>{cb( new Dataframe(data));})}
 
 
 
