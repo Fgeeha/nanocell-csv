@@ -51,6 +51,7 @@ window.addEventListener('message', (event) => {
 
 
 
+console.log (navigator.deviceMemory)
 
 // BUGS
 // potential issue when reading chunk cuts 16 bit char in 2 diff chunks, unlucky but possible, requires testing

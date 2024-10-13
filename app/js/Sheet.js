@@ -80,12 +80,7 @@ expand(){
     }else{
       for (var j = yEnd ; j >= yStart; j--) this.df.edit(i,j, baseN0 - d*(j-yEnd))
     }
-    // console.log(d)
-    // for (var j = 0; j < Things.length; j+=direction) {
-    //   Things[i]
-    // }
 
-    // console.log(d)
     this.refresh()
 
   }
@@ -94,14 +89,6 @@ expand(){
 
 }
 
-save(){
-  this.df.save(CsvHandle.from2D(this.df.data),()=>{this.df.isSaved = true;} );
-  
-}
-
-saveAs(){
-  this.df.saveAs(CsvHandle.from2D(this.df.data, ()=>{this.df.isSaved = true;}))
-}
 
 
 get x     (){return this.xx}
@@ -228,45 +215,6 @@ insert(direction){
   this.refresh();
   this.slctRefresh();
 }
-// delta(direction){this.deltaRatio(direction,true )}
-// ratio(direction){this.deltaRatio(direction,false)}
-// deltaRatio(direction, delta){
-//   var m;
-//   switch(direction){
-//     case 0: m=this.df.get(this.x, this.y+1);break;
-//     case 1: m=this.df.get(this.x-1, this.y);break;
-//     case 2: m=this.df.get(this.x, this.y-1);break;
-//     case 3: m=this.df.get(this.x+1, this.y);break;
-//   }
-//   var n = this.df.get(this.x, this.y);
-//   if (!isNaN(n) && !isNaN(m))n= delta? Number(n)*2 - Number(m):Number(n)*Number(n)/Number(m) ;
-//   switch(direction){
-//     case 0: this.y--;break;
-//     case 1: this.x++;break;
-//     case 2: this.y++;break;
-//     case 3: this.x--;break;
-//   }
-//   this.df.edit(this.x, this.y, n);
-//   this.slctRefresh();
-//   this.refresh();
-// }
-
-
-// increment(direction){this.incdec(direction,true )}
-// decrement(direction){this.incdec(direction,false)}
-// incdec(direction, inc){
-//   var n = this.df.get(this.x, this.y);
-//   if (!isNaN(n))n= inc? Number(n)+1:Number(n)-1;
-//   switch(direction){
-//     case 0: this.y--;break;
-//     case 1: this.x++;break;
-//     case 2: this.y++;break;
-//     case 3: this.x--;break;
-//   }
-//   this.df.edit(this.x, this.y, n);
-//   this.slctRefresh();
-//   this.refresh();
-// }
 
 
 
@@ -471,7 +419,6 @@ slctFocus(){
 slctClear(){var td;while(  td = this.getElementsByClassName('slct')[0]) td.classList.remove('slct');}
 
 scroll(e){
-    // console.log(e)
     var coef = 16;
     if(e.altKey)  this.baseX+= (e.deltaY>0)? Math.floor(e.deltaY/coef):Math.ceil(e.deltaY/coef);
     else{
@@ -524,8 +471,6 @@ refresh(){window.requestAnimationFrame(()=>{
   for(var y=0;y<this.height;y++) {
       var by=this.baseY+y;
       this.loadLeftHeader(y);
-//       if( this.fixTop)this.rows[y+1].cells[0].innerHTML += "<div>"+this.df.get(0,this.baseY+y)+"</div>"
- 
       for(var x=0;x<this.width;x++)this.loadCell(this.rows[y+1].cells[x+1],this.baseX+x,by) ;
   }
   if (this.inputing) this.slct.appendChild(this.inputField);
@@ -553,14 +498,12 @@ reload(){
             var t = e.target;
             if(e.buttons===1){
               this.rangeInit = {x:t.cellIndex-1 +this.baseX,y:t.parentNode.rowIndex -1+this.baseY};
-//               console.log(this.rangeInit);
               this.slctRefresh();
             }
           };
         }
     }
     for (var i =0 ; i < this.width; i++){
-        // this.rows[0].cells[i+1].onmousedown= e=>{var startWidth  = e.target.offsetWidth;document.onmousemove=(d)=>{requestAnimationFrame(()=>{var w = Math.abs(startWidth+d.pageX-e.pageX)+"px"; e.target.style.width= w;e.target.style.maxWidth= w;  })};}
         this.rows[0].cells[i+1].ondblclick=e=>{e.target.style.width=(e.target.style.width!=="auto")?"auto":"50%"};
     }
     this.rows[0].cells[0].onclick=e=>{this.slctAll()}

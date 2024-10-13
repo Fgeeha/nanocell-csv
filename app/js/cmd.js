@@ -1,6 +1,6 @@
 var cmd = {
     about       :{k:"H"    ,ctrl:true, run(){chrome.app.window.create('about.html', {id: "NanoCell-about"})}, description:"About"},
-    new         :{k:"N"    ,ctrl:true, run(){new Tab()}, description:"New Tab"},
+    new         :{k:"N"    ,ctrl:true, run(){csvHandle.new()}, description:"New Tab"},
     deleteRow   :{k:"BACKSPACE",ctrl:true, run(){sheet.df.deleteRow(sheet.y);sheet.refresh()}, description:"Delete Row"},
     deleteCol   :{k:"BACKSPACE",ctrl:true,shift:true, run(){sheet.df.deleteCol(sheet.x);sheet.refresh()}, description:"Delete Col"},
     delete      :{k:"BACKSPACE",run(){sheet.rangeEdit('');sheet.refresh() }, description:"Delete Selection"},
@@ -21,9 +21,9 @@ var cmd = {
     findAdvanced:{k:"F"    ,ctrl:true, shift:true,run(){sheet.finder.findMenu(true)}, description:"Advanced find / replace"},
     msg         :{k:"M"    ,ctrl:true, run(){stg.menu =  (!stg.menu) }, description:"Test message"},
     overview    :{k:"I"    ,ctrl:true, run(){overview.show()}, description:"Test message"},
-    open        :{k:"O"    ,ctrl:true, run(){CsvHandle.open()}, description:"Open one or more CSV files"},
-    save        :{k:"S"    ,ctrl:true, run(){sheet.save()}, description:"Save"},
-    saveAs      :{k:"S"    ,ctrl:true, shift:true, run(){sheet.saveAs()}, description:"Save As"},
+    open        :{k:"O"    ,ctrl:true, run(){csvHandle.open()}, description:"Open one or more CSV files"},
+    save        :{k:"S"    ,ctrl:true, run(){csvHandle.save()}, description:"Save"},
+    saveAs      :{k:"S"    ,ctrl:true, shift:true, run(){csvHandle.saveAs()}, description:"Save As"},
     expand      :{k:"E"    ,ctrl:true, run(){sheet.expand()}, description:"Expand first row to selection"},
     
     shiftUp     :{k:"ARROWUP"    ,alt:true, run(dir){sheet.shift(0)}, description:"Shift row up"},
@@ -56,7 +56,7 @@ function buildCommands(){
 function buildMenu(){
   var menuItems = [
   "new","open","save","",
-  "undo","redo","fixLeft","fixTop","transpose","trim","date","integer","decimal","overview","more",
+  "undo","redo","fixLeft","fixTop","transpose","trim","date","integer","decimal","overview",
   "","find","about","settings","shortcuts"];
   function buildMenuItem(item){ 
       if (item==="")return dom.header.appendChild(document.createElement("hr"));   
