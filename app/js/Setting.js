@@ -111,7 +111,7 @@ Object.defineProperty(Setting, 'list', {value: [
     {key:"cols"             ,dflt:7             ,name:"Cols",        min:3, max:30 ,cb:n=>{if (sheet)sheet.reload()} },
 
 {title:"Csv Read"},
-    {key:"editMaxFileSize"  ,dflt: navigator.deviceMemory*500         ,name:"View Only File Size (Mo)"},
+    {key:"editMaxFileSize"  ,dflt: 100         ,name:"View Only File Size (Mo)"},
 
 {title:"Csv Write"},
     {key:"encoding"         ,dflt:"utf-8"       ,name:"Encoding"},

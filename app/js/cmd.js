@@ -56,7 +56,7 @@ function buildCommands(){
 function buildMenu(){
   var menuItems = [
   "new","open","save","",
-  "undo","redo","fixLeft","fixTop","transpose","trim","date","integer","decimal","overview",
+  "undo","redo","fixLeft","fixTop","transpose","trim","date","integer","decimal",
   "","find","about","settings","shortcuts"];
   function buildMenuItem(item){ 
       if (item==="")return dom.header.appendChild(document.createElement("hr"));   

@@ -51,7 +51,6 @@ window.addEventListener('message', (event) => {
 
 
 
-console.log (navigator.deviceMemory)
 
 // BUGS
 // potential issue when reading chunk cuts 16 bit char in 2 diff chunks, unlucky but possible, requires testing
@@ -71,21 +70,27 @@ console.log (navigator.deviceMemory)
 // increment should work with YYYY-MM-DD date
 // autogen R/panda/spark code for basic view
 
-
+// slct strict comma to dot
+// slct strict replace spe chars ex : é => e
+// slct to upper
+// slct to lower
+// context click col menu
 
 
 // TODO launch critical
 
 // new open read write save (implement strict mode)
-// saved file icon + close tab
-// about / help
-// slct strict comma to dot
-// slct strict replace spe chars ex : é => e
-// slct to upper
-// slct to lower
+// saved file icon 
+// view only icon 
+// refresh file command 
+// about / help >>  link to website
+// convert csv to strict mode (no commas, no double quotes)
 // insert today date
 // finder click close  & finder advanced input rework, text input click focus
-// context click col menu
-// toggle commas to dots
 // have a nice install page
 // left to right scroll on ctrl scroll 
+// custom scroller 
+// Paste csv should format CSV
+// Test on all os
+// test memory (ram)
+//  setting ui should be standard (not text input) if stg is only for info. 

@@ -1,6 +1,9 @@
-// const  CHUNK_SIZE = 1000000 ; // = 1 Mo
-const  CHUNK_SIZE = 5000 ; // = 1 Ko
-const  n_chars_for_separator_detection = 50; 
+const  CHUNK_SIZE = 1000000  ; // = 1 Mo /// 1 mo seems best
+// const  CHUNK_SIZE = 1000 ; // = 1 Ko
+const  n_chars_for_separator_detection = 200; 
+const DO_STATS = false;
+
+
 
 separatorDetection= function (txt){
   if (txt.length > n_chars_for_separator_detection) txt = txt.substring(0, n_chars_for_separator_detection)
@@ -98,6 +101,7 @@ addChunkStats = function  (m, info){
 
 loadcsv  = function(data){
   let file = data.file;
+  console.log("reading chunk size : ", CHUNK_SIZE)
   console.log("sw loading : ", file.name)
   console.log(file)
   let viewOnly = data.viewOnly;
@@ -130,7 +134,7 @@ loadcsv  = function(data){
     }
     // console.log(offset, "/", fileSize)
     let matrix = csv_parse(result,sep);
-    statistics = addChunkStats(matrix,statistics)
+    if(DO_STATS)statistics = addChunkStats(matrix,statistics);
     rowCount += matrix.length;
     postMessage({
       cmd       : "chunk_loaded",
@@ -157,7 +161,7 @@ loadcsv  = function(data){
 
 
 sendFinalChunk = function (file, sep, viewOnly){
-    console.log("========== === = = = = ==sending final chunk")
+    console.log("===================sending final chunk")
     let endReader = new FileReader();
     endReader.onloadend =e=>{ 
       let result = e.target.result;
