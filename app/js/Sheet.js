@@ -33,6 +33,8 @@ constructor(df=new Dataframe()) {
 }
 
 
+
+
 expand(){
   if (this.rangeInit ===undefined ) return;
 
@@ -278,6 +280,7 @@ footerUpdate(){
   else  f.left.innerHTML =(this.x+1)+":"+(this.y+1);
   f.right.innerHTML =this.df.width+":"+this.df.height;
   f.center.innerHTML = this.df.get(this.x, this.y).replaceAll('&','&amp;').replaceAll('<' , '&lt;').replaceAll(' ', '<span style="color:var(--dots)">&bull;</span>');
+  f.lock.src = (this.df.isSaved) ? "icn/lock.svg":"icn/edit.svg";
 }
 
 slctCol(n){
@@ -335,6 +338,7 @@ rangeApply(cb){
 } 
 
 rangeTranspose(){
+  if(this.df.lock) return;
   if (!this.rangeInit)return;
   var r = this.rangeArray();
   var t = [];

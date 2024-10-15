@@ -1,6 +1,5 @@
 class CsvHandle {
   constructor() {
-    // this.df   = new Dataframe();
     this.handle = null;
     this.file = null;
     this.file_chunks = null;
@@ -8,7 +7,6 @@ class CsvHandle {
     this.sw = new Worker("js/sw_read_write_csv.js");
     this.sw.addEventListener("message", e => {
       let d = e.data
-      // console.log( e.data)
       switch (d.cmd) {
         case "chunk_loaded": this.file_chunk_loaded(d)
       }
@@ -29,7 +27,6 @@ class CsvHandle {
   file_chunk_loaded(d) {
     document.getElementById("footerCenter").innerHTML = Math.round(d.status * 100) + "%"
     if (d.chunk != null) this.file_chunks.push(d.chunk)
-    overview = new Overview(this.file, d);
     if (d.status >= 1 && d.chunk != null) this.readSuccess();
   }
 
@@ -37,11 +34,10 @@ class CsvHandle {
   readSuccess() {
     let matrix = this.file_chunks.flat(1);
     sheet = new Sheet(new Dataframe(matrix))
+    sheet.df.isSaved = true;
+    sheet.df.lock = this.viewOnly;
     dom.content.innerHTML = "";
     dom.content.appendChild(sheet);
-    // document.title = this.file.name;
-
-    // sheet.reload();
   }
 
 
@@ -49,11 +45,10 @@ class CsvHandle {
     this.file = file;
     this.file_chunks = [];
     let mbSize = file.size / 1000000
-    let viewOnly = mbSize > Number(stg.editMaxFileSize);
+    this.viewOnly = mbSize > Number(stg.editMaxFileSize);
     console.log(file)
     console.log("view only = ", file.viewOnly, "(file size = ", mbSize, " & stg max = ", stg.editMaxFileSize, " )")
-    // console.log ("view only = ",file. viewOnly)
-    this.pipe("read", { file: file, viewOnly: viewOnly })
+    this.pipe("read", { file: file, viewOnly: this.viewOnly })
   }
 
 
@@ -64,7 +59,6 @@ class CsvHandle {
 
   async open() {
     let [fileHandle] = await window.showOpenFilePicker(CsvHandle.pickerOptions);
-    // const file = await fileHandle.getFile();
     const newWindow = window.open('./home.html', null, 'width=600,height=400'); // 'newWindow.html' should be the page that will handle the file
     const channel = new MessageChannel();
     newWindow.onload = () => {
@@ -76,25 +70,24 @@ class CsvHandle {
   new() { window.open('./home.html', null, 'width=600,height=400') }
 
   async saveAs() {
+    if(this.viewOnly) return ;
     this.handle = await window.showSaveFilePicker(CsvHandle.pickerOptions);
     this.save();
-
-
-
   }
   async save() {
-
+    if(this.viewOnly) return ;
     if (this.handle === null) this.saveAs();
     else {
       const writableStream = await this.handle.createWritable();
       await writableStream.write(CsvHandle.from2D(sheet.df.data));
       await writableStream.close();
-      sheet.df.isSaved = true
+      sheet.df.isSaved = true;
+      sheet.refresh();
     }
+
   }
 
 
-// TODO  need to pass writer to this function, and write row per row  (then needs to be written block by block by the worker for large files)
   static from2D(matrix) {
     let sep = stg.delimiter;
     if (sep == "TAB") sep = '\t';
@@ -115,8 +108,6 @@ class CsvHandle {
     }
     return newMat.join('\n');
   }
-
-
 }
 
 

@@ -2,104 +2,100 @@ var stg = {};
 
 
 class Setting {
-constructor(s){
-    var stored_val = localStorage.getItem(s.key);
-    if (! (isNaN(stored_val) ||  stored_val==null) ) stored_val = Number(stored_val)
-    this.key = s.key;
-    this.value = (stored_val == null)? s.dflt : stored_val;
-    this.cb = s.cb;
-    Object.defineProperty(stg, this.key, {
-        get:( )=>{return this.value},
-        set:(e)=>{
-            // console.log( "setting ",this.key)
-            this.value=e;
-            localStorage.setItem(this.key, e);
-            if(this.cb)this.cb(this.value);
+    constructor(s) {
+        var stored_val = localStorage.getItem(s.key);
+        if (!(isNaN(stored_val) || stored_val == null)) stored_val = Number(stored_val)
+        this.key = s.key;
+        this.value = (stored_val == null) ? s.dflt : stored_val;
+        this.cb = s.cb;
+        Object.defineProperty(stg, this.key, {
+            get: () => { return this.value },
+            set: (e) => {
+                this.value = e;
+                localStorage.setItem(this.key, e);
+                if (this.cb) this.cb(this.value);
             }
-        });    
-}
+        });
+    }
 
 
 
-static init(cb){
-    for(var s of Setting.list) if(!s.title) new Setting(s);
-}
+    static init(cb) {for (var s of Setting.list) if (!s.title) new Setting(s);}
 
 
-static build(setting){
-    var row = document.createElement("tr");
-    var name = document.createElement("td");
-    if(setting.title) {
-        var title = document.createElement("h3");
-        title.innerHTML = setting.title;
-        name.appendChild(title);
+    static build(setting) {
+        var row = document.createElement("tr");
+        var name = document.createElement("td");
+        if (setting.title) {
+            var title = document.createElement("h3");
+            title.innerHTML = setting.title;
+            name.appendChild(title);
+            row.appendChild(name);
+            return row;
+        }
+
+
+        var inputCell = document.createElement("td");
+        name.innerHTML = setting.name;
+        var input = undefined;
+        if (setting.list) input = new ListInput(setting.list, setting.hide);
+        else if (setting.max) {
+            input = new NumInput(setting.dflt, setting.min, setting.max);
+        } else if (typeof setting.dflt === "boolean") {
+            input = new BoolInput();
+        }
+
+
+        if (input === undefined) {
+            input = document.createElement("span");
+            input.innerText = stg[setting.key];
+        } else {
+            input.value = stg[setting.key];
+            input.onchange = e => { var c = e.target.value; stg[setting.key] = isNaN(c) ? c : Number(c) }
+        }
+        inputCell.appendChild(input);
         row.appendChild(name);
+        row.appendChild(inputCell);
         return row;
     }
 
 
-    var inputCell = document.createElement("td");
-    name.innerHTML= setting.name;
-    var input = document.createElement("input");
-    if (setting.list) input = new ListInput(setting.list, setting.hide);
-    else if (setting.max){
-        input = new NumInput(setting.dflt, setting.min, setting.max);
-    }else if (typeof setting.dflt === "boolean"){
-        input = new BoolInput();
+    static show() {
+        var content = document.createElement("div");
+        var title = document.createElement("h1")
+        title.innerHTML = "Settings";
+        content.appendChild(title);
+        content.style.margin = "2em";
+        content.classList.add("stg");
+        var table = document.createElement("table");
+        for (var s of Setting.list) table.appendChild(Setting.build(s));
+        var b = document.createElement("button");
+        b.innerHTML = "Reset to default settings";
+        b.style.marginTop = "1em"
+        b.onclick = Setting.resetDefault;
+        content.appendChild(table);
+        content.appendChild(b);
+        dom.dialog.push(content, true);
     }
 
 
-    input.value = stg[setting.key];
-    input.onchange=e=>{var c=e.target.value;stg[setting.key]=isNaN(c)?c:Number(c)}
-//     input.addEventListener('select', function(){this.selectionStart = this.selectionEnd}, false);
-    inputCell.appendChild(input);
-
-    row.appendChild(name);
-    row.appendChild(inputCell);
-    return row;
-}
-
-
-static show(){
-    var content = document.createElement("div");
-    var title = document.createElement("h1")
-    title.innerHTML = "Settings";
-
-    content.appendChild(title);
-    content.style.margin = "2em";
-       
-
-
-    content.classList.add("stg");
-    var table = document.createElement("table");
-    for(var s of Setting.list) table.appendChild(Setting.build(s));
-    var b = document.createElement("button");
-    b.innerHTML = "Reset to default settings";
-    b.style.marginTop = "1em"
-    b.onclick = Setting.resetDefault;
-    content.appendChild(table);
-    content.appendChild(b);
-    dom.dialog.push(content, true);     
-}
-
-
-static setTheme(){
-    console.log("setting theme callback")
-    dom.theme.href = "css/themes/"+stg.theme+".css";
-    dom.palette.href = "css/palettes/"+stg.theme+".css";
-}
-
-static log(){
-    for (var i = 0; i < localStorage.length; i++){
-        console.log (  localStorage.key(i) , " ==> ", (localStorage.getItem(localStorage.key(i)) ) ) ;
+    static setTheme() {
+        console.log("setting theme callback")
+        dom.theme.href = "css/themes/" + stg.theme + ".css";
+        dom.palette.href = "css/palettes/" + stg.theme + ".css";
     }
-}
 
-static resetDefault(){
-    localStorage.clear();
-    for(var s of Setting.list) if (s.key) stg[s.key] = s.dflt;
-    cmd.settings.run();
-}
+    static log() {
+        for (var i = 0; i < localStorage.length; i++) {
+            console.log(localStorage.key(i), " ==> ", (localStorage.getItem(localStorage.key(i))));
+        }
+    }
+
+    static resetDefault() {
+        localStorage.clear();
+        for (var s of Setting.list) if (s.key) stg[s.key] = s.dflt;
+        cmd.settings.run();
+    }
 
 }
 
@@ -110,8 +106,10 @@ Object.defineProperty(Setting, 'list', {value: [
     {key:"rows"             ,dflt:25            ,name:"Rows",        min:5, max:60 ,cb:n=>{if (sheet)sheet.reload()}   },
     {key:"cols"             ,dflt:7             ,name:"Cols",        min:3, max:30 ,cb:n=>{if (sheet)sheet.reload()} },
 
-{title:"Csv Read"},
-    {key:"editMaxFileSize"  ,dflt: 100         ,name:"View Only File Size (Mo)"},
+{title:"Csv View Only"},
+    {key:"editMaxFileSize"  ,dflt: 10           ,name:"File Size (Mo)"},
+    {key:"vo_n_chunks"      ,dflt: 5            ,name:"Number of chunks loaded",                min:5, max:50 ,cb:n=>{if (sheet)sheet.reload()} },
+    {key:"vo_n_rows"        ,dflt: 10           ,name:"Number of rows per chunk loaded",        min:3, max:50 ,cb:n=>{if (sheet)sheet.reload()} },
 
 {title:"Csv Write"},
     {key:"encoding"         ,dflt:"utf-8"       ,name:"Encoding"},

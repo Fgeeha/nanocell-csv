@@ -56,6 +56,8 @@ color: var(--orange);
 }
 .error{
 color: var(--red);
+text-align: center;
+opacity: 0.8;
 }
 
 .sheet td div:nth-child(2) {color:var(--blue);float: left;text-align: left;margin-top: 1em;}

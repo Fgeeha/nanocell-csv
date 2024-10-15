@@ -1,7 +1,9 @@
 const  CHUNK_SIZE = 1000000  ; // = 1 Mo /// 1 mo seems best
 // const  CHUNK_SIZE = 1000 ; // = 1 Ko
 const  n_chars_for_separator_detection = 200; 
-const DO_STATS = false;
+
+const VIEW_ONLY_N_CHUNKS = 5;
+const VIEW_ONLY_N_ROWS = 10;
 
 
 
@@ -46,65 +48,11 @@ csv_parse = function(txt, d = ","){
 })
 }
 
-initColInfo=function(h=""){
-  return {
-    header      : h,
-    count_null  : 0,
-    count_num   : 0,
-    count_txt   : 0,
-    total_sum   : 0,
-    distinct_value : [],
-    distinct_count : []
-  }
-}
-
-
-addChunkStats = function  (m, info){
-    let first_chunk = info.length < 1
-    if (first_chunk){
-      for (var x = 0; x < m[0].length; x++) {
-        info[x] = initColInfo(m[0][x])
-      }
-
-    }
-      
-    for (var y = 0; y < m.length; y++) {
-      let row = m[y];
-      for (var x = 0; x < row.length; x++) {
-        if (info[x]===undefined) info[x] = initColInfo()
-        let d = row[x];
-        let n = Number(d);
-        if (d=="")info[x].count_null++;
-        else if (n){
-          info[x].count_num++;
-          info[x].total_sum+= n;
-        }else{
-          info[x].count_txt++;
-        }
-
-        if (d!="" && info[x].distinct_value.length < 30){
-          let idx = info[x].distinct_value.indexOf(d);
-          if (idx>=0) info[x].distinct_count[idx]++;
-          else{
-            info[x].distinct_value.push(d);
-            info[x].distinct_count.push(1);
-          } 
-        }
-
-        
-      }
-    }
-    return info
-  } 
-
-
-
 loadcsv  = function(data){
+  if(data.viewOnly) return load_csv_view_only(data);
   let file = data.file;
   console.log("reading chunk size : ", CHUNK_SIZE)
   console.log("sw loading : ", file.name)
-  console.log(file)
-  let viewOnly = data.viewOnly;
   let fileSize = file.size;
   let offset =  0 
   let iteration = 0;
@@ -112,7 +60,6 @@ loadcsv  = function(data){
   let rowCount = 0 ;
   let prepend = "";
   let reader = new FileReader();
-  let statistics = []
 
   reader.onloadend =e=>{ 
     iteration ++;
@@ -128,25 +75,22 @@ loadcsv  = function(data){
       prepend = result.slice( increment +1)
       result = result.slice(0,increment)
       }else{
-        prepend = prepend + result;
+        console.log("Warning : case where a row seems longer than the chunk loaded size")
+        prepend = result;
         return seek()
       }
     }
-    // console.log(offset, "/", fileSize)
     let matrix = csv_parse(result,sep);
-    if(DO_STATS)statistics = addChunkStats(matrix,statistics);
     rowCount += matrix.length;
     postMessage({
       cmd       : "chunk_loaded",
       status    : status,
-      chunk     : (iteration==1 || !viewOnly )? matrix:null,
-      stats     : statistics,
+      chunk     : matrix,
       chunk_id  : iteration,
-      viewOnly  : viewOnly,
+      viewOnly  : false,
       sep       : sep,
       rowCount  : rowCount
     })
-    if(viewOnly && iteration==1) sendFinalChunk(file, sep, viewOnly)
 
     if (offset/fileSize < 1) seek()
   };
@@ -160,31 +104,61 @@ loadcsv  = function(data){
 }
 
 
-sendFinalChunk = function (file, sep, viewOnly){
-    console.log("===================sending final chunk")
-    let endReader = new FileReader();
-    endReader.onloadend =e=>{ 
-      let result = e.target.result;
-      let matrix = csv_parse(result, sep);
+
+
+
+load_csv_view_only  = function(data){
+  let file = data.file;
+  console.log("reading chunk size : ", CHUNK_SIZE)
+  console.log("sw loading view only : ", file.name)
+  let fileSize = file.size;
+  let sep = ';'
+  let reader = new FileReader();
+  let iteration =0;
+  let lastIteration = VIEW_ONLY_N_CHUNKS ;
+  reader.onloadend =e=>{ 
+    let result = e.target.result;
+    let status = iteration/VIEW_ONLY_N_CHUNKS;
+    console.log("status : " , status)
+    if(iteration == 1)sep = separatorDetection(result);
+    let matrix = csv_parse(result,sep);
+    if       (iteration == 1)                    matrix = matrix.slice(0, VIEW_ONLY_N_ROWS);
+    else if  (iteration == lastIteration)        matrix = matrix.slice( - VIEW_ONLY_N_ROWS);
+    else                                         matrix = matrix.slice( 1, VIEW_ONLY_N_ROWS+2);
+    if       (iteration != 1)   {
+      console.log("iteration ",iteration)
       matrix[0] = []
-      for (var i = 0; i < matrix[1].length; i++) {
-        matrix[0].push("! [...] !")
+        for (var i = 0; i < matrix[1].length; i++)  matrix[0].push("! [...] !")
       }
-      postMessage({
-        cmd       : "chunk_loaded",
-        status    : 1,
-        chunk     : matrix,
-        stats     : null,
-        chunk_id  : null,
-        viewOnly  : viewOnly,
-        sep       : sep,
-        rowCount  : null
-      })
-    }
+    
+    postMessage({
+      cmd       : "chunk_loaded",
+      status    : status,
+      chunk     : matrix,
+      chunk_id  : iteration,
+      viewOnly  : true,
+      sep       : sep,
+      rowCount  : 0
+    })
+    if  (iteration < lastIteration)  seek()
+   
 
-    endReader.readAsText(file.slice(file.size - CHUNK_SIZE, file.size), "utf-8");
+    
+  };
+
+
+  seek=function () {
+    iteration ++;
+    let offset = (iteration-1) * (fileSize/VIEW_ONLY_N_CHUNKS);
+    if (iteration == lastIteration) reader.readAsText(file.slice(file.size - CHUNK_SIZE, file.size), "utf-8");
+    else reader.readAsText(file.slice(offset, offset + CHUNK_SIZE), "utf-8");
+  }
+
+
+  seek()
+
+
 }
-
 
 
 addEventListener("message",e=>{

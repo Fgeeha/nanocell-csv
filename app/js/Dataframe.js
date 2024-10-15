@@ -1,18 +1,13 @@
-
-
 class Dataframe  {
 constructor(d=[[""]]) {
-    this.isSaved    = true;
+    this.lock = false;
+    this.isSaved    = false;
     this.data = d;
     this.undoStack = [];
     this.redoStack = [];
     this.square();  
     // this.solver = new Solver(this); 
 }
-
-
-
-
 
 get(x,y){return(y>=this.height||x>=this.width||y<0||x<0)?'':String(this.data[y][x])}
 
@@ -22,6 +17,7 @@ getAll(cb){
 }
   
 trimAll(){
+  if(this.lock) return;
    for (var x =   this.width -1; x>=0; x--){
     var emptyCol =true;
     for(var y = 0 ; y < this.data.length;y++) if (this.data[y][x].length >0){emptyCol = false;break}
@@ -88,6 +84,7 @@ var undo = ()=>{ this.data.pop()}
 this.create(redo, undo);
 }
 edit(x,y,n){
+  if(this.lock) return ;
   var o = this.get(x,y);
   if(stg.autoRound){
     try{
@@ -113,6 +110,7 @@ edit(x,y,n){
 }
 
 create(r,u){
+  if (this.lock) return;
   var action={ t: Date.now(), redo:r,undo:u};r();
   this.undoStack.push(action);
   this.redoStack=[];
@@ -142,12 +140,11 @@ redo(){
    this.isSaved = false;
 }
 square(){
+  if ( this.lock)return;
     var m = 1;
     for (var row of this.data) m= Math.max(m,row.length);
     for (var row of this.data) while(row.length< m) row.push("");
 }
-
-
 
 get width (){return (this.data.length>0)?this.data[0].length:0}
 get height(){return this.data.length}

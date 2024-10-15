@@ -78,19 +78,19 @@ window.addEventListener('message', (event) => {
 
 
 // TODO launch critical
-
-// new open read write save (implement strict mode)
-// saved file icon 
-// view only icon 
-// refresh file command 
-// about / help >>  link to website
-// convert csv to strict mode (no commas, no double quotes)
+// ACTIVATE ALL SETTINGS
+//  fix the expand feature
 // insert today date
-// finder click close  & finder advanced input rework, text input click focus
-// have a nice install page
-// left to right scroll on ctrl scroll 
-// custom scroller 
+// refresh file command 
+//  sav fixed width option
 // Paste csv should format CSV
+//  setting ui should be standard (not text input) if stg is only for info. 
+// about / help >>  link to website
+// left to right scroll on ctrl scroll 
+// finder click close  & finder advanced input rework, text input click focus
+// convert csv to strict mode (no commas, no double quotes)
+// custom scroller 
 // Test on all os
 // test memory (ram)
-//  setting ui should be standard (not text input) if stg is only for info. 
+// double check the app update feature
+// log to google docs download and file open
