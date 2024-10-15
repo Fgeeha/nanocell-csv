@@ -91,29 +91,45 @@ class CsvHandle {
     if (this.handle === null) this.saveAs();
     else {
       const writableStream = await this.handle.createWritable();
-      await writableStream.write(CsvHandle.from2D(sheet.df.data));
-      await writableStream.close();
-      sheet.df.isSaved = true;
-      sheet.refresh();
+      try{
+
+        let csvContent = CsvHandle.from2D(sheet.df.data)
+        await writableStream.write(csvContent);
+        await writableStream.close();
+        sheet.df.isSaved = true;
+        sheet.refresh();
+
+      }catch(err){
+        Msg.confirm(err);
+
+      }
     }
 
   }
 
 
   static from2D(matrix) {
+    let isStrict = stg.save_strict;
+    let isfixed  = stg.save_fixed_width;
+    let fw = stg.save_fixed_width_size;
     let sep = stg.delimiter;
+    let spaces = " ".repeat(fw)
     if (sep == "TAB") sep = '\t';
     var newMat = [];
     for (var row of matrix) {
       var newRow = [];
       for (var cell of row) {
-        var data = cell;
+        var data = String(cell);
         var quote = false;
         for (var i = 0; i < data.length; i++) {
           if (data[i] === ",") quote = true;
-          if (data[i] === '"') { quote = true; data = data.slice(0, i) + '"' + data.slice(i); i++ }
+          if (data[i] === '"') {  quote = true; data = data.slice(0, i) + '"' + data.slice(i); i++ }
         }
-        if (quote) data = '"' + data + '"';
+        if( quote && isStrict) throw "Strict csv format not respected <br><br> save aborted"; 
+        if( quote ) data = '"' + data + '"';
+
+        if(isfixed && data.length > fw) throw  "Some cell values are too long for the selected fixed column width <br><br> save aborted";
+        if(isfixed)data = (spaces+data).slice(-fw);
         newRow.push(data);
       }
       newMat.push(newRow.join(sep));

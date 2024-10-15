@@ -114,9 +114,7 @@ Object.defineProperty(Setting, 'list', {value: [
 {title:"Csv Save"},
     {key:"encoding"         ,dflt:"utf-8"       ,name:"Encoding"},
     {key:"delimiter"        ,dflt:","           ,name:"Delimiter", list:[",", ";" , "TAB"],hide:true},
-    
-    {key:"strictComma"             ,dflt:false         ,name:"Save-Strict (error on comma)"},
-    {key:"strictQuote"             ,dflt:false         ,name:"Save-Strict (error on double quote)"},
+    {key:"save_strict"             ,dflt:true         ,name:"Save-Strict (error on comma  or double quotes)"},
 {title:"Csv Save Fixed Width"},
     {key:"save_fixed_width"        ,dflt:false          ,name:"Save with a column fixed width"},
     {key:"save_fixed_width_size"   ,dflt:20             ,name:"Fixed width column size",        min:5, max: 100  },

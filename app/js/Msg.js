@@ -11,10 +11,10 @@ constructor(txt = "Empty message", opt = {}) {
   if(opt.id===3)this.appendChild(this.cancel);
   if(!opt.t)this.appendChild(this.ok);
   dom.dialog.push(this);
-  this.ok.onclick    =()=>{if(opt.cbt)opt.cbt();this.remove()}
-  this.cancel.onclick=()=>{if(opt.cbf)opt.cbf();this.remove()}
+  this.ok.onclick    =()=>{if(opt.cbt)opt.cbt();dom.dialog.clear()}
+  this.cancel.onclick=()=>{if(opt.cbf)opt.cbf();dom.dialog.clear()}
   this.ok.focus();
-  if(opt.t)setTimeout(()=>{this.remove()},opt.t);
+  if(opt.t)setTimeout(()=>{dom.dialog.clear()},opt.t);
 }
 
 static quick  (txt)   { new Msg(txt, {id:0, t:1000})}
