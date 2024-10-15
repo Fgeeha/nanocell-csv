@@ -16,13 +16,14 @@ var cmd = {
     undo        :{k:"Z"    ,ctrl:true, run(){sheet.df.undo();sheet.refresh()}, description:"Undo"},
     redo        :{k:"Z"    ,ctrl:true, shift:true, run(){sheet.df.redo();sheet.refresh()}, description:"Redo"},
     redo2       :{k:"Y"    ,ctrl:true, run(){sheet.df.redo();sheet.refresh()}, description:"Redo"},
-    date        :{k:"D"    ,ctrl:true, run(){new Calendar()}, description:"Insert today's date"},
+    date        :{k:"D"    ,ctrl:true, run(){sheet.rangeEdit( (new Date()).getFormated("yyyy-mm-dd") );sheet.refresh() }, description:"Insert today's date"},
     find        :{k:"F"    ,ctrl:true, run(){sheet.finder.findMenu()}, description:"Quick find / match"},
     findAdvanced:{k:"F"    ,ctrl:true, shift:true,run(){sheet.finder.findMenu(true)}, description:"Advanced find / replace"},
     msg         :{k:"M"    ,ctrl:true, run(){stg.menu =  (!stg.menu) }, description:"Test message"},
     open        :{k:"O"    ,ctrl:true, run(){csvHandle.open()}, description:"Open one or more CSV files"},
     save        :{k:"S"    ,ctrl:true, run(){csvHandle.save()}, description:"Save"},
     saveAs      :{k:"S"    ,ctrl:true, shift:true, run(){csvHandle.saveAs()}, description:"Save As"},
+    reloadFile  :{k:"R"    ,ctrl:true, run(){csvHandle.reloadFile()}, description:"Reload file from last save"},
     expand      :{k:"E"    ,ctrl:true, run(){sheet.expand()}, description:"Expand first row to selection"},
     
     shiftUp     :{k:"ARROWUP"    ,alt:true, run(dir){sheet.shift(0)}, description:"Shift row up"},
@@ -54,7 +55,7 @@ function buildCommands(){
 
 function buildMenu(){
   var menuItems = [
-  "new","open","save","",
+  "new","open","save" , "reloadFile","",
   "undo","redo","fixLeft","fixTop","transpose","trim","date","integer","decimal",
   "","find","about","settings","shortcuts"];
   function buildMenuItem(item){ 

@@ -1,9 +1,7 @@
-const  CHUNK_SIZE = 1000000  ; // = 1 Mo /// 1 mo seems best
-// const  CHUNK_SIZE = 1000 ; // = 1 Ko
+const  CHUNK_SIZE = 500* 1000  ; // = 500ko
 const  n_chars_for_separator_detection = 200; 
 
-const VIEW_ONLY_N_CHUNKS = 5;
-const VIEW_ONLY_N_ROWS = 10;
+
 
 
 
@@ -51,6 +49,7 @@ csv_parse = function(txt, d = ","){
 loadcsv  = function(data){
   if(data.viewOnly) return load_csv_view_only(data);
   let file = data.file;
+
   console.log("reading chunk size : ", CHUNK_SIZE)
   console.log("sw loading : ", file.name)
   let fileSize = file.size;
@@ -109,24 +108,24 @@ loadcsv  = function(data){
 
 load_csv_view_only  = function(data){
   let file = data.file;
-  console.log("reading chunk size : ", CHUNK_SIZE)
-  console.log("sw loading view only : ", file.name)
+  console.log("reading chunk size : ", CHUNK_SIZE);
+  console.log("sw loading view only : ", file.name);
   let fileSize = file.size;
   let sep = ';'
   let reader = new FileReader();
   let iteration =0;
-  let lastIteration = VIEW_ONLY_N_CHUNKS ;
+  let vo_n_chunks = data.n_chunks;
+  let vo_n_rows = data.n_rows;
+  let lastIteration = vo_n_chunks ;
   reader.onloadend =e=>{ 
     let result = e.target.result;
-    let status = iteration/VIEW_ONLY_N_CHUNKS;
-    console.log("status : " , status)
+    let status = iteration/vo_n_chunks;
     if(iteration == 1)sep = separatorDetection(result);
     let matrix = csv_parse(result,sep);
-    if       (iteration == 1)                    matrix = matrix.slice(0, VIEW_ONLY_N_ROWS);
-    else if  (iteration == lastIteration)        matrix = matrix.slice( - VIEW_ONLY_N_ROWS);
-    else                                         matrix = matrix.slice( 1, VIEW_ONLY_N_ROWS+2);
+    if       (iteration == 1)                    matrix = matrix.slice(0, vo_n_rows);
+    else if  (iteration == lastIteration)        matrix = matrix.slice( - vo_n_rows);
+    else                                         matrix = matrix.slice( 1, vo_n_rows+2);
     if       (iteration != 1)   {
-      console.log("iteration ",iteration)
       matrix[0] = []
         for (var i = 0; i < matrix[1].length; i++)  matrix[0].push("! [...] !")
       }
@@ -149,7 +148,7 @@ load_csv_view_only  = function(data){
 
   seek=function () {
     iteration ++;
-    let offset = (iteration-1) * (fileSize/VIEW_ONLY_N_CHUNKS);
+    let offset = (iteration-1) * (fileSize/vo_n_chunks);
     if (iteration == lastIteration) reader.readAsText(file.slice(file.size - CHUNK_SIZE, file.size), "utf-8");
     else reader.readAsText(file.slice(offset, offset + CHUNK_SIZE), "utf-8");
   }

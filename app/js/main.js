@@ -80,7 +80,6 @@ window.addEventListener('message', (event) => {
 // TODO launch critical
 // ACTIVATE ALL SETTINGS
 //  fix the expand feature
-// insert today date
 // refresh file command 
 //  sav fixed width option
 // Paste csv should format CSV
@@ -94,3 +93,4 @@ window.addEventListener('message', (event) => {
 // test memory (ram)
 // double check the app update feature
 // log to google docs download and file open
+// can't open a new window from a new window launched from the app (new file > new file or new file > open file sequence)

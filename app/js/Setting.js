@@ -108,14 +108,18 @@ Object.defineProperty(Setting, 'list', {value: [
 
 {title:"Csv View Only"},
     {key:"editMaxFileSize"  ,dflt: 10           ,name:"File Size (Mo)"},
-    {key:"vo_n_chunks"      ,dflt: 5            ,name:"Number of chunks loaded",                min:5, max:50 ,cb:n=>{if (sheet)sheet.reload()} },
-    {key:"vo_n_rows"        ,dflt: 10           ,name:"Number of rows per chunk loaded",        min:3, max:50 ,cb:n=>{if (sheet)sheet.reload()} },
+    {key:"vo_n_chunks"      ,dflt: 5            ,name:"Number of chunks loaded",                min:5, max:50  },
+    {key:"vo_n_rows"        ,dflt: 10           ,name:"Number of rows per chunk loaded",        min:3, max:50  },
 
-{title:"Csv Write"},
+{title:"Csv Save"},
     {key:"encoding"         ,dflt:"utf-8"       ,name:"Encoding"},
     {key:"delimiter"        ,dflt:","           ,name:"Delimiter", list:[",", ";" , "TAB"],hide:true},
-    {key:"strictComma"      ,dflt:false         ,name:"Save-Strict (error on comma)"},
-    {key:"strictQuote"      ,dflt:false         ,name:"Save-Strict (error on double quote)"},
+    
+    {key:"strictComma"             ,dflt:false         ,name:"Save-Strict (error on comma)"},
+    {key:"strictQuote"             ,dflt:false         ,name:"Save-Strict (error on double quote)"},
+{title:"Csv Save Fixed Width"},
+    {key:"save_fixed_width"        ,dflt:false          ,name:"Save with a column fixed width"},
+    {key:"save_fixed_width_size"   ,dflt:20             ,name:"Fixed width column size",        min:5, max: 100  },
     
     
 ]});

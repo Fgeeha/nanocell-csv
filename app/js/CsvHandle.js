@@ -48,7 +48,7 @@ class CsvHandle {
     this.viewOnly = mbSize > Number(stg.editMaxFileSize);
     console.log(file)
     console.log("view only = ", file.viewOnly, "(file size = ", mbSize, " & stg max = ", stg.editMaxFileSize, " )")
-    this.pipe("read", { file: file, viewOnly: this.viewOnly })
+    this.pipe("read", { file: file, viewOnly: this.viewOnly , n_chunks:stg.vo_n_chunks , n_rows:stg.vo_n_rows})
   }
 
 
@@ -65,6 +65,18 @@ class CsvHandle {
       newWindow.postMessage({ fileHandle }, '*', [channel.port2]);
     };
 
+  }
+
+
+
+  reloadFile(){ 
+    if(this.handle === null ) return Msg.quick("No file to reload from.")
+    if(!sheet.df.isSaved){
+
+      Msg.choice("Changes will be lost ? ", ()=>{
+        this.launchFile(this.handle)
+      })
+    }
   }
 
   new() { window.open('./home.html', null, 'width=600,height=400') }
