@@ -1,0 +1,16 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Update & run Nanocell",
+            "type": "shell",
+            "command": "./dev/run_nc.bat",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Runs the specified .bat file"
+        }
+    ]
+}
+

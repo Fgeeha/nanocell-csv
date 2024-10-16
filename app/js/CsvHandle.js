@@ -47,7 +47,6 @@ class CsvHandle {
     let mbSize = file.size / 1000000
     this.viewOnly = mbSize > Number(stg.editMaxFileSize);
     console.log(file)
-    console.log("view only = ", file.viewOnly, "(file size = ", mbSize, " & stg max = ", stg.editMaxFileSize, " )")
     this.pipe("read", { file: file, viewOnly: this.viewOnly , n_chunks:stg.vo_n_chunks , n_rows:stg.vo_n_rows})
   }
 

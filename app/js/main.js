@@ -98,3 +98,4 @@ function logVersion(){
 // finder click close  & finder advanced input rework, text input click focus
 // double check the app update feature
 // log to google docs download and file open
+// msg choice tab and arrow key selection behavior 
