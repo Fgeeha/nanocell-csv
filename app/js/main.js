@@ -1,15 +1,17 @@
 
 window.addEventListener('beforeunload', function (e) {
-	if (false) { // if csv not saved ask before quit
+	if (false) { 
+		// if (!sheet.df.isSaved) { 
 		e.preventDefault();
 		e.returnValue = "";
+		Msg.confirm("File changes will be lost<br>Are you sure you want to quite ?");
 	}
 });
 
 
 let sampleData = [
-	["", 0, 1, 2, 3, "a", "b", "c"],
-	["", "", 2, "x", 3, "a", "b", "c"],
+	["Hello", "World"],
+	[1,  2],
 ]
 
 
@@ -78,19 +80,11 @@ window.addEventListener('message', (event) => {
 
 
 // TODO launch critical
-// ACTIVATE ALL SETTINGS
-//  fix the expand feature
-// refresh file command 
-//  sav fixed width option
 // Paste csv should format CSV
-//  setting ui should be standard (not text input) if stg is only for info. 
 // about / help >>  link to website
-// left to right scroll on ctrl scroll 
 // finder click close  & finder advanced input rework, text input click focus
-// convert csv to strict mode (no commas, no double quotes)
 // custom scroller 
 // Test on all os
 // test memory (ram)
 // double check the app update feature
 // log to google docs download and file open
-// can't open a new window from a new window launched from the app (new file > new file or new file > open file sequence)

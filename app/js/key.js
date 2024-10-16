@@ -56,7 +56,10 @@ document.onkeyup = function(e){
 document.addEventListener("mouseup",()=>{document.onmousemove=undefined;});
 
 // prevents text selection
-document.addEventListener("mousedown",e=>{e.preventDefault()});
+document.addEventListener("mousedown",e=>{
+  if (!e.shiftKey)sheet.slctRange=false;
+  if(e.target != sheet.inputField) e.preventDefault()
+  });
 
 document.addEventListener('copy', function (e) {
   if(sheet.inputing) return ;

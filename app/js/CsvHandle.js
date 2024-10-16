@@ -59,7 +59,7 @@ class CsvHandle {
 
   async open() {
     let [fileHandle] = await window.showOpenFilePicker(CsvHandle.pickerOptions);
-    const newWindow = window.open('./home.html', null, 'width=600,height=400'); // 'newWindow.html' should be the page that will handle the file
+    const newWindow = window.open('./home.html',  "_blank", 'width=600,height=400'); // 'newWindow.html' should be the page that will handle the file
     const channel = new MessageChannel();
     newWindow.onload = () => {
       newWindow.postMessage({ fileHandle }, '*', [channel.port2]);
@@ -79,7 +79,7 @@ class CsvHandle {
     }
   }
 
-  new() { window.open('./home.html', null, 'width=600,height=400') }
+  new() { window.open('./home.html', "_blank", 'width=600,height=400') }
 
   async saveAs() {
     if(this.viewOnly) return ;
@@ -92,19 +92,15 @@ class CsvHandle {
     else {
       const writableStream = await this.handle.createWritable();
       try{
-
         let csvContent = CsvHandle.from2D(sheet.df.data)
         await writableStream.write(csvContent);
         await writableStream.close();
         sheet.df.isSaved = true;
         sheet.refresh();
-
       }catch(err){
         Msg.confirm(err);
-
       }
     }
-
   }
 
 

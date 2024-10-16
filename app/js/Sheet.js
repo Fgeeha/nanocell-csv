@@ -43,48 +43,33 @@ expand(){
   var xEnd   = Math.max(this.x ,this.rangeInit.x) ;
   var yEnd   = Math.max(this.y, this.rangeInit.y) ; 
   if (yStart == yEnd){
-      var direction = this.rangeInit.x < this.x? 1:-1;
-      var base0  = this.df.get(this.rangeInit.x, this.rangeInit.y)
-      var base1  = this.df.get(this.rangeInit.x + direction, this.rangeInit.y )
+      var base0  = this.df.get(xStart, yStart)
+      var base1  = this.df.get(xStart +1 , yStart )
       var baseN0 = Number(base0);
       var baseN1 = Number(base1);
       var d = baseN1 - baseN0;
-      if (isNaN(baseN1) && !isNaN(baseN0)) d = direction;
-      if (base0=="" && base1 =="") d = direction;
-
-      if (isNaN(d)) {
-        for (var j = xStart; j <= xEnd; j++) this.df.edit(j,this.y, base0)
-      }else if (direction==1){
-        for (var j = xStart; j <= xEnd; j++) this.df.edit(j, this.y, baseN0 + d*(j-xStart))
-      }else{
-        for (var j = xEnd ; j >= xStart; j--) this.df.edit(j, this.y, baseN0 - d*(j-xEnd))
-      }
+      if (isNaN(baseN1) && !isNaN(baseN0)) d = 1;
+      if (base0=="" && base1 =="") d = 1;
+      if (isNaN(d)) for (var j = xStart; j <= xEnd; j++) this.df.edit(j,this.y, base0)
+      else  for (var j = xStart; j <= xEnd; j++) this.df.edit(j, this.y, baseN0 + d*(j-xStart))
+      
     return this.refresh()
   }
-
-  var direction = this.rangeInit.y < this.y? 1:-1;
 
 
 
   var delta = []
   for (var i = xStart; i <= xEnd; i++) {
-    var base0  = this.df.get(i, this.rangeInit.y)
+    var base0  = this.df.get(i, yStart)
     // if (base0 =="") continue;
-    var base1  = this.df.get(i, this.rangeInit.y + direction)
+    var base1  = this.df.get(i, yStart+1)
     var baseN0 = Number(base0);
     var baseN1 = Number(base1);
     var d = baseN1 - baseN0;
-    if ( (isNaN(baseN1) || base1=="" )&& !isNaN(baseN0)) d = direction;
-    if (isNaN(d)) {
-      for (var j = yStart; j <= yEnd; j++) this.df.edit(i,j, base0)
-    }else if (direction==1){
-      for (var j = yStart; j <= yEnd; j++) this.df.edit(i,j, baseN0 + d*(j-yStart))
-    }else{
-      for (var j = yEnd ; j >= yStart; j--) this.df.edit(i,j, baseN0 - d*(j-yEnd))
-    }
-
+    if ( (isNaN(baseN1) || base1=="" )&& !isNaN(baseN0)) d = 1;
+    if (isNaN(d)) for (var j = yStart; j <= yEnd; j++) this.df.edit(i,j, base0)
+    else  for (var j = yStart; j <= yEnd; j++) this.df.edit(i,j, baseN0 + d*(j-yStart))
     this.refresh()
-
   }
 
 
