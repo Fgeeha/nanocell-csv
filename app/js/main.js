@@ -51,40 +51,50 @@ window.addEventListener('message', (event) => {
 
 
 
+function logVersion(){
+	caches.keys().then(cacheNames => {
+		cacheNames.forEach(cacheName => {
+			console.log('Cache Version:', cacheName);
+		});
+	}).catch(error => {
+		console.error('Error fetching cache names:', error);
+	});
+
+}
 
 
 
-// BUGS
+
+// Known issues    =================================================================
 // potential issue when reading chunk cuts 16 bit char in 2 diff chunks, unlucky but possible, requires testing
 
 
 
-// TODO BIG
-// above x GB only provide info graphics
-// info graphics  (col names, distincts, # blank values, sum, mean, histogram )
+// TODO Eventually =================================================================
 // sort col a-z, z-a, 0-9, 9-0
-// col operations
-
-
-// nice to have
-
-// opening multiple times a file should refocus that file
-// increment should work with YYYY-MM-DD date
+// col operations >> add / concat / sub / mult/ div
+// context click col menu
+// custom scroller 
 // autogen R/panda/spark code for basic view
 
+
+
+// TODO Long Term =================================================================
+
+// add a more options menu icon that opens a text menu to the right with commands or an extra menu row
+// opening multiple times a file should refocus that file
+// expand should work with YYYY-MM-DD date
 // slct strict comma to dot
 // slct strict replace spe chars ex : é => e
 // slct to upper
 // slct to lower
-// context click col menu
-
-
-// TODO launch critical
 // Paste csv should format CSV
-// about / help >>  link to website
-// finder click close  & finder advanced input rework, text input click focus
-// custom scroller 
 // Test on all os
 // test memory (ram)
+
+
+// TODO Short Term =================================================================
+// about / help >>  link to website
+// finder click close  & finder advanced input rework, text input click focus
 // double check the app update feature
 // log to google docs download and file open

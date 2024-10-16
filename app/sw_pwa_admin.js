@@ -1,4 +1,4 @@
-const staticCacheName = 'cache-v3';
+const versionName = 'v1.0.4';
 const filesToCache = [
   // '/'
   // 'index.html',
@@ -11,10 +11,18 @@ const filesToCache = [
     
    
 self.addEventListener('install',e=>{
-    e.waitUntil(caches.open(staticCacheName).then(cache=>{return cache.addAll(filesToCache)}))
+    e.waitUntil(caches.open(versionName).then(cache=>{return cache.addAll(filesToCache)}))
 });
 
-self.addEventListener('activate',e=>{console.log('Service worker activating...')});
+self.addEventListener('activate',e=>{
+  console.log('Service worker activating...');
+  e.waitUntil(self.registration?.navigationPreload.enable());
+  e.waitUntil(deleteOldCaches());
+  console.log('Service worker activation done');
+  e.waitUntil(clients.claim());
+  
+
+});
 
 
 self.skipWaiting();
@@ -28,4 +36,15 @@ self.addEventListener('fetch', event => {
     .catch(error => {console.error("Couldn't fetch: "+ event.request.url, error)})
   );
 });
+
+const deleteCache = async (key) => {
+  await caches.delete(key);
+};
+
+const deleteOldCaches = async () => {
+  const cacheKeepList = [versionName];
+  const keyList = await caches.keys();
+  const cachesToDelete = keyList.filter((key) => !cacheKeepList.includes(key));
+  await Promise.all(cachesToDelete.map(deleteCache));
+};
 

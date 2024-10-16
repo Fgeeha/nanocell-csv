@@ -1,5 +1,5 @@
 let buildKeys = function (){
-
+  let prevent_dflt_list = ['H','N', 'T'];// { H: history pop up, N: new window, T: new tab} 
   document.onkeydown = function(e) {
   var k = e.key.toUpperCase(); 
   // console.log(k)
@@ -9,7 +9,7 @@ let buildKeys = function (){
   sheet.slctRange = shift;
   if (alt && k =="TAB") return; // enable switching window 
   if (ctrlDown && (k==="C" || k==="V"))return;
-  if (ctrlDown && (k==="H")) e.preventDefault(); // prevent history pop up 
+  if (ctrlDown && (prevent_dflt_list.includes(k))) {e.preventDefault();console.log("prevented")} // prevent : 
   if (dom.dialog.isBusy && k==="ESCAPE")return dom.dialog.clear();
   if (dom.dialog.isBusy || sheet.inputing)return; 
   if (e.code==="Space") k = "SPACE";
@@ -58,7 +58,7 @@ document.addEventListener("mouseup",()=>{document.onmousemove=undefined;});
 // prevents text selection
 document.addEventListener("mousedown",e=>{
   if (!e.shiftKey)sheet.slctRange=false;
-  if(e.target != sheet.inputField) e.preventDefault()
+  if(e.target != sheet.inputField) e.preventDefault();
   });
 
 document.addEventListener('copy', function (e) {

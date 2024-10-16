@@ -1,7 +1,7 @@
 class Dataframe  {
 constructor(d=[[""]]) {
     this.lock = false;
-    this.isSaved    = false;
+    this.isSaved    = true;
     this.data = d;
     this.undoStack = [];
     this.redoStack = [];
