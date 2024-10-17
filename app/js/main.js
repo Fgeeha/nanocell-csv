@@ -37,7 +37,23 @@ clean_start = function () {
 
 clean_start();
 
+
+
+
+
+function log_to_database(value){
+	if (navigator.serviceWorker.controller) {
+		// Send message to the service worker
+		navigator.serviceWorker.controller.postMessage({
+		  type: 'db_log',
+		  payload: { log: value }
+		});
+	  }
+
+}
+
 window.launchQueue.setConsumer(async (params) => {
+	log_to_database("file_launch")
 	console.log(params)
 	const [handle] = params.files;
 	if (handle) csvHandle.launchFile(handle)
@@ -51,17 +67,8 @@ window.addEventListener('message', (event) => {
 
 
 
-function logVersion(){
-	caches.keys().then(cacheNames => {
-		cacheNames.forEach(cacheName => {
-			console.log('Cache Version:', cacheName);
-		});
-	}).catch(error => {
-		console.error('Error fetching cache names:', error);
-	});
 
-}
-
+// 
 
 
 
