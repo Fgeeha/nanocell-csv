@@ -33,6 +33,51 @@ constructor(df=new Dataframe()) {
 }
 
 
+go_to_next(){
+  var d = this.df.get(this.x,this.y);
+  var i = this.x;
+  var j = this.y;
+  var found = false; 
+  console.log("go to next")
+  while( ! found){
+    i = (i +1) %this.df.width;
+    if(i===0) j = (j +1) %this.df.height;
+    found = (this.df.get(i,j) == d)
+  }
+
+  if(i==this.x && j== this.y) Msg.quick("No match");
+  else{
+    this.x = i;
+    this.y = j;
+    this.slctRefresh();
+  }
+  console.log("over")
+
+}
+
+validate_data(){
+
+  var dot = stg.dv_comma_num;
+  var dash = stg.dv_comma_txt;
+  var single_quote = stg.dv_quotes;
+  var lower = stg.dv_lower;
+  this.allApply((x,y)=>{
+    var d = this.df.get(x,y);
+    if (d.length<1 || !isNaN(d))return;
+    if (dot ){
+      var numberTry = d.replace(',', '.');
+      if (!isNaN(numberTry)) return  this.df.edit(x,y, numberTry);
+    }
+    if(dash)d = d.replaceAll(',','-');
+    if(single_quote)d = d.replaceAll('\"','\'');
+    if(lower)d = d.toLowerCase();
+    this.df.edit(x,y, d);
+  })
+  this.refresh();
+
+}
+
+
 
 
 expand(){
@@ -309,6 +354,10 @@ rangeEdit(value){
   for(var x = xStart; x <= xEnd ; x++ ) for(var y = yStart; y <= yEnd; y++) this.df.edit(x,y,value);
 
 } 
+
+allApply(cb){
+  for(var y = 0; y < this.df.height; y++) for(var x = 0; x < this.df.width ; x++ )  cb(x,y);
+}
 
 
 

@@ -14,6 +14,20 @@ constructor(txt = "Empty message", opt = {}) {
   this.ok.onclick    =()=>{if(opt.cbt)opt.cbt();dom.dialog.clear()}
   this.cancel.onclick=()=>{if(opt.cbf)opt.cbf();dom.dialog.clear()}
   this.ok.focus();
+
+  this.ok.addEventListener('keydown', (e) => {
+    var k = e.key.toUpperCase(); 
+      if(k==="TAB") this.cancel.focus();
+      if(k==="ARROWLEFT") this.cancel.focus();
+  });
+  this.cancel.addEventListener('keydown', (e) => {
+    var k = e.key.toUpperCase(); 
+      if(k==="TAB") this.ok.focus();
+      if(k==="ARROWRIGHT") this.ok.focus();
+
+  });
+
+
   if(opt.t)setTimeout(()=>{dom.dialog.clear()},opt.t);
 }
 

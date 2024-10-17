@@ -9,7 +9,9 @@ let buildKeys = function (){
   sheet.slctRange = shift;
   if (alt && k =="TAB") return; // enable switching window 
   if (ctrlDown && (k==="C" || k==="V"))return;
-  if (ctrlDown && (prevent_dflt_list.includes(k))) {e.preventDefault();console.log("prevented")} // prevent : 
+  if (ctrlDown && (prevent_dflt_list.includes(k))  ) {e.preventDefault(); console.log("prevented : ", k) } // prevent : 
+  if (k==="TAB" ) {e.preventDefault(); } // prevent : 
+  if (!dom.dialog.isBusy && k==="ESCAPE")return dom.dialog.clear();
   if (dom.dialog.isBusy && k==="ESCAPE")return dom.dialog.clear();
   if (dom.dialog.isBusy || sheet.inputing)return; 
   if (e.code==="Space") k = "SPACE";
@@ -25,8 +27,10 @@ let buildKeys = function (){
     }
   }
   
+  // any char without control keys will start inputing
   if (e.key.length===1 && !ctrlDown && !e.metaKey ){e.preventDefault();return sheet.input(e.key);}
 
+  // prevents the default from any cmd combo
   for (var c of Object.values(cmd)) 
   if(k===c.k && c.ctrl === ctrlDown && c.shift===shift && c.alt===alt){c.run();return e.preventDefault()}
 
@@ -36,7 +40,7 @@ let buildKeys = function (){
     case "ARROWDOWN"  :sheet.y++;sheet.slctRefresh(); return;
     case "ARROWLEFT"  :sheet.x--;sheet.slctRefresh(); return;
     case "ARROWRIGHT" :sheet.x++;sheet.slctRefresh(); return;
-    case "TAB"        :e.preventDefault(); sheet.x++;sheet.slctRefresh(); return;
+    case "TAB"        :sheet.x++;sheet.slctRefresh(); return;
     case "ENTER"      :sheet.input();return;
     case "BACKSPACE"  :sheet.delete();return;
   }

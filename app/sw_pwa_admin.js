@@ -1,4 +1,4 @@
-const versionName = 'v1.0.21';
+const versionName = 'v1.0.4';
 const filesToCache = [
 "logo/png/nanocell_96.png",
 "logo/png/nanocell_80.png",
@@ -33,12 +33,13 @@ const filesToCache = [
 "js/Dataframe.js",
 "js/CsvHandle.js",
 "js/cmd.js",
+"js/About.js",
 "icn/menu/zoomOut.svg",
 "icn/menu/zoomIn.svg",
+"icn/menu/validate_data.svg",
 "icn/menu/undo.svg",
 "icn/menu/trim.svg",
 "icn/menu/transpose.svg",
-"icn/menu/solve.svg",
 "icn/menu/shortcuts.svg",
 "icn/menu/settings.svg",
 "icn/menu/save.svg",
@@ -89,7 +90,6 @@ const filesToCache = [
 "css/Inconsolata-Bold.ttf",
 "sw_pwa_admin.js",
 "home.html",
-"about.html",
 ];
 
 
@@ -100,7 +100,9 @@ e.waitUntil(caches.open(versionName).then(cache=>{return cache.addAll(filesToCac
 self.addEventListener('activate',e=>{
 console.log('Service worker activating...');
 // e.waitUntil(self.registration?.navigationPreload.enable());
-e.waitUntil(clients.claim());
+// e.waitUntil(clients.claim());
+e.waitUntil(caches.open(versionName).then(cache=>{return cache.addAll(filesToCache)}))
+
 e.waitUntil(deleteOldCaches());
 console.log('Service worker activation done');
 

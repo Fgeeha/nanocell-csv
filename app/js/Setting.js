@@ -118,6 +118,12 @@ Object.defineProperty(Setting, 'list', {value: [
 {title:"Csv Save Fixed Width"},
     {key:"save_fixed_width"        ,dflt:false          ,name:"Save with a column fixed width"},
     {key:"save_fixed_width_size"   ,dflt:20             ,name:"Fixed width column size",        min:5, max: 100  },
+
+{title:"Data Validation"},
+    {key:"dv_comma_num"         ,dflt:true         ,name:"In numeric values : replace commas by a dot"},
+    {key:"dv_comma_txt"         ,dflt:true         ,name:"In text values : replace commas by a dash "},
+    {key:"dv_quotes"            ,dflt:true         ,name:"Replace double quotes by single quotes"},
+    {key:"dv_lower"             ,dflt:true         ,name:"Force all text to lower case"},
     
     
 ]});

@@ -1,17 +1,17 @@
 
 window.addEventListener('beforeunload', function (e) {
-	if (false) { 
+	if (!sheet.df.isSaved) { 
 		// if (!sheet.df.isSaved) { 
 		e.preventDefault();
-		e.returnValue = "";
-		Msg.confirm("File changes will be lost<br>Are you sure you want to quite ?");
+		// e.returnValue = "";
+		// Msg.confirm("File changes will be lost<br>Are you sure you want to quite ?");
 	}
 });
 
 
 let sampleData = [
-	["Hello", "World"],
-	[1,  2],
+	["Hello World", ""],
+	["",  ""],
 ]
 
 
@@ -94,8 +94,5 @@ function logVersion(){
 
 
 // TODO Short Term =================================================================
-// about / help >>  link to website
 // finder click close  & finder advanced input rework, text input click focus
-// double check the app update feature
 // log to google docs download and file open
-// msg choice tab and arrow key selection behavior 
