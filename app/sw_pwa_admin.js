@@ -1,4 +1,4 @@
-const versionName = 'v1.0.4';
+const versionName = 'v1.0.0';
 const filesToCache = [
 "logo/png/nanocell_96.png",
 "logo/png/nanocell_80.png",
