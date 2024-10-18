@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>NanoCell - CSV Editor</title>
 
-    <link rel="icon" href="web/img/nanocell_fit.svg">
+    <link rel="icon" href="app/logo/nanocell.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="web/theme.css">
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700"> -->
@@ -19,9 +19,9 @@
     <nav id="main-nav">
         <a href="#header">NanoCell</a>
         <a href="#about">About</a>
-        <a href="#header"><img id="logo" src="web/img/nanocell.svg" alt="NanoCell Logo" /></a>
+        <a href="#header"><img id="logo" src="app/logo/nanocell.svg" alt="NanoCell Logo" /></a>
         <a href="#support">Support</a>
-        <a href="#header">Download </a>
+        <a href="#header" id="dld_btn">Download </a>
     </nav>
     <div id="container">
 
@@ -182,12 +182,16 @@
             event.preventDefault();
             installPrompt = event;
         });
-        document.getElementById('install').addEventListener("click", async () => {
+
+        async function handleInstallPrompt(){
             if (!installPrompt)  return;
             const result = await installPrompt.prompt();
             console.log(`Install prompt was: ${result.outcome}`);
-        });
+            if (result.outcome =="accepted") window.location.href = "app/home.html";
+        }
 
+        document.getElementById('install').addEventListener("click",handleInstallPrompt);
+        document.getElementById('dld_btn').addEventListener("click",handleInstallPrompt);
         if ('serviceWorker' in navigator) {
             console.log("trying to register sw")
             window.addEventListener('load', () => {
