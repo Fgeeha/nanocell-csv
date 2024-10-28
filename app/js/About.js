@@ -5,10 +5,11 @@ class About extends HTMLElement {
             var version = document.createElement("h3")
             var logo = document.createElement("img")
             var link = document.createElement("a")
-            title.innerHTML = "Nanocell Csv Editor";
+            title.innerHTML = "Nanocell CSV Editor";
             logo.src = "./logo/nanocell.svg"
             link.href = "https://nanocell-csv.com/"
             link.innerHTML = "https://nanocell-csv.com/"
+            link.target = "_blank"
             this.style.display = "flex"
             this.style.flexDirection = "column"
             this.style.height = "100vh"
