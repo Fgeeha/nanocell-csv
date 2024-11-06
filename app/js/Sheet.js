@@ -33,6 +33,29 @@ constructor(df=new Dataframe()) {
 }
 
 
+
+
+
+sort(n, ascending){
+  let col_items =  this.df.data.map(row => row[n]).map((val, idx) => ({ val, idx })) 
+  let numbers = [];
+  let strings = [];
+  col_items.forEach(item => {
+    const parsedNumber = parseFloat(item.val);
+    if (!isNaN(parsedNumber) && isFinite(parsedNumber)) numbers.push({val:parsedNumber, idx:item.idx});
+    else  strings.push(item);
+});
+  
+  let str_ordered = strings.sort((a, b) => (ascending)?   a.val.localeCompare(b.val) : b.val.localeCompare(a.val) ) .map(({ idx }) => idx); 
+  let num_ordered = numbers.sort((a, b) => (ascending)?   a.val-b.val : b.val-a.val )  .map(({ idx }) => idx); 
+  let new_order =  str_ordered.concat(num_ordered); 
+  this.df.order(new_order)
+  this.refresh();
+
+}
+
+
+
 go_to_next(){
   var d = this.df.get(this.x,this.y);
   var i = this.x;

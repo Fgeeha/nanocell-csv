@@ -28,6 +28,8 @@ var cmd = {
     expand          :{k:"E"    ,ctrl:true, run(){sheet.expand()}, description:"Expand first row to selection"},
     validate_data   :{k:"P"    ,ctrl:true, run(){sheet.validate_data()}, description:"Validate and format data to respect csv standards"},
     next_occurance  :{k:"D"    ,ctrl:true, run(){sheet.go_to_next()}, description:"Go to next occurence of cell value"},
+    sort            :{k:"L"    ,ctrl:true, run(){sheet.sort(sheet.x, true)}, description:"Sort rows based on active column"},
+    
     // validate_data   :{k:"Q"    ,ctrl:true, run(){Msg.choice("this is a test", ()=>{},()=>{});}, description:"Test button"},
     // validate_data   :{k:"Q"    ,ctrl:true, run(){Msg.confirm("this is a test");}, description:"Test button"},
     //  D >> next occurence of current cell
@@ -61,7 +63,7 @@ function buildCommands(){
 function buildMenu(){
   var menuItems = [
   "new","open","save" , "reloadFile","",
-  "undo","redo","fixLeft","fixTop","transpose","trim","date","integer","decimal", "validate_data",
+  "undo","redo","fixLeft","fixTop","transpose","trim","date","integer","decimal", "sort","validate_data",
   "","find","about","settings","shortcuts"];
   function buildMenuItem(item){ 
       if (item==="")return dom.header.appendChild(document.createElement("hr"));   

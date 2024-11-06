@@ -26,6 +26,7 @@ const filesToCache = [
 "icn/menu/undo.svg",
 "icn/menu/trim.svg",
 "icn/menu/transpose.svg",
+"icn/menu/sort.svg",
 "icn/menu/shortcuts.svg",
 "icn/menu/settings.svg",
 "icn/menu/save.svg",

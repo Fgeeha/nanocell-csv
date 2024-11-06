@@ -28,8 +28,14 @@ trimAll(){
     for(var x = 0 ; x < this.data[y].length;x++) if (this.data[y][x].length >0){emptyRow = false;break}
     if (emptyRow) this.deleteRow(y);
   }
-  
+}
 
+order (new_order){
+  let old_order =   new Array(new_order.length);
+  for (let i = 0 ; i < new_order.length; i++) old_order[ new_order[i] ] = i;
+  var redo=()=>{this.data = new_order.map(index => this.data[index]); }
+  var undo=()=>{this.data = old_order.map(index => this.data[index]);}
+  this.create(redo, undo);
 }
 
 shiftCol (n){
@@ -91,19 +97,14 @@ edit(x,y,n){
        var array = String(n).split('=');
        array[array.length -1] = round(array[array.length -1], false) ; 
        n =  array.join('=');  
-
     }catch(e){
       console.log(e)
       throw new Error("edit error n = "+n)
     }
-  
   }
   if(n===o)return;
   while(this.width<=x)this.pushCol();
   while(this.height<=y)this.pushRow(); 
-
-
-
   var redo=()=>this.data[y][x]=n;
   var undo=()=>this.data[y][x]=o;
   this.create(redo, undo);  
