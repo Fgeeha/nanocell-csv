@@ -78,7 +78,6 @@ window.addEventListener('message', (event) => {
 
 
 // TODO Eventually =================================================================
-// sort col a-z, z-a, 0-9, 9-0
 // col operations >> add / concat / sub / mult/ div
 // context click col menu
 // custom scroller 
@@ -88,11 +87,10 @@ window.addEventListener('message', (event) => {
 
 // TODO Long Term =================================================================
 
-// add a more options menu icon that opens a text menu to the right with commands or an extra menu row
 // opening multiple times a file should refocus that file
+// add a more options menu icon that opens a text menu to the right with commands or an extra menu row
 // expand should work with YYYY-MM-DD date
-// slct strict comma to dot
-// slct strict replace spe chars ex : é => e
+// strict csv format transform >> show all transforms and validate
 // slct to upper
 // slct to lower
 // Paste csv should format CSV
@@ -102,4 +100,5 @@ window.addEventListener('message', (event) => {
 
 // TODO Short Term =================================================================
 // finder click close  & finder advanced input rework, text input click focus
-// log to google docs download and file open
+// scroll bar 
+// setting for the col sort : txt first or num first & ignore header (set as dflt). 
