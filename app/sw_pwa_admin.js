@@ -4,6 +4,7 @@ const filesToCache = [
 "js/utils/misc.js",
 "js/utils/DateExt.js",
 "js/ui/input/Table.js",
+"js/ui/input/Scroller.js",
 "js/ui/input/NumInput.js",
 "js/ui/input/ListInput.js",
 "js/ui/input/BoolInput.js",

@@ -57,13 +57,44 @@ document.onkeyup = function(e){
 
 
 // removes any move action when set on mouse down 
-document.addEventListener("mouseup",()=>{document.onmousemove=undefined;});
+document.addEventListener("mouseup",e=>{document.onmousemove=undefined; if(e.buttons < 1) sheet.scrolling = false;});
+
 
 // prevents text selection
 document.addEventListener("mousedown",e=>{
   if (!e.shiftKey)sheet.slctRange=false;
   if(e.target != sheet.inputField) e.preventDefault();
+  if(e.target === dom.content.scroller) sheet.scrolling = true;
   });
+
+
+document.addEventListener("mousemove", e => {
+    {
+      if(e.buttons < 1) sheet.scrolling = false;
+      if(sheet.scrolling) {
+        let offset = sheet.rows[1].getBoundingClientRect().top;
+        let theight = sheet.getBoundingClientRect().bottom - offset ;
+        let r = (e.clientY -offset )  /  theight ;
+        if(r < 0 ) r  = 0;
+        if(r > 1 ) r  = 1;
+        sheet.baseY  = Math.floor(sheet.df.height * r);
+        sheet.scrollerUpdate();
+
+
+        // let scroller = dom.content.scroller;
+        // theight = sheet.getBoundingClientRect().bottom - offset- dom.content.scroller.offsetHeight ;
+
+
+
+        // // let offset = sheet.rows[1].getBoundingClientRect().top;
+        // // let theight = sheet.getBoundingClientRect().bottom - offset  - scroller.offsetHeight;
+      
+        // dom.content.scroller.style.top = String(Math.floor(offset + theight * sheet.baseY/(sheet.df.height))) + "px";
+        
+        sheet.slctRefresh(false);
+      } 
+    }
+});
 
 document.addEventListener('copy', function (e) {
   if(sheet.inputing) return ;

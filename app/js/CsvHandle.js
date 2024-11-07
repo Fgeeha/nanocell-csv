@@ -38,6 +38,9 @@ class CsvHandle {
     sheet.df.lock = this.viewOnly;
     dom.content.innerHTML = "";
     dom.content.appendChild(sheet);
+    dom.content.appendChild(dom.content.scroller);
+	  sheet.scrollerUpdate();
+
   }
 
 

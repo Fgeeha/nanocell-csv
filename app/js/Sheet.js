@@ -5,6 +5,7 @@ constructor(df=new Dataframe()) {
   this.finder     = new Finder(this);
   this.inputField = document.createElement("input");
   this.inputing   = false;
+  this.scrolling  = false;
   this.escape     = false;
   this.fixTop     = false;
   this.fixLeft    = false;
@@ -338,6 +339,13 @@ footerUpdate(){
   f.lock.src = (this.df.isSaved) ? "icn/lock.svg":"icn/edit.svg";
 }
 
+scrollerUpdate(){
+  let offset = this.rows[1].getBoundingClientRect().top;
+  let theight = this.getBoundingClientRect().bottom - offset- dom.content.scroller.offsetHeight ;
+  dom.content.scroller.style.top = String(Math.round(offset + theight * this.baseY/(this.df.height))) + "px";
+  this.slctRefresh(false);
+}
+
 slctCol(n){
   this.slctRange =true;
   this.rangeInit = {x:n, y:0}
@@ -531,6 +539,7 @@ loadLeftHeader(y){
 refresh(){window.requestAnimationFrame(()=>{
   for(var x=0;x<this.width;x++) this.loadTopHeader(x);
 //   var time = new Timer();
+
   for(var y=0;y<this.height;y++) {
       var by=this.baseY+y;
       this.loadLeftHeader(y);
@@ -538,7 +547,8 @@ refresh(){window.requestAnimationFrame(()=>{
   }
   if (this.inputing) this.slct.appendChild(this.inputField);
   this.footerUpdate();
-//   time.log();
+    this.scrollerUpdate()
+    //   time.log();
 })}
 
 reloadFile(){
@@ -559,7 +569,7 @@ reload(){
         for(var x=0; x<this.width; x++){
           this.rows[y+1].cells[x+1].onpointerenter = e=> { 
             var t = e.target;
-            if(e.buttons===1){
+            if(e.buttons===1 && ! this.scrolling){
               this.rangeInit = {x:t.cellIndex-1 +this.baseX,y:t.parentNode.rowIndex -1+this.baseY};
               this.slctRefresh();
             }
@@ -570,6 +580,7 @@ reload(){
         this.rows[0].cells[i+1].ondblclick=e=>{e.target.style.width=(e.target.style.width!=="auto")?"auto":"50%"};
     }
     this.rows[0].cells[0].onclick=e=>{this.slctAll()}
+
     this.refresh();
 }
 }

@@ -22,6 +22,8 @@ footer:{
 // dom.content.appendChild( dom.menu)
 // dom.menu.init()
 
+  // dom.content.style.position   = "relative";
+  dom.content.scroller   = new Scroller();
 
 
 dom.dialog.clear = function (e){ while(this.children.length > 0) this.children[0].remove(); dom.dialog.className=''}

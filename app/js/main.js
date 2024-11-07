@@ -32,6 +32,8 @@ clean_start = function () {
 	buildKeys()
 	sheet = new Sheet(new Dataframe(sampleData));
 	dom.content.appendChild(sheet);
+	dom.content.appendChild(dom.content.scroller);
+	sheet.scrollerUpdate();
 }
 
 
