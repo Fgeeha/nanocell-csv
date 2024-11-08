@@ -2,15 +2,36 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Update & run Nanocell",
+            "label": "Start HTTP Server",
             "type": "shell",
-            "command": "./dev/run_nc.bat",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "detail": "Runs the specified .bat file"
+            "command": "python",
+            "args": [
+                "-m",
+                "http.server",
+                "8000"
+            ],
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "Nanocell : Run",
+            "type": "shell",
+            "command": "start",
+            "args": [
+                "chrome",
+                "http://localhost:8000/app/home.html"
+            ],
+            "problemMatcher": [],
+            "detail": "Remember to close all nanocell windows and tabs for changes to take effect"
+        },
+        {
+            "label": "Nanocell : Increment version ",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "./dev_scripts/publish_nanocell.py"
+            ],
+            "problemMatcher": []
         }
     ]
 }
-

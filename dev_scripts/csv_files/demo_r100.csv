@@ -1,0 +1,99 @@
+name, age , country, company, salary, balance, phone
+Tim,45,France,Roche,10286.06,-2366.48,000584103
+Roy,57,Armenia,Alphabet,16536.09,3477.84,085937069
+Nat,30,Kuwait,ASML Holding,1792.37,4450.81,024580073
+Eli,27,Mongolia,The Home Depot,903.01,6573.71,061073683
+Bob,20,Iraq,Broadcom,7524.86,-1787.09,013912881
+Bud,68,Latvia,Shell,15945.67,-1370.95,086078291
+Tim,41,Monaco,Nestle,1215.60,6978.78,068080263
+Moe,34,Antigua and Barbuda,Roche,12687.12,-4863.50,038934774
+Sam,67,Seychelles,Walmart,16008.46,-4179.61,044406764
+Liz,42,Belarus,The Home Depot,7300.27,8113.83,095979763
+Jax,21,Albania,Tencent Holdings,19997.16,2743.36,004483000
+Oli,61,Mali,Procter & Gamble,11453.29,8415.97,012611801
+Oli,28,Benin,Thermo Fisher Scientific,14707.84,4439.14,099170974
+Len,44,Eswatini,Broadcom,13711.52,-5894.95,043819160
+Vic,65,Iraq,Alibaba Group,15634.61,4420.61,074058749
+Roy,19,Democratic Republic of the Congo,Alphabet,10043.75,-687.50,074838737
+Sol,27,Slovakia,Meta Platforms,3587.48,5386.23,080722348
+Uri,62,Ukraine,Samsung Electronics,17728.44,3584.56,027019217
+Guy,29,Paraguay,ASML Holding,2488.20,-8093.78,077742928
+Ace,37,Thailand,Visa,16760.53,-8959.67,051258271
+Art,38,Kyrgyzstan,Tencent Holdings,13443.22,7584.52,031125044
+Ian,33,Egypt,LVMH,16118.26,6978.73,084159733
+Ike,23,Timor-Leste,Reliance Industries,8135.46,5880.68,092193294
+Gil,45,Marshall Islands,Bank of America,9472.73,3682.65,015681667
+Rob,49,Chad,Intel,11485.57,401.03,023737623
+Rob,47,Nicaragua,Chevron,15398.37,7864.94,021274760
+Jax,33,Senegal,Visa,10670.29,-2530.50,090425065
+Gil,68,Mozambique,TotalEnergies,8969.76,6912.52,016831094
+Sam,21,Lithuania,Coca-Cola,8706.08,-6471.84,076072034
+Lee,63,Eritrea,Eli Lilly and Co.,6670.05,3293.30,016963163
+Max,55,Libya,Apple,3124.08,1849.13,041277390
+Rob,46,Brunei,Johnson & Johnson,9099.62,-5660.31,080366191
+Art,36,Malta,ICBC,2490.51,6763.29,035073478
+Jem,31,United Arab Emirates,Taiwan Semiconductor Manufacturing Company,18101.91,-8010.29,002381126
+Flo,60,Spain,Kweichow Moutai,14074.90,-3922.18,053783338
+Rex,41,Papua New Guinea,Bank of America,13253.97,-1695.55,093149052
+Dan,22,Bangladesh,L'Oreal,2166.59,-7850.78,034118004
+Lou,37,Barbados,Pfizer,13642.40,6210.17,016719453
+Leo,26,Lithuania,Taiwan Semiconductor Manufacturing Company,19972.49,419.54,020357496
+Ray,56,Philippines,Coca-Cola,11413.65,5863.68,010798833
+Uri,30,Korea,Microsoft,18016.38,8950.16,056835393
+Sol,69,Kenya,Taiwan Semiconductor Manufacturing Company,5575.92,-3772.14,078417863
+Max,31,Barbados,Berkshire Hathaway,14497.98,1383.62,087754462
+Vic,60,Cyprus,Meta Platforms,13156.56,996.26,026582219
+Joe,24,Peru,TotalEnergies,2835.42,-684.78,015288426
+Fox,30,Trinidad and Tobago,ASML Holding,11201.04,2284.18,087731541
+Jay,51,Nigeria,Johnson & Johnson,2181.79,-4107.47,042425186
+Roy,69,Nauru,The Home Depot,11770.63,7934.85,097184348
+Jem,26,Eswatini,Apple,15518.04,-31.87,076676554
+Abe,68,Seychelles,Thermo Fisher Scientific,17013.94,6797.04,041468920
+Len,64,Mali,Saudi Aramco,5678.25,-7280.02,093092696
+Sol,19,Uruguay,AstraZeneca,4494.28,557.99,096066756
+Jax,22,Costa Rica,BHP Group,16128.52,1009.09,025388710
+Lee,54,Pakistan,Roche,18905.72,4307.46,065382699
+Ken,32,Jamaica,Shell,8604.97,-8654.79,011320279
+Eve,56,Central African Republic,PepsiCo,18129.78,-4041.13,097091539
+Ted,29,Trinidad and Tobago,Microsoft,2816.52,-5787.97,056680546
+Ava,58,Serbia,Walmart,3800.38,6476.20,036283826
+Eve,35,Micronesia,Shell,12444.52,4690.76,040058991
+Roy,68,Gabon,L'Oreal,1292.69,-1477.81,055061443
+Oli,66,Dominican Republic,Pfizer,18814.28,3921.39,004647147
+Eli,48,Indonesia,ICBC,15399.81,8815.00,047244661
+Moe,18,Netherlands,Reliance Industries,8121.53,6002.95,009356538
+Zoe,22,Panama,TotalEnergies,2720.13,9891.61,061627718
+Jax,54,Panama,Taiwan Semiconductor Manufacturing Company,1709.05,6279.66,013185562
+Jem,67,Panama,Berkshire Hathaway,6443.92,4586.84,017882186
+Sol,19,Kosovo,Chevron,3749.81,4421.09,070209651
+Ted,28,Brunei,The Home Depot,13853.23,-135.86,074496434
+Ava,22,Burkina Faso,JPMorgan Chase,19812.48,-9914.61,092295803
+Jim,25,Saudi Arabia,Toyota Motor Corp,18734.92,-3584.28,065024212
+Joy,46,Mauritania,Broadcom,2840.41,660.46,076543096
+Max,39,South Africa,Mastercard,4472.83,5573.89,018057238
+Jem,51,Mexico,Samsung Electronics,14430.03,2592.15,076582346
+Ada,50,Republic of Korea,ICBC,2648.02,-5237.95,054100687
+Rex,66,Burundi,ICBC,11468.05,1813.34,088854852
+Oli,61,Netherlands,SAP SE,17728.39,6049.95,054999858
+Ace,21,Bulgaria,Toyota Motor Corp,2674.14,-417.14,059601374
+Ben,20,Timor-Leste,LVMH,19041.84,7372.49,086184214
+Liz,43,Bulgaria,Amazon,7058.79,5089.08,042214409
+Mia,63,Denmark,Apple,11222.07,1077.72,045737923
+Flo,22,Vanuatu,Meta Platforms,10684.35,6325.42,024916025
+Art,30,Jordan,Merck & Co.,12704.90,-6642.69,031212645
+Deb,56,Sri Lanka,Nestle,13814.96,-7827.37,000922449
+Sal,40,Guinea,Novo Nordisk,7649.62,-931.84,067132692
+Ron,30,Chad,Roche,19398.39,3828.55,009668871
+Kim,57,India,Tesla,4815.96,-6563.62,059948593
+Hal,30,Gambia,Procter & Gamble,10651.84,8683.98,050542953
+Abe,65,Croatia,Mastercard,12147.14,5470.88,007427279
+Gus,35,Japan,TotalEnergies,17265.98,-9253.97,067028599
+Hal,39,Burma,SAP SE,18830.29,4208.24,077907959
+Dex,54,Jamaica,Samsung Electronics,5888.97,2996.67,055286217
+Eve,52,Belize,Toyota Motor Corp,5135.46,-2972.26,043971073
+Lee,19,Romania,Reliance Industries,16205.29,3976.65,025023315
+Lea,29,Slovenia,Bank of America,7361.64,-3019.94,016073322
+Pam,53,Afghanistan,Intel,8085.42,-7125.94,051443596
+Lou,21,Cote d’Ivoire,LVMH,6116.17,9930.62,077034746
+Jax,65,South Sudan,ASML Holding,8522.37,6242.32,099796418
+Uri,41,Laos,AbbVie,14418.82,6869.58,087787311

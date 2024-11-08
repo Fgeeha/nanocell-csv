@@ -9,12 +9,16 @@
   "id": "/app/",
   "prefer_related_applications": false,
   "display": "standalone",
-  "description": "CSV editor fast, lightweight, cross platform (Windows, OSX, Linux, ChromeOS), works 100% offline, has customizable themes, is keyboard shortcut driven, is perfect for handling super large files and has all the functionalities you'd expect.",
+  "description": "CSV editor : fast, simple, lightweight, cross platform, works 100% offline, quick-view large files, custommizable",
   "capture_links": "new-client",
   "file_handlers": [
     {
       "action": "/app/home.html",
-      "accept": { "text/csv": [".csv", ".tsv"]
+      "accept": {
+        "text/csv": [
+          ".csv",
+          ".tsv"
+        ]
       }
     }
   ],

@@ -1,6 +1,7 @@
 class Scroller extends HTMLElement {
     constructor() {
         super();
+        this.style.display = "none";
         this.style.width = ".7em";
         this.style.height = "4em";
         this.style.position = "fixed";
@@ -10,18 +11,10 @@ class Scroller extends HTMLElement {
         this.style.borderRadius = ".4em";
         this.style.opacity = ".5";
         this.style.zIndex = "999";
-     }
-    
-
-    
-    
-    
     }
-    
-    
-    customElements.define('ui-scroller', Scroller);
-    
-    
-    
-    
-     
+}
+customElements.define('ui-scroller', Scroller);
+
+
+
+

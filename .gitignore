@@ -1,3 +1,7 @@
 app/test/
 test/csv_files/
 test/
+
+# Ignore all .csv files except demo.csv
+*.csv
+!demo*.csv
