@@ -108,7 +108,6 @@ class CsvHandle {
 
   static from2D(matrix) {
     let isStrict = stg.save_strict;
-    let isfixed  = stg.save_fixed_width;
     let fw = stg.save_fixed_width_size;
     let sep = stg.delimiter;
     let spaces = " ".repeat(fw)
@@ -125,9 +124,7 @@ class CsvHandle {
         }
         if( quote && isStrict) throw "Strict csv format not respected <br><br> save aborted"; 
         if( quote ) data = '"' + data + '"';
-
-        if(isfixed && data.length > fw) throw  "Some cell values are too long for the selected fixed column width <br><br> save aborted";
-        if(isfixed)data = (spaces+data).slice(-fw);
+        if (fw >  data.length) data = (spaces+data).slice(-fw);
         newRow.push(data);
       }
       newMat.push(newRow.join(sep));

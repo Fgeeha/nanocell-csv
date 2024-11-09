@@ -1,18 +1,11 @@
 
 window.addEventListener('beforeunload', function (e) {
-	if (!sheet.df.isSaved) { 
-		// if (!sheet.df.isSaved) { 
-		e.preventDefault();
-		// e.returnValue = "";
-		// Msg.confirm("File changes will be lost<br>Are you sure you want to quite ?");
-	}
+	if (!sheet.df.isSaved)  e.preventDefault();
+	
 });
 
 
-let sampleData = [
-	["Hello World", ""],
-	["",  ""],
-]
+let sampleData = [	["Hello World", ""] ]
 
 
 
@@ -76,19 +69,18 @@ window.addEventListener('message', (event) => {
 
 // Known issues    =================================================================
 // potential issue when reading chunk cuts 16 bit char in 2 diff chunks, unlucky but possible, requires testing
-
+// scroller vertical not px perfect
+// UI refresh not clean 
 
 
 // TODO Eventually =================================================================
 // col operations >> add / concat / sub / mult/ div
-// context click col menu
-// custom scroller 
-// autogen R/panda/spark code for basic view
 
 
 
 // TODO Long Term =================================================================
 
+// context click col menu
 // opening multiple times a file should refocus that file
 // add a more options menu icon that opens a text menu to the right with commands or an extra menu row
 // expand should work with YYYY-MM-DD date
@@ -101,6 +93,7 @@ window.addEventListener('message', (event) => {
 
 
 // TODO Short Term =================================================================
-// finder click close  & finder advanced input rework, text input click focus
-// scroll bar 
+// finder advanced input rework, text input click focus
+// scroll bar vertical style and refresh cleanup
+// scroll bar horizontal 
 // setting for the col sort : txt first or num first & ignore header (set as dflt). 

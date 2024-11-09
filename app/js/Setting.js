@@ -103,28 +103,30 @@ Object.defineProperty(Setting, 'list', {value: [
 {title:"Appearance"},
     {key:"theme"            ,dflt:"light"       ,name:"Theme", list:[ "light" , "dark"],hide:true, cb:Setting.setTheme},
     {key:"font"             ,dflt:13            ,name:"Font Size",   min:7, max:24 ,cb:n=>{dom.body.style.fontSize = n+"px"; }   },
-    {key:"rows"             ,dflt:25            ,name:"Rows",        min:5, max:60 ,cb:n=>{if (sheet)sheet.reload()}   },
+    {key:"rows"             ,dflt:25            ,name:"Rows",        min:10, max:60 ,cb:n=>{if (sheet)sheet.reload()}   },
     {key:"cols"             ,dflt:7             ,name:"Cols",        min:3, max:30 ,cb:n=>{if (sheet)sheet.reload()} },
 
-{title:"Csv View Only"},
-    {key:"editMaxFileSize"  ,dflt: 10           ,name:"File Size (Mo)"},
-    {key:"vo_n_chunks"      ,dflt: 5            ,name:"Number of chunks loaded",                min:5, max:50  },
-    {key:"vo_n_rows"        ,dflt: 10           ,name:"Number of rows per chunk loaded",        min:3, max:50  },
-
 {title:"Csv Save"},
-    {key:"encoding"         ,dflt:"utf-8"       ,name:"Encoding"},
-    {key:"delimiter"        ,dflt:","           ,name:"Delimiter", list:[",", ";" , "TAB"],hide:true},
-    {key:"save_strict"             ,dflt:true         ,name:"Save-Strict (error on comma  or double quotes)"},
-{title:"Csv Save Fixed Width"},
-    {key:"save_fixed_width"        ,dflt:false          ,name:"Save with a column fixed width"},
-    {key:"save_fixed_width_size"   ,dflt:20             ,name:"Fixed width column size",        min:5, max: 100  },
+    {key:"encoding"                 ,dflt:"utf-8"       ,name:"Encoding"},
+    {key:"delimiter"                ,dflt:","           ,name:"Delimiter", list:[",", ";" , "TAB"],hide:true},
+    {key:"save_strict"              ,dflt:true          ,name:"Save-Strict (error on comma  or double quotes)"},
+    {key:"save_fixed_width_size"    ,dflt:0             ,name:"Minimum column size",        min:0, max: 100  },
 
 {title:"Data Validation"},
     {key:"dv_comma_num"         ,dflt:true         ,name:"In numeric values : replace commas by a dot"},
     {key:"dv_comma_txt"         ,dflt:true         ,name:"In text values : replace commas by a dash "},
     {key:"dv_quotes"            ,dflt:true         ,name:"Replace double quotes by single quotes"},
-    {key:"dv_lower"             ,dflt:true         ,name:"Force all text to lower case"},
+    {key:"dv_lower"             ,dflt:false         ,name:"Force all text to lower case"},
     
-    
+{title:"Csv View Only"},
+    {key:"editMaxFileSize"  ,dflt: 10           ,name:"File Size (Mo)"},
+    {key:"vo_n_chunks"      ,dflt: 5            ,name:"Number of chunks loaded",                min:5, max:50  },
+    {key:"vo_n_rows"        ,dflt: 10           ,name:"Number of rows per chunk loaded",        min:3, max:50  },
+
+{title:"Sort"},
+    {key:"sort_header"             ,dflt:true         ,name:"Ignore 1st row (header row)"},
+    {key:"sort_num_first"          ,dflt:false         ,name:"True:numbers first - False:text first"},
+
+
 ]});
  
