@@ -125,7 +125,7 @@ Object.defineProperty(Setting, 'list', {value: [
 
 {title:"Sort"},
     {key:"sort_header"             ,dflt:true         ,name:"Ignore 1st row (header row)"},
-    {key:"sort_num_first"          ,dflt:false         ,name:"True:numbers first - False:text first"},
+    {key:"sort_num_first"          ,dflt:false         ,name:"Numbers are sorted before text"},
 
 
 ]});

@@ -10,7 +10,7 @@ class Scroller extends HTMLElement {
         this.style.backgroundColor = "grey";
         this.style.borderRadius = ".4em";
         this.style.opacity = ".5";
-        this.style.zIndex = "999";
+        this.style.zIndex = "90";
     }
 }
 customElements.define('ui-scroller', Scroller);

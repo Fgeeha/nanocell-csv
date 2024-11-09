@@ -50,7 +50,7 @@ class Sheet extends HTMLTableElement {
 
     let str_ordered = strings.sort((a, b) => (ascending) ? a.val.localeCompare(b.val) : b.val.localeCompare(a.val)).map(({ idx }) => idx);
     let num_ordered = numbers.sort((a, b) => (ascending) ? a.val - b.val : b.val - a.val).map(({ idx }) => idx);
-    let new_order = sort_num_first? num_ordered.concat(str_ordered) : str_ordered.concat(num_ordered); 
+    let new_order = stg.sort_num_first? num_ordered.concat(str_ordered) : str_ordered.concat(num_ordered); 
     
     new_order.concat(empty);
     if(stg.sort_header) new_order.unshift(0);
