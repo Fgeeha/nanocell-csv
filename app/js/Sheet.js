@@ -10,7 +10,7 @@ class Sheet extends HTMLTableElement {
     this.fixTop = false;
     this.fixLeft = false;
     this.slctRange = false;
-    this.rangeInit = undefined;
+    this.rangeEnd = undefined;
     this.xx = 0;
     this.yy = 0;
     this.bx = 0;
@@ -27,16 +27,68 @@ class Sheet extends HTMLTableElement {
       }
     });
     this.colResize = undefined;
-    this.reload();
     this.x = 0;
     this.classList.add('sheet');
+    dom.content.innerHTML = "";
+    dom.content.appendChild(this);
+    dom.content.appendChild(dom.content.scroller);
+    this.reload();
+  }
+
+
+  get x() { return this.xx }
+  get y() { return this.yy }
+  get width() { return this.rows[0] ? this.rows[0].cells.length - 1 : 0 }
+  get height() { return this.rows.length - 1 }
+  get slct() { return this.rows[this.y - this.baseY + 1].cells[this.x - this.baseX + 1] }
+  get baseX() { return this.bx }
+  get baseY() { return this.by }
+  set baseX(n) {
+    if (n < 0) n = 0;
+    if (n >= this.df.width) n = this.df.width - 1;
+    var delta = n - this.bx;
+    this.bx = n;
+    switch (delta) {
+      case 0: break;
+      case 1: this.scrollOneRight(); break;
+      case -1: this.scrollOneLeft(); break;
+      default: this.refresh();
+    }
+  };
+
+  set baseY(n) {
+    if (n < 0) n = 0;
+    if (n >= this.df.height) n = this.df.height - 1;
+    var delta = n - this.by;
+    this.by = n;
+    switch (delta) {
+      case 0: break;
+      case 1: this.scrollOneDown(); break;
+      case -1: this.scrollOneUp(); break;
+      default: this.refresh();
+    }
+  };
+
+  set x(n) {
+    if (this.inputing) this.inputBlur();
+    if (!this.slctRange) this.rangeEnd = undefined;
+    if (n >= this.df.width + this.width - 1) n = this.df.width + this.width - 2;
+    if (this.slctRange && !this.rangeEnd) this.rangeEnd = { x: this.x, y: this.y };
+    this.xx = n < 0 ? 0 : n;
+  }
+  set y(n) {
+    if (this.inputing) this.inputBlur();
+    if (!this.slctRange) this.rangeEnd = undefined;
+    if (n >= this.df.height + this.height - 1) n = this.df.height + this.height - 2;
+    if (this.slctRange && !this.rangeEnd) this.rangeEnd = { x: this.x, y: this.y };
+    this.yy = n < 0 ? 0 : n;
   }
 
 
   sort(n, ascending) {
     let col_items = this.df.data.map(row => row[n]).map((val, idx) => ({ val, idx }))
 
-    if(stg.sort_header) col_items.shift();
+    if (stg.sort_header) col_items.shift();
 
     let numbers = [];
     let strings = [];
@@ -50,10 +102,10 @@ class Sheet extends HTMLTableElement {
 
     let str_ordered = strings.sort((a, b) => (ascending) ? a.val.localeCompare(b.val) : b.val.localeCompare(a.val)).map(({ idx }) => idx);
     let num_ordered = numbers.sort((a, b) => (ascending) ? a.val - b.val : b.val - a.val).map(({ idx }) => idx);
-    let new_order = stg.sort_num_first? num_ordered.concat(str_ordered) : str_ordered.concat(num_ordered); 
-    
+    let new_order = stg.sort_num_first ? num_ordered.concat(str_ordered) : str_ordered.concat(num_ordered);
+
     new_order.concat(empty);
-    if(stg.sort_header) new_order.unshift(0);
+    if (stg.sort_header) new_order.unshift(0);
     this.df.order(new_order)
     this.refresh();
 
@@ -81,7 +133,6 @@ class Sheet extends HTMLTableElement {
   }
 
   validate_data() {
-
     var dot = stg.dv_comma_num;
     var dash = stg.dv_comma_txt;
     var single_quote = stg.dv_quotes;
@@ -103,11 +154,11 @@ class Sheet extends HTMLTableElement {
 
 
   expand() {
-    if (this.rangeInit === undefined) return;
-    var xStart = Math.min(this.x, this.rangeInit.x);
-    var yStart = Math.min(this.y, this.rangeInit.y);
-    var xEnd = Math.max(this.x, this.rangeInit.x);
-    var yEnd = Math.max(this.y, this.rangeInit.y);
+    if (this.rangeEnd === undefined) return;
+    var xStart = Math.min(this.x, this.rangeEnd.x);
+    var yStart = Math.min(this.y, this.rangeEnd.y);
+    var xEnd = Math.max(this.x, this.rangeEnd.x);
+    var yEnd = Math.max(this.y, this.rangeEnd.y);
     if (yStart == yEnd) {
       var base0 = this.df.get(xStart, yStart)
       var base1 = this.df.get(xStart + 1, yStart)
@@ -136,59 +187,13 @@ class Sheet extends HTMLTableElement {
     }
   }
 
-  get x() { return this.xx }
-  get y() { return this.yy }
-  get width() { return this.rows[0] ? this.rows[0].cells.length - 1 : 0 }
-  get height() { return this.rows.length - 1 }
-  get slct() { return this.rows[this.y - this.baseY + 1].cells[this.x - this.baseX + 1] }
-  get baseX() { return this.bx }
-  get baseY() { return this.by }
-  set baseX(n) {
-    if (n < 0) n = 0;
-    if (n >= this.df.width) n = this.df.width - 1;
-    var delta = n - this.bx;
-    this.bx = n;
-    switch (delta) {
-      case 0: break;
-      case 1: this.scrollRight(); break;
-      case -1: this.scrollLeft(); break;
-      default: this.refresh();
-    }
-  };
 
-  set baseY(n) {
-    if (n < 0) n = 0;
-    if (n >= this.df.height) n = this.df.height - 1;
-    var delta = n - this.by;
-    this.by = n;
-    switch (delta) {
-      case 0: break;
-      case 1: this.scrollDown(); break;
-      case -1: this.scrollUp(); break;
-      default: this.refresh();
-    }
-  };
-
-  set x(n) {
-    if (this.inputing) this.inputBlur();
-    if (!this.slctRange) this.rangeInit = undefined;
-    if (n >= this.df.width + this.width - 1) n = this.df.width + this.width - 2;
-    if (this.slctRange && !this.rangeInit) this.rangeInit = { x: this.x, y: this.y };
-    this.xx = n < 0 ? 0 : n;
-  }
-  set y(n) {
-    if (this.inputing) this.inputBlur();
-    if (!this.slctRange) this.rangeInit = undefined;
-    if (n >= this.df.height + this.height - 1) n = this.df.height + this.height - 2;
-    if (this.slctRange && !this.rangeInit) this.rangeInit = { x: this.x, y: this.y };
-    this.yy = n < 0 ? 0 : n;
-  }
 
   slctAll() {
-    this.x = 0; this.y = 0; this.rangeInit = { x: this.df.width - 1, y: this.df.height - 1 }; this.slctRefresh(false)
+    this.x = 0; this.y = 0; this.rangeEnd = { x: this.df.width - 1, y: this.df.height - 1 }; this.slctRefresh(false)
   }
 
-  scrollLeft() {
+  scrollOneLeft() {
     for (var y = 0; y < this.rows.length; y++) {
       var r = this.rows[y];
       var c = r.cells[r.cells.length - 1];
@@ -199,7 +204,7 @@ class Sheet extends HTMLTableElement {
     this.rows[0].cells[1].innerHTML = (this.fixTop && header_value != "") ? header_value : this.baseX + 1;
   }
 
-  scrollRight() {
+  scrollOneRight() {
     let header_value = this.df.get(this.baseX + this.width, 0)
     this.rows[0].cells[1].innerHTML = (this.fixTop && header_value != "") ? header_value : this.baseX + this.width;
     for (var y = 0; y < this.rows.length; y++) {
@@ -210,7 +215,7 @@ class Sheet extends HTMLTableElement {
     }
   }
 
-  scrollUp() {
+  scrollOneUp() {
     var r = this.rows[this.rows.length - 1];
     for (var x = 1; x < r.cells.length; x++)  this.loadCell(r.cells[x], this.baseX + x - 1, this.baseY);
     let header_value = this.df.get(0, this.baseY + 1)
@@ -218,7 +223,7 @@ class Sheet extends HTMLTableElement {
     this.insertBefore(r, this.rows[1]);
   }
 
-  scrollDown() {
+  scrollOneDown() {
     var r = this.rows[1];
     for (var x = 1; x < r.cells.length; x++) this.loadCell(r.cells[x], this.baseX + x - 1, this.baseY + this.height - 1);
     let header_value = this.df.get(0, this.baseY + this.height)
@@ -260,7 +265,7 @@ class Sheet extends HTMLTableElement {
     var e = this.inputField.value;
     if (!this.escape) {
       this.rangeEdit(e);
-      if (!this.rangeInit) this.loadCell(this.inputField.parentNode, this.x, this.y);
+      if (!this.rangeEnd) this.loadCell(this.inputField.parentNode, this.x, this.y);
       else this.refresh();
     }
     this.inputField.remove();
@@ -280,6 +285,7 @@ class Sheet extends HTMLTableElement {
       var x = t.cellIndex + this.baseX - 1;
       var y = t.parentNode.rowIndex + this.baseY - 1;
       if (this.inputing && e.ctrlKey) {
+        // copies the content of the clicked cell into the editing input field
         e.preventDefault();
         this.inputField.value += this.df.get(x, y).split('=')[0];
         this.inputField.selectionStart = this.inputField.value.length;
@@ -296,10 +302,10 @@ class Sheet extends HTMLTableElement {
 
   footerUpdate() {
     var f = dom.footer;
-    if (this.rangeInit) {
-      var deltaX = Math.abs((this.rangeInit.x) - (this.x)) + 1
-      var deltaY = Math.abs((this.rangeInit.y) - (this.y)) + 1
-      f.left.innerHTML = (this.rangeInit.x + 1) + ":" + (this.rangeInit.y + 1) + " to " + (this.x + 1) + ":" + (this.y + 1) + " (" + deltaX + "x" + deltaY + ")";
+    if (this.rangeEnd) {
+      var deltaX = Math.abs((this.rangeEnd.x) - (this.x)) + 1
+      var deltaY = Math.abs((this.rangeEnd.y) - (this.y)) + 1
+      f.left.innerHTML = (this.x + 1) + ":" + (this.y + 1)  + " to " +  (this.rangeEnd.x + 1) + ":" + (this.rangeEnd.y + 1)+ " (" + deltaX + "x" + deltaY + ")";
     }
     else f.left.innerHTML = (this.x + 1) + ":" + (this.y + 1);
     f.right.innerHTML = this.df.width + ":" + this.df.height;
@@ -307,42 +313,44 @@ class Sheet extends HTMLTableElement {
     f.lock.src = (this.df.isSaved) ? "icn/lock.svg" : "icn/edit.svg";
   }
 
-  scrollerUpdate() {
+  scrollbarRefresh() {
     let dfh = this.df.height;
-    dom.content.scroller.style.display = (dfh < stg.rows) ? "none" : "block";
-    if (dfh < stg.rows) return;
+    let visible_min = stg.rows/2;
+    dom.content.scroller.style.display = (dfh < visible_min) ? "none" : "block";
+    if (dfh < visible_min) return;
     if (dfh < 100) dom.content.scroller.style.height = "50vh";
     else if (dfh < 1000) dom.content.scroller.style.height = "20vh";
     else dom.content.scroller.style.height = "10vh";
-    let offset = this.rows[1].getBoundingClientRect().top;
-    let theight = this.getBoundingClientRect().bottom - offset - dom.content.scroller.offsetHeight;
-    dom.content.scroller.style.top = String(Math.round(offset + theight * this.baseY / (this.df.height))) + "px";
+    let top = this.rows[1].getBoundingClientRect().top;
+    let bot = this.rows[this.rows.length - 1].getBoundingClientRect().bottom;
+    let theight = bot - top - dom.content.scroller.offsetHeight;
+    dom.content.scroller.style.top = String(Math.round(top + theight * this.baseY / (this.df.height-1))) + "px";
   }
 
   slctCol(n) {
     this.slctRange = true;
-    this.rangeInit = { x: n, y: 0 }
+    this.rangeEnd = { x: n, y: this.df.height - 1 }
     this.x = n;
-    this.y = this.df.height - 1;
+    this.y = 0;
     this.slctRange = false;
-    this.slctRefresh();
+    this.slctRefresh(false);
   }
 
   slctRow(n) {
     this.slctRange = true;
-    this.rangeInit = { x: 0, y: n }
-    this.x = this.df.width - 1;
+    this.rangeEnd = { x: this.df.width - 1, y: n }
+    this.x = 0;
     this.y = n;
     this.slctRange = false;
-    this.slctRefresh();
+    this.slctRefresh(false);
   }
 
   rangeArray() {
-    if (!this.rangeInit) return [[this.df.get(this.x, this.y)]];
-    var xStart = Math.min(this.x, this.rangeInit.x);
-    var yStart = Math.min(this.y, this.rangeInit.y);
-    var xEnd = Math.max(this.x, this.rangeInit.x);
-    var yEnd = Math.max(this.y, this.rangeInit.y);
+    if (!this.rangeEnd) return [[this.df.get(this.x, this.y)]];
+    var xStart = Math.min(this.x, this.rangeEnd.x);
+    var yStart = Math.min(this.y, this.rangeEnd.y);
+    var xEnd = Math.max(this.x, this.rangeEnd.x);
+    var yEnd = Math.max(this.y, this.rangeEnd.y);
     var mat = [];
     for (var y = yStart; y <= yEnd; y++) {
       var row = [];
@@ -352,11 +360,11 @@ class Sheet extends HTMLTableElement {
     return mat;
   }
   rangeEdit(value) {
-    if (!this.rangeInit) return this.df.edit(this.x, this.y, value);
-    var xStart = Math.min(this.x, this.rangeInit.x);
-    var yStart = Math.min(this.y, this.rangeInit.y);
-    var xEnd = Math.max(this.x, this.rangeInit.x);
-    var yEnd = Math.max(this.y, this.rangeInit.y);
+    if (!this.rangeEnd) return this.df.edit(this.x, this.y, value);
+    var xStart = Math.min(this.x, this.rangeEnd.x);
+    var yStart = Math.min(this.y, this.rangeEnd.y);
+    var xEnd = Math.max(this.x, this.rangeEnd.x);
+    var yEnd = Math.max(this.y, this.rangeEnd.y);
     for (var x = xStart; x <= xEnd; x++) for (var y = yStart; y <= yEnd; y++) this.df.edit(x, y, value);
 
   }
@@ -368,17 +376,17 @@ class Sheet extends HTMLTableElement {
 
 
   rangeApply(cb) {
-    if (!this.rangeInit) return cb(this.x, this.y);
-    var xStart = Math.min(this.x, this.rangeInit.x);
-    var yStart = Math.min(this.y, this.rangeInit.y);
-    var xEnd = Math.max(this.x, this.rangeInit.x);
-    var yEnd = Math.max(this.y, this.rangeInit.y);
+    if (!this.rangeEnd) return cb(this.x, this.y);
+    var xStart = Math.min(this.x, this.rangeEnd.x);
+    var yStart = Math.min(this.y, this.rangeEnd.y);
+    var xEnd = Math.max(this.x, this.rangeEnd.x);
+    var yEnd = Math.max(this.y, this.rangeEnd.y);
     for (var x = xStart; x <= xEnd; x++) for (var y = yStart; y <= yEnd; y++) cb(x, y);
   }
 
   rangeTranspose() {
     if (this.df.lock) return;
-    if (!this.rangeInit) return;
+    if (!this.rangeEnd) return;
     var r = this.rangeArray();
     var t = [];
     for (var x = 0; x < r[0].length; x++) {
@@ -390,20 +398,6 @@ class Sheet extends HTMLTableElement {
     this.paste(t);
   }
 
-  rangeRender() {
-    var xStart = Math.min(this.x, this.rangeInit.x) - this.baseX;
-    var yStart = Math.min(this.y, this.rangeInit.y) - this.baseY;
-    var xEnd = Math.max(this.x, this.rangeInit.x) - this.baseX;
-    var yEnd = Math.max(this.y, this.rangeInit.y) - this.baseY;
-    if (xStart < 0) xStart = 0;
-    if (yStart < 0) yStart = 0;
-    if (xEnd >= this.width) xEnd = this.width - 1;
-    if (yEnd >= this.height) yEnd = this.height - 1;
-    for (var x = xStart; x <= xEnd; x++)
-      for (var y = yStart; y <= yEnd; y++)
-        this.rows[y + 1].cells[x + 1].classList.add("slct");
-    this.footerUpdate();
-  }
 
   round(integer = true) {
     this.rangeApply((x, y) => {
@@ -426,31 +420,10 @@ class Sheet extends HTMLTableElement {
   paste(mat) {
     var minX = this.x;
     var minY = this.y;
-    if (this.rangeInit) { minX = Math.min(minX, this.rangeInit.x); minY = Math.min(minY, this.rangeInit.y) }
+    if (this.rangeEnd) { minX = Math.min(minX, this.rangeEnd.x); minY = Math.min(minY, this.rangeEnd.y) }
     for (var y = 0; y < mat.length; y++)for (var x = 0; x < mat[y].length; x++)this.df.edit(minX + x, minY + y, mat[y][x]);
   }
 
-  slctRefresh(focus = true) {
-    this.slctClear();
-    if (focus) this.slctFocus();
-    if (this.rangeInit) return this.rangeRender();
-    var y = this.y - this.baseY;
-    var x = this.x - this.baseX;
-    if (x < 0 || y < 0 || x >= this.width || y >= this.height) return;
-    this.rows[y + 1].cells[x + 1].classList.add("slct");
-    this.footerUpdate();
-    this.scrollerUpdate();
-  }
-
-  slctFocus() {
-    if (this.x < this.baseX) this.baseX = this.x;
-    else if (this.y < this.baseY) this.baseY = this.y;
-    else if (this.x >= this.baseX + this.width) this.baseX = this.x - this.width + 1;
-    else if (this.y >= this.baseY + this.height) this.baseY = this.y - this.height + 1;
-    else return;
-  }
-
-  slctClear() { var td; while (td = this.getElementsByClassName('slct')[0]) td.classList.remove('slct'); }
 
   scroll(e) {
     var coef = 16;
@@ -459,6 +432,7 @@ class Sheet extends HTMLTableElement {
       this.baseX += (e.deltaX > 0) ? Math.floor(e.deltaX / coef) : Math.ceil(e.deltaX / coef);
       this.baseY += (e.deltaY > 0) ? Math.floor(e.deltaY / coef) : Math.ceil(e.deltaY / coef);
     }
+    this.refresh();
     this.slctRefresh(false);
 
   }
@@ -476,27 +450,59 @@ class Sheet extends HTMLTableElement {
   }
 
   loadTopHeader(x) {
-    if (this.fixTop) {
-      var d = this.df.get(this.baseX + x, 0);
-      if (d.length > 0) {
-        this.rows[0].cells[x + 1].innerHTML = "<div>" + this.df.get(this.baseX + x, 0) + "</div>";
-        return;
-      }
-    }
-    this.rows[0].cells[x + 1].innerHTML = this.baseX + x + 1;
+    if (!this.fixTop) this.rows[0].cells[x + 1].innerHTML = this.baseX + x + 1;
+    else if (this.df.get(this.baseX + x, 0).length > 0) this.rows[0].cells[x + 1].innerHTML = "<div>" + this.df.get(this.baseX + x, 0) + "</div>";
   }
 
   loadLeftHeader(y) {
-    if (this.fixLeft) {
-      var d = this.df.get(0, this.baseY + y);
-      if (d.length > 0) {
-        this.rows[y + 1].cells[0].innerHTML = "<div>" + this.df.get(0, this.baseY + y) + "</div>";
-        return;
-      }
-    }
-    this.rows[y + 1].cells[0].innerHTML = this.baseY + y + 1;
+    if (!this.fixLeft) this.rows[y + 1].cells[0].innerHTML = this.baseY + y + 1;
+    else if (this.df.get(0, this.baseY + y).length > 0) this.rows[y + 1].cells[0].innerHTML = "<div>" + this.df.get(0, this.baseY + y) + "</div>";
   }
 
+  viewRangeRender() {
+    var xStart = Math.min(this.x, this.rangeEnd.x) - this.baseX;
+    var yStart = Math.min(this.y, this.rangeEnd.y) - this.baseY;
+    var xEnd = Math.max(this.x, this.rangeEnd.x) - this.baseX;
+    var yEnd = Math.max(this.y, this.rangeEnd.y) - this.baseY;
+    if (xStart < 0) xStart = 0;
+    if (yStart < 0) yStart = 0;
+    if (xEnd >= this.width) xEnd = this.width - 1;
+    if (yEnd >= this.height) yEnd = this.height - 1;
+    for (var x = xStart; x <= xEnd; x++)
+      for (var y = yStart; y <= yEnd; y++)
+        this.rows[y + 1].cells[x + 1].classList.add("slct");
+    this.footerUpdate();
+  }
+
+  isInViewRange(x, y) { return !(x < 0 || y < 0 || x >= this.width || y >= this.height) }
+
+
+  slctFocus() {
+    if (this.x < this.baseX) this.baseX = this.x;
+    else if (this.y < this.baseY) this.baseY = this.y;
+    else if (this.x >= this.baseX + this.width) this.baseX = this.x - this.width + 1;
+    else if (this.y >= this.baseY + this.height) this.baseY = this.y - this.height + 1;
+    else return;
+  }
+
+  slctClear() { var td; while (td = this.getElementsByClassName('slct')[0]) td.classList.remove('slct'); }
+
+  slctRefresh(focus = true) {
+    window.requestAnimationFrame(() => {
+      this.slctClear();
+    this.scrollbarRefresh();
+    if (focus) this.slctFocus();
+    if (this.rangeEnd) return this.viewRangeRender();
+    var y = this.y - this.baseY;
+    var x = this.x - this.baseX;
+    if (!this.isInViewRange(x, y)) return;
+    this.rows[y + 1].cells[x + 1].classList.add("slct");
+    this.footerUpdate();
+  })
+}
+
+
+  // refresh table cells content
   refresh() {
     window.requestAnimationFrame(() => {
       for (var x = 0; x < this.width; x++) this.loadTopHeader(x);
@@ -508,15 +514,6 @@ class Sheet extends HTMLTableElement {
       }
       if (this.inputing) this.slct.appendChild(this.inputField);
       this.footerUpdate();
-      this.scrollerUpdate()
-      //   time.log();
-    })
-  }
-
-  reloadFile() {
-    if (this.df.file === undefined) return Msg.quick("No file to reload");
-    Msg.choice("File will reload to last saved state.<br>Changes made since last save will be lost!", () => {
-      this.df.reload(f => { this.df = new Matrix(Csv.parse(f.content)); this.reload() })
     })
   }
 
@@ -532,15 +529,13 @@ class Sheet extends HTMLTableElement {
         this.rows[y + 1].cells[x + 1].onpointerenter = e => {
           var t = e.target;
           if (e.buttons === 1 && !this.scrolling) {
-            this.rangeInit = { x: t.cellIndex - 1 + this.baseX, y: t.parentNode.rowIndex - 1 + this.baseY };
-            this.slctRefresh();
+            this.rangeEnd = { x: t.cellIndex - 1 + this.baseX, y: t.parentNode.rowIndex - 1 + this.baseY };
+            this.slctRefresh(false);
           }
         };
       }
     }
-    for (var i = 0; i < this.width; i++) {
-      this.rows[0].cells[i + 1].ondblclick = e => { e.target.style.width = (e.target.style.width !== "auto") ? "auto" : "50%" };
-    }
+    for (var i = 0; i < this.width; i++) this.rows[0].cells[i + 1].ondblclick = e => { e.target.style.width = (e.target.style.width !== "auto") ? "auto" : "50%" };
     this.rows[0].cells[0].onclick = e => { this.slctAll() }
     this.refresh();
   }

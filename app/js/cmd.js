@@ -19,7 +19,7 @@ var cmd = {
     redo2           :{k:"Y"    ,ctrl:true, run(){sheet.df.redo();sheet.refresh()}, description:"Redo"},
     date            :{k:"T"    ,ctrl:true, run(){sheet.rangeEdit( (new Date()).getFormated("yyyy-mm-dd") );sheet.refresh() }, description:"Insert today's date"},
     find            :{k:"F"    ,ctrl:true, run(){sheet.finder.findMenu()}, description:"Quick find / match"},
-    findAdvanced    :{k:"F"    ,ctrl:true, shift:true,run(){sheet.finder.findMenu(true)}, description:"Advanced find / replace"},
+    findAdvanced    :{k:"F"    ,ctrl:true, shift:true,run(){sheet.finder.findMenu(true)}, description:"Advanced find / replace (work in progress)"},
     msg             :{k:"M"    ,ctrl:true, run(){logVersion() }, description:"..."},
     open            :{k:"O"    ,ctrl:true, run(){csvHandle.open()}, description:"Open a CSV file from the file finder"},
     save            :{k:"S"    ,ctrl:true, run(){csvHandle.save()}, description:"Save"},
@@ -30,10 +30,8 @@ var cmd = {
     next_occurance  :{k:"D"    ,ctrl:true, run(){sheet.go_to_next()}, description:"Go to next occurence of cell value"},
     sort            :{k:"L"    ,ctrl:true, run(){sheet.sort(sheet.x, true)}, description:"Sort rows based on active column (ascending order)"},
     sort_reverse    :{k:"L"    ,ctrl:true, shift:true, run(){sheet.sort(sheet.x, false)}, description:"Sort rows based on active column (descending order)"},
+
     
-    // validate_data   :{k:"Q"    ,ctrl:true, run(){Msg.choice("this is a test", ()=>{},()=>{});}, description:"Test button"},
-    // validate_data   :{k:"Q"    ,ctrl:true, run(){Msg.confirm("this is a test");}, description:"Test button"},
-    //  D >> next occurence of current cell
     shiftUp         :{k:"ARROWUP"    ,alt:true, run(dir){sheet.shift(0)}, description:"Shift row up"},
     shiftDown       :{k:"ARROWDOWN"  ,alt:true, run(dir){sheet.shift(2)}, description:"Shift row down"},
     shiftRight      :{k:"ARROWRIGHT" ,alt:true, run(dir){sheet.shift(1)}, description:"Shift col right"},
@@ -45,6 +43,7 @@ var cmd = {
     insertRight     :{k:"ARROWRIGHT" ,alt:true, shift:true, run(dir){sheet.insert(1)}, description:"Insert col right"},
     insertLeft      :{k:"ARROWLEFT"  ,alt:true, shift:true, run(dir){sheet.insert(3)}, description:"Insert col left"},
 
+    // the following is just for documentation formating but does nothing
     scrollLeft      :{k:"scroll ARROWUP "  ,alt:true,  description:"Scroll left"},
     scrollRight     :{k:"scroll ARROWDOWN "  ,alt:true,  description:"Scroll right"},
 
@@ -71,7 +70,6 @@ function buildMenu(){
       var img = document.createElement("img");
       img.src = "icn/menu/"+item+".svg";
       img.setAttribute("title",item);
-
       img.addEventListener("click",function(){cmd[item].run()})
       dom.header.appendChild(img);   
   }

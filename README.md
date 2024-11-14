@@ -1,8 +1,21 @@
 
-# Nanocell
+# Nanocell - CSV
 
+A csv file viewer and editor.
 
-A csv viewer and editor
+- fast
+- simple
+- lightweight
+- open-source
+- cross platform
+- quick-view large files
+- is a PWA (Progressive Web App)
+- works 100% offline
+- custommizable
+- free
+  
+
+App download availabale at : [https://nanocell-csv.com](https://nanocell-csv.com)
 
 ______________
 
@@ -14,8 +27,6 @@ ______________
 
 
 This work is licensed under a [Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License](http://creativecommons.org/licenses/by-nc-nd/3.0/)
-
-
 
 
 You are free to: 
@@ -32,15 +43,6 @@ Under the following terms:
 
 **No additional restrictions** — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
 
-
-
-# Testing 
-In the repo's root folder run :
-
-```
-python -m http.server 8000
-```
-and checkout : [http://localhost:8000/app/home.html](http://localhost:8000/app/home.html)
 
 
 

@@ -5,7 +5,10 @@ window.addEventListener('beforeunload', function (e) {
 });
 
 
-let sampleData = [	["Hello World", ""] ]
+let sampleData = [	
+	["Hello World", ""] ,
+
+]
 
 
 
@@ -24,9 +27,6 @@ clean_start = function () {
 	buildMenu();
 	buildKeys()
 	sheet = new Sheet(new Dataframe(sampleData));
-	dom.content.appendChild(sheet);
-	dom.content.appendChild(dom.content.scroller);
-	sheet.scrollerUpdate();
 }
 
 
@@ -69,8 +69,6 @@ window.addEventListener('message', (event) => {
 
 // Known issues    =================================================================
 // potential issue when reading chunk cuts 16 bit char in 2 diff chunks, unlucky but possible, requires testing
-// scroller vertical not px perfect
-// UI refresh not clean 
 
 
 // TODO Eventually =================================================================
@@ -87,13 +85,14 @@ window.addEventListener('message', (event) => {
 // strict csv format transform >> show all transforms and validate
 // slct to upper
 // slct to lower
-// Paste csv should format CSV
 // Test on all os
 // test memory (ram)
 
 
 // TODO Short Term =================================================================
-// finder advanced input rework, text input click focus
-// scroll bar vertical style and refresh cleanup
+// finder advanced input rework, text input click focus, copy past into input, fill with current selected cell on start ... 
 // scroll bar horizontal 
-// setting for the col sort : txt first or num first & ignore header (set as dflt). 
+// cut ctrl x not working 
+//  rework selected range order and input location ( set it to first top left index viewable)
+// do a last keydown target global object to help with mous move events 
+// ads a "view menu bar" toggle setting

@@ -65,11 +65,16 @@ document.addEventListener("mousedown",e=>{
   if (!e.shiftKey)sheet.slctRange=false;
   if(e.target != sheet.inputField) e.preventDefault();
   if(e.target === dom.content.scroller) sheet.scrolling = true;
+
+
+
+
   });
 
 
 document.addEventListener("mousemove", e => {
     {
+
       if(e.buttons < 1) sheet.scrolling = false;
       if(sheet.scrolling) {
         let offset = sheet.rows[1].getBoundingClientRect().top;
@@ -78,21 +83,27 @@ document.addEventListener("mousemove", e => {
         if(r < 0 ) r  = 0;
         if(r > 1 ) r  = 1;
         sheet.baseY  = Math.floor(sheet.df.height * r);
-        sheet.scrollerUpdate();
-
-
-        // let scroller = dom.content.scroller;
-        // theight = sheet.getBoundingClientRect().bottom - offset- dom.content.scroller.offsetHeight ;
-
-
-
-        // // let offset = sheet.rows[1].getBoundingClientRect().top;
-        // // let theight = sheet.getBoundingClientRect().bottom - offset  - scroller.offsetHeight;
-      
-        // dom.content.scroller.style.top = String(Math.floor(offset + theight * sheet.baseY/(sheet.df.height))) + "px";
-        
         sheet.slctRefresh(false);
+      } else if(e.buttons>0 ){
+        let rect = sheet.getBoundingClientRect();
+        if (e.clientY <= rect.top){ 
+          sheet.rangeEnd.y = sheet.baseY+1;
+          sheet.baseY--;
+        }
+        if (e.clientX >= rect.right - 5){ 
+          sheet.rangeEnd.x = sheet.baseX + sheet.width-2;
+          sheet.baseX++;
+        }
+        if (e.clientY >= rect.bottom){ 
+          sheet.rangeEnd.y = sheet.baseY + sheet.height-2;
+          sheet.baseY++;
+        }
+        if (e.clientX <= rect.left + 5){ 
+          sheet.rangeEnd.x = sheet.baseX +1 ;
+          sheet.baseX--;
+        }
       } 
+      sheet.slctRefresh(false);
     }
 });
 
@@ -107,7 +118,7 @@ document.addEventListener('copy', function (e) {
 document.addEventListener('paste', function (e) {
   if(sheet.inputing) return ;
   e.preventDefault();
-  sheet.paste((e.clipboardData).getData('text').split('\n').map(r=>r.split('\t')));
+  sheet.paste((e.clipboardData).getData('text').split('\n').map(r=>r.split(/[\t,]+/)));
   sheet.refresh();
 });
 

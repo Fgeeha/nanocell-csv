@@ -1,5 +1,6 @@
-const versionName = 'v1.0.0';
+const versionName = 'v1.0.1';
 const filesToCache = [
+"logo/nanocell_logo_builder.svg",
 "logo/nanocell.svg",
 "js/utils/misc.js",
 "js/utils/DateExt.js",

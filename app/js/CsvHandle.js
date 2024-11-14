@@ -19,8 +19,6 @@ class CsvHandle {
     document.title = this.file.name;
     console.log("Loading : ", this.file.name)
     this.read(this.file)
-
-
   }
 
 
@@ -36,13 +34,7 @@ class CsvHandle {
     sheet = new Sheet(new Dataframe(matrix))
     sheet.df.isSaved = true;
     sheet.df.lock = this.viewOnly;
-    dom.content.innerHTML = "";
-    dom.content.appendChild(sheet);
-    dom.content.appendChild(dom.content.scroller);
-	  sheet.scrollerUpdate();
-
   }
-
 
   read(file) {
     this.file = file;
@@ -50,61 +42,50 @@ class CsvHandle {
     let mbSize = file.size / 1000000
     this.viewOnly = mbSize > Number(stg.editMaxFileSize);
     console.log(file)
-    this.pipe("read", { file: file, viewOnly: this.viewOnly , n_chunks:stg.vo_n_chunks , n_rows:stg.vo_n_rows})
+    this.pipe("read", { file: file, viewOnly: this.viewOnly, n_chunks: stg.vo_n_chunks, n_rows: stg.vo_n_rows })
   }
-
 
   pipe(cmd, data) { this.sw.postMessage({ cmd: cmd, data: data }) }
 
-
-
-
   async open() {
     let [fileHandle] = await window.showOpenFilePicker(CsvHandle.pickerOptions);
-    const newWindow = window.open('./home.html',  "_blank", 'width=600,height=400'); // 'newWindow.html' should be the page that will handle the file
+    const newWindow = window.open('./home.html', "_blank", 'width=800,height=600'); // 'newWindow.html' should be the page that will handle the file
     const channel = new MessageChannel();
     newWindow.onload = () => {
       newWindow.postMessage({ fileHandle }, '*', [channel.port2]);
     };
-
   }
 
-
-
-  reloadFile(){ 
-    if(this.handle === null ) return Msg.quick("No file to reload from.")
-    if(!sheet.df.isSaved){
-
-      Msg.choice("Changes will be lost ? ", ()=>{
-        this.launchFile(this.handle)
-      })
+  reloadFile() {
+    if (this.handle === null) return Msg.quick("No file to reload from.")
+    if (!sheet.df.isSaved) {
+      Msg.choice("Changes will be lost ? ", () => { this.launchFile(this.handle) })
     }
   }
 
   new() { window.open('./home.html', "_blank", 'width=600,height=400') }
 
   async saveAs() {
-    if(this.viewOnly) return ;
+    if (this.viewOnly) return;
     this.handle = await window.showSaveFilePicker(CsvHandle.pickerOptions);
     this.save();
   }
   async save() {
-    if(this.viewOnly) return ;
+    if (this.viewOnly) return;
     if (this.handle === null) this.saveAs();
     else {
       const writableStream = await this.handle.createWritable();
-      try{
+      try {
         let csvContent = CsvHandle.from2D(sheet.df.data)
         await writableStream.write(csvContent);
         await writableStream.close();
         sheet.df.isSaved = true;
         sheet.refresh();
-      }catch(err){
+      } catch (err) {
         Msg.confirm(err);
       }
     }
   }
-
 
   static from2D(matrix) {
     let isStrict = stg.save_strict;
@@ -120,11 +101,11 @@ class CsvHandle {
         var quote = false;
         for (var i = 0; i < data.length; i++) {
           if (data[i] === ",") quote = true;
-          if (data[i] === '"') {  quote = true; data = data.slice(0, i) + '"' + data.slice(i); i++ }
+          if (data[i] === '"') { quote = true; data = data.slice(0, i) + '"' + data.slice(i); i++ }
         }
-        if( quote && isStrict) throw "Strict csv format not respected <br><br> save aborted"; 
-        if( quote ) data = '"' + data + '"';
-        if (fw >  data.length) data = (spaces+data).slice(-fw);
+        if (quote && isStrict) throw "Strict csv format not respected <br><br> save aborted";
+        if (quote) data = '"' + data + '"';
+        if (fw > data.length) data = (spaces + data).slice(-fw);
         newRow.push(data);
       }
       newMat.push(newRow.join(sep));
@@ -134,18 +115,12 @@ class CsvHandle {
 }
 
 
-
-
-
-
-
 Object.defineProperty(CsvHandle, 'pickerOptions', {
   value: {
     types: [
       {
         description: "csv (Comma Separated Value) ",
         accept: { "text/csv": [".csv", ".tsv"] }
-
       },
     ]
   }

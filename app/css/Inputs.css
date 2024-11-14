@@ -49,9 +49,11 @@ button:focus{
 
  .slctLeft , .slctRight{
   width: 1em;
-  font-weight: 800;
-  border: solid 1px;
+  /* font-weight: 800; */
+  /* border: solid 1px; */
   cursor: pointer;
+  box-shadow: 0 0 2px var(--fh-txt);
+  margin: 0 2em;
 }
 
 

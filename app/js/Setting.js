@@ -109,8 +109,8 @@ Object.defineProperty(Setting, 'list', {value: [
 {title:"Csv Save"},
     {key:"encoding"                 ,dflt:"utf-8"       ,name:"Encoding"},
     {key:"delimiter"                ,dflt:","           ,name:"Delimiter", list:[",", ";" , "TAB"],hide:true},
-    {key:"save_strict"              ,dflt:true          ,name:"Save-Strict (error on comma  or double quotes)"},
     {key:"save_fixed_width_size"    ,dflt:0             ,name:"Minimum column size",        min:0, max: 100  },
+    {key:"save_strict"              ,dflt:false          ,name:"Save-Strict (error on comma  or double quotes)"},
 
 {title:"Data Validation"},
     {key:"dv_comma_num"         ,dflt:true         ,name:"In numeric values : replace commas by a dot"},
@@ -119,7 +119,7 @@ Object.defineProperty(Setting, 'list', {value: [
     {key:"dv_lower"             ,dflt:false         ,name:"Force all text to lower case"},
     
 {title:"Csv View Only"},
-    {key:"editMaxFileSize"  ,dflt: 10           ,name:"File Size (Mo)"},
+    {key:"editMaxFileSize"  ,dflt: 10           ,name:"Max editable file size (Mo)"},
     {key:"vo_n_chunks"      ,dflt: 5            ,name:"Number of chunks loaded",                min:5, max:50  },
     {key:"vo_n_rows"        ,dflt: 10           ,name:"Number of rows per chunk loaded",        min:3, max:50  },
 
