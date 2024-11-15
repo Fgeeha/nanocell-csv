@@ -5,7 +5,7 @@ class Sheet extends HTMLTableElement {
     this.finder = new Finder(this);
     this.inputField = document.createElement("input");
     this.inputing = false;
-    this.scrolling = false;
+    // this.scrolling = false;
     this.escape = false;
     this.fixTop = false;
     this.fixLeft = false;
@@ -31,7 +31,7 @@ class Sheet extends HTMLTableElement {
     this.classList.add('sheet');
     dom.content.innerHTML = "";
     dom.content.appendChild(this);
-    dom.content.appendChild(dom.content.scroller);
+    dom.content.appendChild(dom.content.scrollerY);
     this.reload();
   }
 
@@ -316,15 +316,16 @@ class Sheet extends HTMLTableElement {
   scrollbarRefresh() {
     let dfh = this.df.height;
     let visible_min = stg.rows/2;
-    dom.content.scroller.style.display = (dfh < visible_min) ? "none" : "block";
+    let dsy = dom.content.scrollerY;
+    dsy.style.display = (dfh < visible_min) ? "none" : "block";
     if (dfh < visible_min) return;
-    if (dfh < 100) dom.content.scroller.style.height = "50vh";
-    else if (dfh < 1000) dom.content.scroller.style.height = "20vh";
-    else dom.content.scroller.style.height = "10vh";
+    if (dfh < 100) dsy.style.height = "50vh";
+    else if (dfh < 1000) dsy.style.height = "20vh";
+    else dsy.style.height = "10vh";
     let top = this.rows[1].getBoundingClientRect().top;
     let bot = this.rows[this.rows.length - 1].getBoundingClientRect().bottom;
-    let theight = bot - top - dom.content.scroller.offsetHeight;
-    dom.content.scroller.style.top = String(Math.round(top + theight * this.baseY / (this.df.height-1))) + "px";
+    let theight = bot - top - dsy.offsetHeight;
+    dsy.style.top = String(Math.round(top + theight * this.baseY / (this.df.height-1))) + "px";
   }
 
   slctCol(n) {
@@ -528,7 +529,7 @@ class Sheet extends HTMLTableElement {
       for (var x = 0; x < this.width; x++) {
         this.rows[y + 1].cells[x + 1].onpointerenter = e => {
           var t = e.target;
-          if (e.buttons === 1 && !this.scrolling) {
+          if (e.buttons === 1 && LBT.tagName===t.tagName) {
             this.rangeEnd = { x: t.cellIndex - 1 + this.baseX, y: t.parentNode.rowIndex - 1 + this.baseY };
             this.slctRefresh(false);
           }

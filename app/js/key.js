@@ -1,3 +1,7 @@
+let LBT = undefined;
+let RBT = undefined;
+
+
 let buildKeys = function (){
   let prevent_dflt_list = ['H','N', 'T'];// { H: history pop up, N: new window, T: new tab} 
   document.onkeydown = function(e) {
@@ -46,6 +50,9 @@ let buildKeys = function (){
   }
 }
 
+
+
+
 document.onkeyup = function(e){
    var k = e.key.toUpperCase();
    switch(k) {
@@ -57,14 +64,23 @@ document.onkeyup = function(e){
 
 
 // removes any move action when set on mouse down 
-document.addEventListener("mouseup",e=>{document.onmousemove=undefined; if(e.buttons < 1) sheet.scrolling = false;});
+document.addEventListener("mouseup",e=>{
+  document.onmousemove=undefined; 
+  if(e.buttons < 1){
+    // sheet.scrolling = false;
+    LBT = undefined;
+    RBT = undefined;
+  }
+});
 
 
 // prevents text selection
 document.addEventListener("mousedown",e=>{
-  if (!e.shiftKey)sheet.slctRange=false;
-  if(e.target != sheet.inputField) e.preventDefault();
-  if(e.target === dom.content.scroller) sheet.scrolling = true;
+  if(e.button===0) LBT = e.target;
+  if(e.button===2) RBT = e.target;
+  // if (!e.shiftKey)sheet.slctRange=false;
+  if(e.target != sheet.inputField) e.preventDefault(); // prevents text selection
+  // if(e.target === dom.content.scroller) sheet.scrolling = true;
 
 
 
@@ -75,8 +91,12 @@ document.addEventListener("mousedown",e=>{
 document.addEventListener("mousemove", e => {
     {
 
-      if(e.buttons < 1) sheet.scrolling = false;
-      if(sheet.scrolling) {
+      if(e.buttons < 1){
+        // sheet.scrolling = false;
+        LBT = undefined;
+        RBT = undefined;
+      }
+      if(LBT ===dom.content.scrollerY) {
         let offset = sheet.rows[1].getBoundingClientRect().top;
         let theight = sheet.getBoundingClientRect().bottom - offset ;
         let r = (e.clientY -offset )  /  theight ;
@@ -113,6 +133,16 @@ document.addEventListener('copy', function (e) {
   console.log("copy");
   var clip = sheet.rangeArray().map(r=>r.join('\t')).join('\n');
   e.clipboardData.setData('text/plain', clip);
+});
+
+document.addEventListener('cut', function (e) {
+  if(sheet.inputing) return ;
+  e.preventDefault();
+  console.log("cut");
+  var clip = sheet.rangeArray().map(r=>r.join('\t')).join('\n');
+  e.clipboardData.setData('text/plain', clip);
+  sheet.rangeEdit('');
+  sheet.refresh();
 });
 
 document.addEventListener('paste', function (e) {

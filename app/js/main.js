@@ -7,6 +7,35 @@ window.addEventListener('beforeunload', function (e) {
 
 let sampleData = [	
 	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
 
 ]
 
@@ -91,8 +120,8 @@ window.addEventListener('message', (event) => {
 
 // TODO Short Term =================================================================
 // finder advanced input rework, text input click focus, copy past into input, fill with current selected cell on start ... 
-// scroll bar horizontal 
 // cut ctrl x not working 
-//  rework selected range order and input location ( set it to first top left index viewable)
-// do a last keydown target global object to help with mous move events 
-// ads a "view menu bar" toggle setting
+
+// scroll bar horizontal 
+// rework selected range order and input location ( set it to first top left index viewable)
+// do a last keydown target global object to help with mouse move events 
