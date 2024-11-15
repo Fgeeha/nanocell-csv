@@ -22,11 +22,11 @@ let csvHandle = new CsvHandle()
 clean_start = function () {
 	Setting.log()
 	Setting.init();
-	Setting.setTheme();
 	buildCommands();
 	buildMenu();
-	buildKeys()
+	buildKeys();
 	sheet = new Sheet(new Dataframe(sampleData));
+	Setting.runAll();
 }
 
 

@@ -20,7 +20,7 @@ var cmd = {
     date            :{k:"T"    ,ctrl:true, run(){sheet.rangeEdit( (new Date()).getFormated("yyyy-mm-dd") );sheet.refresh() }, description:"Insert today's date"},
     find            :{k:"F"    ,ctrl:true, run(){sheet.finder.findMenu()}, description:"Quick find / match"},
     findAdvanced    :{k:"F"    ,ctrl:true, shift:true,run(){sheet.finder.findMenu(true)}, description:"Advanced find / replace (work in progress)"},
-    msg             :{k:"M"    ,ctrl:true, run(){logVersion() }, description:"..."},
+    menubar         :{k:"M"    ,ctrl:true, run(){stg.actionBar = !stg.actionBar }, description:"Toggle action bar display"},
     open            :{k:"O"    ,ctrl:true, run(){csvHandle.open()}, description:"Open a CSV file from the file finder"},
     save            :{k:"S"    ,ctrl:true, run(){csvHandle.save()}, description:"Save"},
     saveAs          :{k:"S"    ,ctrl:true, shift:true, run(){csvHandle.saveAs()}, description:"Save As"},

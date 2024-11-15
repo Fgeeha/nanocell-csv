@@ -4,7 +4,9 @@ var stg = {};
 class Setting {
     constructor(s) {
         var stored_val = localStorage.getItem(s.key);
-        if (!(isNaN(stored_val) || stored_val == null)) stored_val = Number(stored_val)
+        if (!(isNaN(stored_val) || stored_val == null)) stored_val = Number(stored_val);
+        if (stored_val=="true") stored_val = true;
+        if (stored_val=="false") stored_val = false;
         this.key = s.key;
         this.value = (stored_val == null) ? s.dflt : stored_val;
         this.cb = s.cb;
@@ -86,10 +88,14 @@ class Setting {
     }
 
     static log() {
-        for (var i = 0; i < localStorage.length; i++) {
+        for (var i = 0; i < localStorage.length; i++) 
             console.log(localStorage.key(i), " ==> ", (localStorage.getItem(localStorage.key(i))));
-        }
     }
+
+    static runAll() {
+        for (var s of Setting.list) if (s.key) stg[s.key] = stg[s.key];
+    }
+
 
     static resetDefault() {
         localStorage.clear();
@@ -103,8 +109,9 @@ Object.defineProperty(Setting, 'list', {value: [
 {title:"Appearance"},
     {key:"theme"            ,dflt:"light"       ,name:"Theme", list:[ "light" , "dark"],hide:true, cb:Setting.setTheme},
     {key:"font"             ,dflt:13            ,name:"Font Size",   min:7, max:24 ,cb:n=>{dom.body.style.fontSize = n+"px"; }   },
-    {key:"rows"             ,dflt:25            ,name:"Rows",        min:10, max:60 ,cb:n=>{if (sheet)sheet.reload()}   },
+    {key:"rows"             ,dflt:25            ,name:"Rows",        min:10, max:60,cb:n=>{if (sheet)sheet.reload()}   },
     {key:"cols"             ,dflt:7             ,name:"Cols",        min:3, max:30 ,cb:n=>{if (sheet)sheet.reload()} },
+    {key:"actionBar"        ,dflt:true          ,name:"Action Bar",                 cb:b=>{ console.log(b);  dom.header.style.display = b? "flex":"none"} },
 
 {title:"Csv Save"},
     {key:"encoding"                 ,dflt:"utf-8"       ,name:"Encoding"},
