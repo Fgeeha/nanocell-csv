@@ -13,7 +13,7 @@ let buildKeys = function (){
   sheet.slctRange = shift;
   if (alt && k =="TAB") return; // enable switching window 
   if (ctrlDown && (k==="C" || k==="V"))return;
-  if (ctrlDown && (prevent_dflt_list.includes(k))  ) {e.preventDefault(); console.log("prevented : ", k) } // prevent : 
+  if (ctrlDown && (prevent_dflt_list.includes(k))  ) {e.preventDefault(); } // prevent : 
   if (k==="TAB" ) {e.preventDefault(); } // prevent : 
   if (!dom.dialog.isBusy && k==="ESCAPE")return dom.dialog.clear();
   if (dom.dialog.isBusy && k==="ESCAPE")return dom.dialog.clear();
@@ -107,19 +107,19 @@ document.addEventListener("mousemove", e => {
       } else if(e.buttons>0 ){
         let rect = sheet.getBoundingClientRect();
         if (e.clientY <= rect.top){ 
-          sheet.rangeEnd.y = sheet.baseY+1;
+          if(sheet.rangeEnd)sheet.rangeEnd.y = sheet.baseY+1;
           sheet.baseY--;
         }
         if (e.clientX >= rect.right - 5){ 
-          sheet.rangeEnd.x = sheet.baseX + sheet.width-2;
+          if(sheet.rangeEnd)sheet.rangeEnd.x = sheet.baseX + sheet.width-2;
           sheet.baseX++;
         }
         if (e.clientY >= rect.bottom){ 
-          sheet.rangeEnd.y = sheet.baseY + sheet.height-2;
+          if(sheet.rangeEnd)sheet.rangeEnd.y = sheet.baseY + sheet.height-2;
           sheet.baseY++;
         }
         if (e.clientX <= rect.left + 5){ 
-          sheet.rangeEnd.x = sheet.baseX +1 ;
+          if(sheet.rangeEnd)sheet.rangeEnd.x = sheet.baseX +1 ;
           sheet.baseX--;
         }
       } 

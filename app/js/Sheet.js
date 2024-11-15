@@ -40,7 +40,6 @@ class Sheet extends HTMLTableElement {
   get y() { return this.yy }
   get width() { return this.rows[0] ? this.rows[0].cells.length - 1 : 0 }
   get height() { return this.rows.length - 1 }
-  get slct() { return this.rows[this.y - this.baseY + 1].cells[this.x - this.baseX + 1] }
   get baseX() { return this.bx }
   get baseY() { return this.by }
   set baseX(n) {
@@ -254,12 +253,49 @@ class Sheet extends HTMLTableElement {
   }
 
   input(txt) {
-    if (!this.slct) return;
+    // if (!this.slct) return;
+    let cell = this.bestInputCell();
+    if (cell===undefined) return ;
     this.inputing = true;
     this.inputField.value = txt ? txt : this.df.get(this.x, this.y);
-    this.slct.appendChild(this.inputField);
+    // this.showInputField();
+    cell.appendChild(this.inputField);
     this.inputField.focus();
   }
+
+  bestInputCell() {
+    // try{
+    // this.rows[this.y - this.baseY + 1].cells[this.x - this.baseX + 1].appendChild(this.inputField);
+    //    }catch (e) {
+
+    if (this.cellInView(this.x, this.y)) return this.rows[this.y - this.baseY + 1].cells[this.x - this.baseX + 1]
+    
+    if (this.rangeEnd) {
+
+      let viewEnd = { x: this.baseX + this.width, y: this.baseY + this.height };
+      let viewStart = { x: this.baseX, y: this.baseY };
+      var rx = undefined;
+      var ry = undefined;
+      var xStart = Math.min(this.x, this.rangeEnd.x);
+      var yStart = Math.min(this.y, this.rangeEnd.y);
+      var xEnd = Math.max(this.x, this.rangeEnd.x);
+      var yEnd = Math.max(this.y, this.rangeEnd.y);
+
+      if (viewStart.y < yStart && viewEnd.y > yStart) ry = yStart;
+      if (viewStart.y > yStart && viewStart.y <= yEnd) ry = viewStart.y;
+      if (viewStart.x < xStart && viewEnd.x > xStart) rx = xStart;
+      if (viewStart.x > xStart && viewStart.x <= xEnd) rx = viewStart.x;
+
+      if (rx !== undefined && ry !== undefined) return this.rows[ry - this.baseY + 1].cells[rx - this.baseX + 1]
+    } 
+    return undefined;
+  }
+  
+  cellInView(x, y) {
+    return x >= this.baseX && y >= this.baseY && x < this.baseX + this.width && y < this.baseY + this.height
+
+  }
+
 
   inputBlur() {
     var e = this.inputField.value;
@@ -268,9 +304,9 @@ class Sheet extends HTMLTableElement {
       if (!this.rangeEnd) this.loadCell(this.inputField.parentNode, this.x, this.y);
       else this.refresh();
     }
-    this.inputField.remove();
     this.inputing = false;
     this.escape = false;
+    try{this.inputField.remove()}catch (e){}
   }
 
   dblclick(e) {
@@ -305,7 +341,7 @@ class Sheet extends HTMLTableElement {
     if (this.rangeEnd) {
       var deltaX = Math.abs((this.rangeEnd.x) - (this.x)) + 1
       var deltaY = Math.abs((this.rangeEnd.y) - (this.y)) + 1
-      f.left.innerHTML = (this.x + 1) + ":" + (this.y + 1)  + " to " +  (this.rangeEnd.x + 1) + ":" + (this.rangeEnd.y + 1)+ " (" + deltaX + "x" + deltaY + ")";
+      f.left.innerHTML = (this.x + 1) + ":" + (this.y + 1) + " to " + (this.rangeEnd.x + 1) + ":" + (this.rangeEnd.y + 1) + " (" + deltaX + "x" + deltaY + ")";
     }
     else f.left.innerHTML = (this.x + 1) + ":" + (this.y + 1);
     f.right.innerHTML = this.df.width + ":" + this.df.height;
@@ -315,7 +351,7 @@ class Sheet extends HTMLTableElement {
 
   scrollbarRefresh() {
     let dfh = this.df.height;
-    let visible_min = stg.rows/2;
+    let visible_min = stg.rows / 2;
     let dsy = dom.content.scrollerY;
     dsy.style.display = (dfh < visible_min) ? "none" : "block";
     if (dfh < visible_min) return;
@@ -325,7 +361,7 @@ class Sheet extends HTMLTableElement {
     let top = this.rows[1].getBoundingClientRect().top;
     let bot = this.rows[this.rows.length - 1].getBoundingClientRect().bottom;
     let theight = bot - top - dsy.offsetHeight;
-    dsy.style.top = String(Math.round(top + theight * this.baseY / (this.df.height-1))) + "px";
+    dsy.style.top = String(Math.round(top + theight * this.baseY / (this.df.height - 1))) + "px";
   }
 
   slctCol(n) {
@@ -491,16 +527,16 @@ class Sheet extends HTMLTableElement {
   slctRefresh(focus = true) {
     window.requestAnimationFrame(() => {
       this.slctClear();
-    this.scrollbarRefresh();
-    if (focus) this.slctFocus();
-    if (this.rangeEnd) return this.viewRangeRender();
-    var y = this.y - this.baseY;
-    var x = this.x - this.baseX;
-    if (!this.isInViewRange(x, y)) return;
-    this.rows[y + 1].cells[x + 1].classList.add("slct");
-    this.footerUpdate();
-  })
-}
+      this.scrollbarRefresh();
+      if (focus) this.slctFocus();
+      if (this.rangeEnd) return this.viewRangeRender();
+      var y = this.y - this.baseY;
+      var x = this.x - this.baseX;
+      if (!this.isInViewRange(x, y)) return;
+      this.rows[y + 1].cells[x + 1].classList.add("slct");
+      this.footerUpdate();
+    })
+  }
 
 
   // refresh table cells content
@@ -513,7 +549,8 @@ class Sheet extends HTMLTableElement {
         this.loadLeftHeader(y);
         for (var x = 0; x < this.width; x++)this.loadCell(this.rows[y + 1].cells[x + 1], this.baseX + x, by);
       }
-      if (this.inputing) this.slct.appendChild(this.inputField);
+      let cell = this.bestInputCell();
+      if (this.inputing ) cell.appendChild(this.inputField);
       this.footerUpdate();
     })
   }
@@ -529,7 +566,7 @@ class Sheet extends HTMLTableElement {
       for (var x = 0; x < this.width; x++) {
         this.rows[y + 1].cells[x + 1].onpointerenter = e => {
           var t = e.target;
-          if (e.buttons === 1 && LBT.tagName===t.tagName) {
+          if (e.buttons === 1 && LBT &&  LBT.tagName === t.tagName) {
             this.rangeEnd = { x: t.cellIndex - 1 + this.baseX, y: t.parentNode.rowIndex - 1 + this.baseY };
             this.slctRefresh(false);
           }

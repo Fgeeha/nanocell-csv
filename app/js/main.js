@@ -124,4 +124,3 @@ window.addEventListener('message', (event) => {
 
 // scroll bar horizontal 
 // rework selected range order and input location ( set it to first top left index viewable)
-// do a last keydown target global object to help with mouse move events 

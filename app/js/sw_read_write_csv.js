@@ -19,8 +19,6 @@ separatorDetection= function (txt){
 
 
 csv_parse = function(txt, d = ","){
-  console.log("parsing");
-
   return  txt.split(/[;\r]?\n/).map(s=>{
     var r = [];     //result;
     var q = '"';    //quote

@@ -82,14 +82,13 @@ class Setting {
 
 
     static setTheme() {
-        console.log("setting theme callback")
         dom.theme.href = "css/themes/" + stg.theme + ".css";
         dom.palette.href = "css/palettes/" + stg.theme + ".css";
     }
 
     static log() {
         for (var i = 0; i < localStorage.length; i++) 
-            console.log(localStorage.key(i), " ==> ", (localStorage.getItem(localStorage.key(i))));
+            console.log(localStorage.key(i), " >> ", (localStorage.getItem(localStorage.key(i))));
     }
 
     static runAll() {
@@ -111,7 +110,7 @@ Object.defineProperty(Setting, 'list', {value: [
     {key:"font"             ,dflt:13            ,name:"Font Size",   min:7, max:24 ,cb:n=>{dom.body.style.fontSize = n+"px"; }   },
     {key:"rows"             ,dflt:25            ,name:"Rows",        min:10, max:60,cb:n=>{if (sheet)sheet.reload()}   },
     {key:"cols"             ,dflt:7             ,name:"Cols",        min:3, max:30 ,cb:n=>{if (sheet)sheet.reload()} },
-    {key:"actionBar"        ,dflt:true          ,name:"Action Bar",                 cb:b=>{ console.log(b);  dom.header.style.display = b? "flex":"none"} },
+    {key:"actionBar"        ,dflt:true          ,name:"Action Bar",                 cb:b=>{dom.header.style.display = b? "flex":"none"} },
 
 {title:"Csv Save"},
     {key:"encoding"                 ,dflt:"utf-8"       ,name:"Encoding"},
