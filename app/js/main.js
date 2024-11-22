@@ -6,6 +6,30 @@ window.addEventListener('beforeunload', function (e) {
 
 
 let sampleData = [	
+	["Hello World", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "hello to you too"] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
 	["Hello World", ""] ,
 	["Hello World", ""] ,
 	["Hello World", ""] ,
@@ -92,9 +116,6 @@ window.addEventListener('message', (event) => {
 
 
 
-// 
-
-
 
 // Known issues    =================================================================
 // potential issue when reading chunk cuts 16 bit char in 2 diff chunks, unlucky but possible, requires testing
@@ -120,7 +141,6 @@ window.addEventListener('message', (event) => {
 
 // TODO Short Term =================================================================
 // finder advanced input rework, text input click focus, copy past into input, fill with current selected cell on start ... 
-// cut ctrl x not working 
 
 // scroll bar horizontal 
-// rework selected range order and input location ( set it to first top left index viewable)
+
