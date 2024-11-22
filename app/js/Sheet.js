@@ -32,6 +32,7 @@ class Sheet extends HTMLTableElement {
     dom.content.innerHTML = "";
     dom.content.appendChild(this);
     dom.content.appendChild(dom.content.scrollerY);
+    dom.content.appendChild(dom.content.scrollerX);
     this.reload();
   }
 
@@ -337,7 +338,7 @@ class Sheet extends HTMLTableElement {
 
 
   footerUpdate() {
-    var f = dom.footer;
+    var f = dom.footerDiv;
     if (this.rangeEnd) {
       var deltaX = Math.abs((this.rangeEnd.x) - (this.x)) + 1
       var deltaY = Math.abs((this.rangeEnd.y) - (this.y)) + 1
@@ -351,17 +352,35 @@ class Sheet extends HTMLTableElement {
 
   scrollbarRefresh() {
     let dfh = this.df.height;
-    let visible_min = stg.rows / 2;
+    let dfw = this.df.width;
+    let visible_minY = stg.rows / 2;
+    let visible_minX = stg.cols -2;
     let dsy = dom.content.scrollerY;
-    dsy.style.display = (dfh < visible_min) ? "none" : "block";
-    if (dfh < visible_min) return;
+    let dsx = dom.content.scrollerX;
+    
+    dsy.style.display = (dfh < visible_minY) ? "none" : "block";
+    dsx.style.display = (dfw < visible_minX) ? "none" : "block";
+    if (dfh < visible_minY) return;
+    if (dfw < visible_minX) return;
+    if (dfw < 30) dsx.style.width = "50vw";
+    else if (dfw < 100) dsx.style.width = "20vw";
+    else dsx.style.width = "10vw";
+
     if (dfh < 100) dsy.style.height = "50vh";
     else if (dfh < 1000) dsy.style.height = "20vh";
     else dsy.style.height = "10vh";
+
     let top = this.rows[1].getBoundingClientRect().top;
     let bot = this.rows[this.rows.length - 1].getBoundingClientRect().bottom;
+    let left = this.rows[0].cells[1].getBoundingClientRect().left;
+    let right = this.getBoundingClientRect().right;
+
     let theight = bot - top - dsy.offsetHeight;
+    let twidth  = right - left - dsx.offsetWidth;
+    dsx.style.top = (bot - dsx.offsetHeight) + "px";
+    // console.log(document.getElementById("footer").offsetHeight)
     dsy.style.top = String(Math.round(top + theight * this.baseY / (this.df.height - 1))) + "px";
+    dsx.style.left = String(Math.round(left + twidth * this.baseX / (this.df.width - 1))) + "px";
   }
 
   slctCol(n) {

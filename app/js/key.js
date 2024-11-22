@@ -81,9 +81,10 @@ let buildKeys = function () {
     if (e.button === 0) LBT = e.target;
     if (e.button === 2) RBT = e.target;
     if (e.target != sheet.inputField) e.preventDefault(); // prevents text selection
+    if (LBT.tagName =="TD"){
 
-    let intervalId = setInterval(() => {
-      if (LBT === undefined) return clearInterval(intervalId);
+      let intervalId = setInterval(() => {
+        if (LBT === undefined) return clearInterval(intervalId);
       else {
         let rect = sheet.getBoundingClientRect();
         if (mouseY <= rect.top) {
@@ -104,21 +105,12 @@ let buildKeys = function () {
         }
       }
       sheet.slctRefresh(false);
-
+      
     }, 100);
-    // }
+  }
+    
   });
-  // let intervalId;
 
-  // document.addEventListener("mousedown", (e) => {
-  //     // Log the initial mouse position
-  //     console.log("Mouse Down at:", { x: e.clientX, y: e.clientY });
-  
-  //     // Start an interval to check the mouse position every 200ms
-  //     intervalId = setInterval(() => {
-  //         console.log("Mouse Position:", { x: e.clientX, y: e.clientY });
-  //     }, 200);
-  // });
 
   document.addEventListener("mousemove", e => {
     {
@@ -138,6 +130,16 @@ let buildKeys = function () {
         if (r < 0) r = 0;
         if (r > 1) r = 1;
         sheet.baseY = Math.floor(sheet.df.height * r);
+        sheet.slctRefresh(false);
+      }
+
+      if (LBT === dom.content.scrollerX) {
+        let offset = sheet.rows[0].cells[0].getBoundingClientRect().left;
+        let tWidth = sheet.getBoundingClientRect().right - offset;
+        let r = (e.clientX - offset) / tWidth;
+        if (r < 0) r = 0;
+        if (r > 1) r = 1;
+        sheet.baseX = Math.floor(sheet.df.width * r);
         sheet.slctRefresh(false);
       }
      

@@ -5,7 +5,8 @@ header:                     document.getElementById("header"),
 body:                       document.getElementById("body"),
 content:                    document.getElementById("content"),
 dialog:                     document.getElementById("dialog"),
-footer:{
+footer:                     document.getElementById("footer"),
+footerDiv:{
   left:                     document.getElementById("footerLeft"),
   center:                   document.getElementById("footerCenter"),
   right:                    document.getElementById("footerRight"),
@@ -24,6 +25,7 @@ footer:{
 
   // dom.content.style.position   = "relative";
   dom.content.scrollerY   = new Scroller();
+  dom.content.scrollerX   = new Scroller(false);
 
 
 dom.dialog.clear = function (e){ while(this.children.length > 0) this.children[0].remove(); dom.dialog.className=''}
