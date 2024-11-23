@@ -1,4 +1,4 @@
-:root{
+:root {
   --green: #48a741;
   --w: 60%;
   --grey: #eee;
@@ -6,50 +6,58 @@
 }
 
 #subtitle span {
-  margin:1em;
+  margin: 1em;
 }
 
-#about span{
-  width : 40em;
+#about span {
+  width: 40em;
 }
 
-#h1{
+h1 {
   line-height: 1.3em;
 }
-.pricing{
-  margin:.5em;
+
+code {
+  font-size: 1.3em;
 }
 
-#donate, #subscribe{
-  margin:1em;
+
+.pricing {
+  margin: .5em;
 }
 
-#priceSlct{
+#donate,
+#subscribe {
+  margin: 1em;
+}
+
+#priceSlct {
   background-color: var(--green);
-  color:white;
+  color: white;
 }
 
-a{
+a {
   color: inherit;
   text-decoration: none;
 }
 
 p a {
   font-weight: bold;
-  color:green;
+  color: green;
 }
 
-hr{
-  max-width :40em;
+hr {
+  max-width: 40em;
 }
 
-p{
+p {
   display: inline-block;
-  width : 40em;
+  width: 40em;
   text-align: justify;
   max-width: 90%;
 }
-span{
+
+span {
   display: inline-block;
   /* width: 40em; */
   align-items: center;
@@ -58,60 +66,67 @@ span{
   /* justify-content: center; */
 }
 
-section, blockquote, footer, #support{
+section,
+blockquote,
+footer,
+#support {
   max-width: 100%;
   /* padding: 1em; */
   margin: 0;
-  width :100%;
+  width: 100%;
   background-color: var(--grey);
-  box-shadow: 0 0  0 1px  var(--shadow);
+  box-shadow: 0 0 0 1px var(--shadow);
 }
 
 
 
-body{
-  display:flex;
-  flex-direction:column;
-  overflow-x: hidden; 
+body {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
   width: 100%;
-  height :100vh;
-  font-family:sans-serif;
+  height: 100vh;
+  font-family: sans-serif;
   /* font-weight:lighter; */
-  margin:0;
+  margin: 0;
   text-align: center;
   line-height: 1.5em;
 }
-#container{
-  flex-grow:1;
-  overflow-y:scroll;
-   overflow-x: hidden; 
+
+#container {
+  flex-grow: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 
-nav{
-   min-height : 10vh;
-   display: flex;
-   justify-content: space-evenly;
-   position: sticky;
-   background-color: var(--grey);
-   box-shadow: 0  1px  var(--shadow);
-   
+nav {
+  min-height: 10vh;
+  display: flex;
+  justify-content: space-evenly;
+  position: sticky;
+  background-color: var(--grey);
+  box-shadow: 0 1px var(--shadow);
+
 }
 
 
-#main-nav{
- z-index:100;
- top: 0;
+#main-nav {
+  z-index: 100;
+  top: 0;
 }
-#ug-nav{
-   z-index:50;
-   top: 0;
-   height:5vh;
+
+#ug-nav {
+  z-index: 50;
+  top: 0;
+  height: 5vh;
 }
-#ug-title{
-   box-shadow: 0  -1px  var(--shadow);
+
+#ug-title {
+  box-shadow: 0 -1px var(--shadow);
 
 }
+
 nav a {
   cursor: pointer;
   width: 30%;
@@ -120,45 +135,51 @@ nav a {
   align-items: center;
 }
 
-nav a:hover, #logoContainer:hover{
-  background-color:white;
+nav a:hover,
+#logoContainer:hover {
+  background-color: white;
 }
 
-#logoContainer{
-box-shadow: 0 1px  var(--shadow);
-background-color: var(--grey);
-position: absolute;
-bottom: -2em;
-height:4em;
-border-radius: 50%;
+#logoContainer {
+  box-shadow: 0 1px var(--shadow);
+  background-color: var(--grey);
+  position: absolute;
+  bottom: -2em;
+  height: 4em;
+  border-radius: 50%;
 }
 
-#logo{
-display: inline-block;
-height: 3em;
+#logo {
+  display: inline-block;
+  height: 3em;
 }
-button:focus {outline:0;}
-#download, button{
-  cursor:pointer;
-  position:relative;
-  color:var(--green);
+
+button:focus {
+  outline: 0;
+}
+
+#download,
+button {
+  cursor: pointer;
+  position: relative;
+  color: var(--green);
   border: 2px solid var(--green);
-  padding : 0.5em;
-  border-radius :.5em;
-  font-weight:bold;
-  background-color:white;
-  display:inline-flex;
+  padding: 0.5em;
+  border-radius: .5em;
+  font-weight: bold;
+  background-color: white;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-  
-button img{
+
+button img {
   display: inline-block;
-  height : 2em;
+  height: 2em;
   margin-right: 1em;
 }
 
-.red{
+.red {
   color: red;
   position: absolute;
   left: -1em;
@@ -173,81 +194,86 @@ header {
   flex-direction: column;
   align-items: center;
 }
-#title , #downloadHolder{
-   margin-top:.5em;
-   display: flex;
-   justify-content:space-evenly;
-   align-items: center;
-   font-size: 2em;
-   flex-wrap: wrap;
-   width: 100%;
+
+#title,
+#downloadHolder {
+  margin-top: .5em;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 2em;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
-#screenshots{
+#screenshots {
   margin: 1em;
   position: relative;
   width: 70%;
   flex-grow: 2;
 }
 
-#lightShot,#darkShot{
+#lightShot,
+#darkShot {
   position: absolute;
   height: 80%;
   box-shadow: 1px 1px 5px 3px #aaa;
 }
 
-#darkShot{
-  top:0;
-  left:0;
+#darkShot {
+  top: 0;
+  left: 0;
 }
 
-#lightShot{
-  z-index:1;
+#lightShot {
+  z-index: 1;
   top: 20%;
-  right:0;
+  right: 0;
 }
 
-#subtitle{
+#subtitle {
   flex-wrap: wrap;
   /* box-shadow: 0 -1px  var(--shadow); */
-  font-weight:bold;
+  font-weight: bold;
   /* padding: 1em; */
-  margin-top:1em;
-  display:inline-flex;
-  justify-content:space-evenly;
+  margin-top: 1em;
+  display: inline-flex;
+  justify-content: space-evenly;
   align-items: center;
 }
 
 
-#ug-title{
-   background-color: var(--grey);
-
-}
-#ug-nav{
-   background-color: var(--grey);
+#ug-title {
+  background-color: var(--grey);
 
 }
 
-#support{
+#ug-nav {
+  background-color: var(--grey);
+
+}
+
+#support {
   background-color: var(--grey)
 }
 
-#support img{
-  height :2em;
+#support img {
+  height: 2em;
   cursor: pointer;
 }
-#supList{
-  display:inline-flex;
+
+#supList {
+  display: inline-flex;
   width: 30em;
-  justify-content:space-around;
-  align-items:center;
-  margin :2em;
+  justify-content: space-around;
+  align-items: center;
+  margin: 2em;
 
 }
 
 
 
-footer{
+footer {
   min-height: 10vh;
   display: flex;
   background-color: var(--grey);
@@ -258,35 +284,37 @@ footer{
   flex-wrap: wrap;
 }
 
-.card{
-  display:inline-block;
-  text-align:left;
-  background-color:white;
-  margin:1em;
-  padding:1em;
-  border-radius:1em;
-  box-shadow: 0 0 0 1px  var(--shadow);
+.card {
+  display: inline-block;
+  text-align: left;
+  background-color: white;
+  margin: 1em;
+  padding: 1em;
+  border-radius: 1em;
+  box-shadow: 0 0 0 1px var(--shadow);
 }
 
 
-#downloadHolder button{
-  margin:0 1em 1em 1em;
+#downloadHolder button {
+  margin: 0 1em 1em 1em;
   word-wrap: none;
 }
-#osxNote{
+
+#osxNote {
   display: none;
-margin-top: 1em;
+  margin-top: 1em;
 }
-#about{
+
+#about {
   min-height: 70vh;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 1em;
   max-width: 100%;
 }
 
-footer a{
-  margin:1em;
+footer a {
+  margin: 1em;
 }
