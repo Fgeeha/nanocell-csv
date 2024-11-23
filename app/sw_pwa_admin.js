@@ -85,7 +85,7 @@ const filesToCache = [
 
 self.addEventListener('install',e=>{
 e.waitUntil(caches.open(versionName).then(cache=>{return cache.addAll(filesToCache)}))
-log_to_db("install");
+// log_to_db("install");
 });
 
 self.addEventListener('activate',e=>{
@@ -134,31 +134,31 @@ return `${year}-${month}-${day}`;
 
 
 
-self.addEventListener('message', function(event) {
-if (event.data && event.data.type === 'db_log')
-log_to_db(event.data.payload.log);
+// self.addEventListener('message', function(event) {
+// if (event.data && event.data.type === 'db_log')
+// // log_to_db(event.data.payload.log);
 
-});
+// });
 
 
 
-log_to_db = function(action){
-let url = "https://script.google.com/macros/s/AKfycbwAgDTn8inDLi7XXXYPauyXbF29tq1sWkIQBP4T2h2KVSmb-Vc5sbL8g_E_VjGastbg3Q/exec";
-let language = navigator.language || navigator.userLanguage;
-let formData = new FormData();
+// log_to_db = function(action){
+// let url = "https://script.google.com/macros/s/AKfycbwAgDTn8inDLi7XXXYPauyXbF29tq1sWkIQBP4T2h2KVSmb-Vc5sbL8g_E_VjGastbg3Q/exec";
+// let language = navigator.language || navigator.userLanguage;
+// let formData = new FormData();
 
-// Step 2: Append key-value pairs to the FormData object
-formData.append('date', formatDate(new Date()) );
-formData.append('language', language);
-formData.append('version', versionName);
-formData.append('action', action);
-formData.append('description', "na");
-formData.append('url', self.location.origin);
+// // Step 2: Append key-value pairs to the FormData object
+// formData.append('date', formatDate(new Date()) );
+// formData.append('language', language);
+// formData.append('version', versionName);
+// formData.append('action', action);
+// formData.append('description', "na");
+// formData.append('url', self.location.origin);
 
-// Step 3: Create a POST request using Fetch API
-fetch(url, {method: 'POST',body: formData })
-.then(response => {console.log("response : ");console.log(response)} ) // Assuming the response is JSON
-.then(data => console.log(data))
-.catch(error => console.error('Error:', error));
+// // Step 3: Create a POST request using Fetch API
+// fetch(url, {method: 'POST',body: formData })
+// .then(response => {console.log("response : ");console.log(response)} ) // Assuming the response is JSON
+// .then(data => console.log(data))
+// .catch(error => console.error('Error:', error));
 
-}
+// }
