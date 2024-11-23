@@ -13,6 +13,9 @@
   width : 40em;
 }
 
+#h1{
+  line-height: 1.3em;
+}
 .pricing{
   margin:.5em;
 }
