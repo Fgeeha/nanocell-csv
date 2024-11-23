@@ -83,12 +83,12 @@ window.addEventListener('message', (event) => {
 // strict csv format transform >> show all transforms and validate
 // slct to upper
 // slct to lower
-// Test on all os
 // test memory (ram)
 
 
 // TODO Short Term =================================================================
 // finder advanced input rework, text input click focus, copy past into input, fill with current selected cell on start ... 
+// build to public folder pipeline
+// Test on all os (OSX mostly)
 
-// scroll bar horizontal 
 
