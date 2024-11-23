@@ -257,7 +257,7 @@ header {
   background-color: var(--grey)
 }
 
-#support img {
+.support_logo_img {
   height: 2em;
   cursor: pointer;
 }
@@ -286,7 +286,7 @@ footer {
 
 .card {
   display: inline-block;
-  text-align: left;
+  text-align: center;
   background-color: white;
   margin: 1em;
   padding: 1em;
@@ -317,4 +317,11 @@ footer {
 
 footer a {
   margin: 1em;
+}
+
+
+.nc_logo_char{
+  height: 1.2em;
+    position: relative;
+    top: .22em;
 }
