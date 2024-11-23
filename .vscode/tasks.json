@@ -8,7 +8,9 @@
             "args": [
                 "-m",
                 "http.server",
-                "8000"
+                "8000",
+                "--directory",
+                "public"
             ],
             "isBackground": true,
             "problemMatcher": []
@@ -25,7 +27,7 @@
             "detail": "Remember to close all nanocell windows and tabs for changes to take effect"
         },
         {
-            "label": "Nanocell : Increment version ",
+            "label": "Nanocell : Publish ",
             "type": "shell",
             "command": "python",
             "args": [

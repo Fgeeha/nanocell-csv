@@ -9,7 +9,7 @@ const filesToCache = [
 "js/ui/input/NumInput.js",
 "js/ui/input/ListInput.js",
 "js/ui/input/BoolInput.js",
-"js/sw_read_write_csv.js",
+"sw_read_write_csv.js",
 "js/Shortcuts.js",
 "js/Sheet.js",
 "js/Setting.js",

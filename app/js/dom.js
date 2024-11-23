@@ -24,15 +24,12 @@ footerDiv:{
 // dom.menu.init()
 
   // dom.content.style.position   = "relative";
-  dom.content.scrollerY   = new Scroller();
-  dom.content.scrollerX   = new Scroller(false);
+
 
 
 dom.dialog.clear = function (e){ while(this.children.length > 0) this.children[0].remove(); dom.dialog.className=''}
 dom.dialog.push = function (e, fullscreen = false, closeButton = true){
  this.clear();
-
-
  if (fullscreen)dom.dialog.classList.add("dialog_large");
  else dom.dialog.classList.add("dialog_small");
  dom.dialog.classList.add("scroll");

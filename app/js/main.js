@@ -20,18 +20,20 @@ let overview = undefined;
 let csvHandle = new CsvHandle()
 
 
-clean_start = function () {
+nanocell_cleanStart = function () {
 	Setting.log()
 	Setting.init();
 	buildCommands();
 	buildMenu();
 	buildKeys();
+	dom.content.scrollerY   = new Scroller();
+	dom.content.scrollerX   = new Scroller(false);
 	sheet = new Sheet(new Dataframe(sampleData));
 	Setting.runAll();
 }
 
 
-clean_start();
+
 
 
 
@@ -90,5 +92,5 @@ window.addEventListener('message', (event) => {
 // finder advanced input rework, text input click focus, copy past into input, fill with current selected cell on start ... 
 // build to public folder pipeline
 // Test on all os (OSX mostly)
-
+// SEO optimization
 

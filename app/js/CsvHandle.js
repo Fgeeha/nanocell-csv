@@ -4,7 +4,7 @@ class CsvHandle {
     this.file = null;
     this.file_chunks = null;
     this.viewOnly = false;
-    this.sw = new Worker("js/sw_read_write_csv.js");
+    this.sw = new Worker("sw_read_write_csv.js");
     this.sw.addEventListener("message", e => {
       let d = e.data
       switch (d.cmd) {

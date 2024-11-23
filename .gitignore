@@ -1,6 +1,7 @@
 app/test/
 test/csv_files/
 test/
+public/
 
 # Ignore all .csv files except demo.csv
 *.csv
