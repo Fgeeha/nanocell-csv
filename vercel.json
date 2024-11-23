@@ -1,9 +1,5 @@
 {
-    "builds": [
-      {
-        "src": "dev_scripts/publish_nanocell.py",
-        "use": "@vercel/python"
-      }
-    ],
+
+    "buildCommand": "python dev_scripts/publish_nanocell.py",
     "outputDirectory": "public"
   }
