@@ -21,19 +21,23 @@
 </head>
 
 <body>
-    <nav id="main-nav">
-        <div class="nav_element" href=""><img id="logo" src="app/logo/nanocell.svg" alt="NanoCell-csv Logo" />
-            <h1 id="title">NanoCell - csv editor</h1>
+    <nav >
+
+        <a   class="nav_element " href="#">
+            <img id="logo" src="app/logo/nanocell.svg" alt="nc_logo" />
+            <h1 id="title" >NanoCell - csv editor</h1>
+        </a >
+        <div class="grow"></div>
+         <div id="nav_options" class="">
+             <a class="nav_element nav_link" href="#about">About</a>
+             <a class="nav_element nav_link" href="#support">Support</a>
+             <div class="nav_element " id="install"><button>Download <br><div id="version"> Beta version </div></button>   </div>
         </div>
-        <div class="nav_element" href=""></div>
-        <a class="nav_element" href="#about">About</a>
-        <a class="nav_element" href="#support">Support</a>
-        <div class="nav_element" id="install"><button>Download <br><div id="version"> Beta version </div></button>   </div>
       
     </nav>
     <div id="container">
         <header id="header">
-            <div id="screenshots">
+            <div id="screenshots" class="hide_phone">
                 <img id="lightShot" src="img/screenshot_light.png" alt="screenshot light" />
                 <img id="darkShot" src="img/screenshot_dark.png" alt="screenshot dark" />
             </div>
@@ -62,6 +66,7 @@
                 and free alternative to proprietary spreadsheet editors
                 which are often too slow and cumbersome for the vast majority of their use-cases.
             </p>
+            <br>
         </div>
         <div id="support">
             <h1>Become a sponsor</h1>
@@ -76,6 +81,8 @@
             <br>
             <br>
             <code>nanocell.csv@gmail.com</code>
+            <br>
+            <br>
         </div>
 
 

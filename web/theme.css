@@ -4,6 +4,12 @@
   --grey: #f7f7f7;
   --shadow: #aaa;
 }
+
+
+.grow{
+  flex-grow: 2;
+}
+
 #install{
   position: relative;
 }
@@ -14,18 +20,10 @@
   width: auto;
   left:0;
   right: 0;
-color:red;
+  color:red;
   font-size: .6em;
   letter-spacing: 4px;
-
-  
 }
-
-
-/* #subtitle span {
-  margin: 1em;
-} */
-
 
 
 h1 {
@@ -52,12 +50,6 @@ p {
   max-width: 90%;
 }
 
-/* span {
-  display: inline-block;
-  align-items: center;
-  max-width: 90%;
-} */
-
 body {
   display: flex;
   flex-direction: column;
@@ -80,7 +72,7 @@ body {
 }
 
 #container div {
-  min-height: 70vh;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,26 +82,29 @@ body {
 
 
 nav {
-  min-height: 10vh;
   display: flex;
   justify-content: space-evenly;
   box-shadow: 0 1px 5px #fff;
   z-index: 999;
   letter-spacing: 2px;
-  /* font-family: monospace; */
-  /* font-size: 1.2em; */
-  /* font-weight: bold; */
-}
-
-nav a {
+  flex-wrap: wrap;
   cursor: pointer;
 }
 
+#nav_options{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .nav_element {
+  min-width: 10em;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30%;
+  margin: 1em 2em;
+  flex-wrap: wrap;
+  /* width: 30%; */
 
 }
 
@@ -121,21 +116,20 @@ nav a:hover {
 }
 
 #title {
-  width: 20em;
   font-size: inherit;
-  text-align: left;
-  font-weight: normal;
+  font-weight: inherit;
 }
 
 #logo {
   display: inline-block;
   height: 3em;
-  margin: 0 .5em 0 2em;
+  margin: 0 .5em ;
 }
 
 
 
 button {
+  margin: 1em;
   cursor: pointer;
   position: relative;
   color: var(--green);
@@ -172,10 +166,12 @@ header {
 }
 
 #screenshots {
-  margin: 5vh;
+  margin: 10vh;
   position: relative;
-  width: 70%;
+  width: 60%;
   flex-grow: 2;
+height: auto;
+
 }
 
 #lightShot,
@@ -196,10 +192,13 @@ header {
   right: 0;
 }
 
-#subtitle {
+#subtitle span{
+  margin: 1em;
+}
+  #subtitle {
   flex-wrap: wrap;
   /* font-weight: bold; */
-  margin-top: 1em;
+  margin: 1em;
   display: inline-flex;
   justify-content: space-evenly;
   align-items: center;
@@ -215,7 +214,7 @@ header {
 }
 
 footer {
-  min-height: 10vh;
+  min-height: 20vh;
   display: flex;
   background-color: var(--grey);
   text-align: center;
@@ -226,4 +225,20 @@ footer {
 
 footer a {
   margin: 1em;
+}
+
+@media (max-width: 800px) {
+  .hide_phone, .nav_link, .grow{
+    display: none !important;
+  }
+  nav , .nav_element, #subtitle{
+    flex-direction: column;
+  }
+  #header{
+    min-height: auto;
+  }
+  #install, button{
+    margin-top: 0;
+  }
+
 }

@@ -32,26 +32,7 @@ nanocell_cleanStart = function () {
 	Setting.runAll();
 }
 
-
-
-
-
-
-
-
-// function log_to_database(value){
-// 	if (navigator.serviceWorker.controller) {
-// 		// Send message to the service worker
-// 		navigator.serviceWorker.controller.postMessage({
-// 		  type: 'db_log',
-// 		  payload: { log: value }
-// 		});
-// 	  }
-
-// }
-
 window.launchQueue.setConsumer(async (params) => {
-	// log_to_database("file_launch")
 	console.log(params)
 	const [handle] = params.files;
 	if (handle) csvHandle.launchFile(handle)
@@ -69,6 +50,7 @@ window.addEventListener('message', (event) => {
 
 // Known issues    =================================================================
 // potential issue when reading chunk cuts 16 bit char in 2 diff chunks, unlucky but possible, requires testing
+// ctrl+s on input tries to save the html page
 
 
 // TODO Eventually =================================================================
