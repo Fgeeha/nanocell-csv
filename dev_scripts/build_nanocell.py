@@ -3,43 +3,15 @@ import os
 import shutil
 from pathlib import Path
 
-# sw_path = "./app/sw_pwa_admin.js"
-# cached_dir = "./app/"
-
-# js_concat_list = [
-#     "Setting.js",
-#     "ui/input/BoolInput.js",
-#     "ui/input/NumInput.js",
-#     "ui/input/ListInput.js",
-#     "ui/input/Table.js",
-#     "ui/input/Scroller.js",
-# 	"utils/misc.js",
-# 	"utils/DateExt.js",
-#     "CsvHandle.js ",
-#     "Dataframe.js ",
-#     "dom.js ",
-#     "Msg.js",
-#     "Finder.js",
-#     "About.js ",
-#     "Sheet.js ",
-#     "cmd.js",
-#     "key.js",
-#     "main.js ",
-#     "Shortcuts.js",
-# ]
-
-
 def get_file_lines (fpath):
     with open(fpath, 'r') as file:
         lines = file.readlines()
     return  [line.strip() for line in lines]
 
-
 def mk_dir(path):
     dest_dir = os.path.dirname(path)
     if not os.path.exists(dest_dir):
         os.makedirs(dest_dir)
-
 
 def get_all_file_paths_from(directory):
     file_paths = []
@@ -48,17 +20,14 @@ def get_all_file_paths_from(directory):
             file_paths.append(os.path.join(root, file))
     return file_paths
 
-
-
 def clean_js_rows(input_file):
     with open(input_file, 'r', encoding='utf-8') as file:
         lines = file.readlines()
     cleaned_lines = []
     for line in lines:
-        line = re.sub(r'<!--.*?-->', '', line)
-        line  = line.strip() +"\n"
-        if line and not (line[0]=="/" and line[1]=="/") :
-            cleaned_lines.append(line)
+        line  = line.strip() 
+        if len(line) >0 and not (line[0]=="/" and line[1]=="/") :
+            cleaned_lines.append(line+"\n")
     return cleaned_lines
 
 def clean_js_file(input_file, output_file):
@@ -89,7 +58,6 @@ def fcp(src_path, dest_path):
     os.makedirs(dest_dir, exist_ok=True)
     shutil.copy2(src_path, dest_path)
 
-
 def copy_web_to_public():
     path_list = get_all_file_paths_from("web")
     for file_path in path_list:
@@ -109,8 +77,6 @@ def fcp_dir(src, src_rm , dst):
         new_path = Path( Path(dst) / path.relative_to(src_rm) )
         fcp(file_path, new_path)
 
-      
-
 def frm(dir_path):
     try:
         shutil.rmtree(dir_path)
@@ -129,7 +95,6 @@ def update_sw_pwa_admin():
         file.write("\n".join(sw_text))
 
 
-
 frm("public")
 copy_web_to_public()
 mk_dir("./public/app/")
@@ -139,13 +104,9 @@ fcp_dir("app/icn","", "public" )
 fcp_dir("app/logo","", "public" )
 clean_html_file("app/home.html" , "./public/app/home.html")
 clean_js_file("app/sw_read_write_csv.js" , "./public/app/sw_read_write_csv.js")
-fcp("app/sw_pwa_admin.js" , "./public/app/sw_pwa_admin.js")
+clean_js_file("app/sw_pwa_admin.js" , "./public/app/sw_pwa_admin.js")
 update_sw_pwa_admin()
 
-
-
-
-#    
 
 
 # def increment_version(txt):
@@ -156,37 +117,5 @@ update_sw_pwa_admin()
 #     updated_txt = re.sub(r"(\d+\.\d+\.\d+)", new_version, txt)
 #     return updated_txt
 
-
-# def get_all_file_paths(directory):
-#     file_paths = []
-#     for root, _, files in os.walk(directory):
-#         for file in files:
-#             file_paths.append(os.path.join(root, file))
-    
-#     return file_paths
-
-
-# sw_text = get_file_lines(sw_path)
-
-# sw_text[0] = increment_version (sw_text[0])
-
-
-# while(len(sw_text[2]) ==0 or sw_text[2][0] != ']') :
-#     del sw_text[2]
-
-
-# files = get_all_file_paths(cached_dir)
-
-# for fpath in files : 
-#     sw_text.insert(2, f"\"{fpath[6:].replace('\\', '/')}\",")
-
-
-
-
-# with open(sw_path, 'w') as file:
-#     file.write("\n".join(sw_text))
-
-
-# print(f"succesfully updated : {sw_text[0]}")
 
 

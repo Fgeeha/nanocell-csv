@@ -11,50 +11,28 @@
     <meta property="og:image:height" content="500">
     <meta property="og:image:alt" content="NC logo">
     <meta property="og:description " content="CSV editor : fast, simple, lightweight, cross platform">
-
     <title>NanoCell - CSV Editor</title>
-
     <link rel="icon" href="app/logo/nanocell.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="theme.css">
-    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
     <link rel="manifest" href="manifest.JSON">
-
-
     <script defer src="/_vercel/insights/script.js"></script>
-
-
     <!-- <script src="https://js.stripe.com/v3"></script> -->
 </head>
 
 <body>
     <nav id="main-nav">
-        <a href="#header">NanoCell - CSV</a>
-        <a href="#about">About</a>
-        <a href="#header"><img id="logo" src="app/logo/nanocell.svg" alt="NanoCell-csv Logo" /></a>
-        <a href="#support">Support</a>
-        <a href="#header" id="dld_btn">Download </a>
+        <div class="nav_element" href=""><img id="logo" src="app/logo/nanocell.svg" alt="NanoCell-csv Logo" />
+            <h1 id="title">NanoCell - csv editor</h1>
+        </div>
+        <div class="nav_element" href=""></div>
+        <a class="nav_element" href="#about">About</a>
+        <a class="nav_element" href="#support">Support</a>
+        <div class="nav_element" id="install"><button>Download <br><div id="version"> Beta version </div></button>   </div>
+      
     </nav>
     <div id="container">
-
         <header id="header">
-            <h1 id="title" style="margin-top: 1em;"><span>NanoCell - CSV editor</span></h1>
-            <div id="downloadHolder">
-                <button id="install">Install NanoCell - CSV</button>
-            </div>
-            <section id="osxNote">
-                <h3>Mac OS : Important Note</h3>
-                NanoCell - CSV's MacOS release does not have an 'Apple Installer Certificate'. <br>
-                Because of this, NanoCell - CSV cannot be distributed under its valid name. <br>
-                <b>NanoCell - CSV will still behave normally and remain 100% functional. </b> <br>
-                To install, drag the app from the .dmg to the app directory. <br>
-                <br>
-                The 'Apple Installer certificate' requires a €90/yr developer subscription. <br>
-                Please <i><a href="#support">donate</a></i> to NanoCell - CSV for Mac OS full support.
-                <br><br>
-                <button id="osxDownload">Continue to download </button>
-                <br><br>
-            </section>
             <div id="screenshots">
                 <img id="lightShot" src="img/screenshot_light.png" alt="screenshot light" />
                 <img id="darkShot" src="img/screenshot_dark.png" alt="screenshot dark" />
@@ -65,89 +43,65 @@
                 <span>Open Source</span>
                 <span>Cross Platform</span>
             </section>
+
         </header>
         <div id="about">
 
-            <h1>NanoCell - CSV is built for speed and simplicity.</h1>
-            <br> <br>
+            <h1>NanoCell is built for speed and simplicity.</h1>
             <p>
-                <img class="nc_logo_char" src="app/logo/nanocell.svg" alt="nc_logo_char"> lets you visualize data
+                Nanocell lets you visualize data
                 instantly, independent of the file size.
                 It is an amazing tool to quick-view large database extract on a moment's notice.
                 It is also perfect to edit smaller datasets such as config tables as it does not try to interpret or
                 compute cell values, keeping your file safe from any data-corruption.
-                When opening files that are not respecting csv format good practices, <img class="nc_logo_char"
-                    src="app/logo/nanocell.svg" alt="nc_logo_char"> will help you get your
+                When opening files that are not respecting csv format good practices, Nanocell will help you get your
                 data back into shape.
-            </p>
 
-            <hr>
-            <span><img class="nc_logo_char" src="app/logo/nanocell.svg" alt="nc_logo_char"> aims to provide <b> a simple
-                    and free alternative to proprietary spreadsheet editors</b>
-                which are often too slow and cumbersome for the vast majority of their use-cases. </span>
-            <br><br>
+                <br> <br>
+                Nanocell aims to provide a simple
+                and free alternative to proprietary spreadsheet editors
+                which are often too slow and cumbersome for the vast majority of their use-cases.
+            </p>
         </div>
         <div id="support">
-
-
-            <br><br>
             <h1>Become a sponsor</h1>
-
-            <img class="nc_logo_char" src="app/logo/nanocell.svg" alt="nc_logo_char"> is looking for financial support
-            to guarantee the long term maintenance and reliabilty of the
-            software.
-            <br> <br>
-            To become a sponsor, please contact the founder via email or via linkedin. <br> <br>
+            <p>
+                Nanocell is looking for financial support to guarantee the long term maintenance and reliabilty of the
+                software. To become a sponsor, please contact the founder via email or via linkedin.
+            </p>
             <br>
-            <a href="https://www.linkedin.com/in/cedric-bonjour" target="_blank"><img class="support_logo_img"
+            <br>
+            <a href="https://www.linkedin.com/in/cedric-bonjour" target="_blank"><img class="support_link_img"
                     src="img/nav/linkedin.svg"></a>
             <br>
             <br>
             <code>nanocell.csv@gmail.com</code>
-
-            <br><br> <br><br>
-
-        </div>
-
-        <div>
-            <br><br><br>
-            <div class="card">
-                <h3>Upcoming Documentation and Tutorial section</h3>
-
-
-            </div>
-
-            <br><br><br>
         </div>
 
 
 
 
 
-        <!-- <p>We would like to give a great many thanks to <a href="https://github.com/jiggzson">Martin Donk @jiggzson</a> for his <a href="https://github.com/jiggzson/nerdamer">Nerdamer</a> project : a small and light-weight symbolic math expression evaluator enabling NanoCell's solver feature. Checkout his work at <a href="https://nerdamer.com/">nerdamer.com</a></p> -->
+
+
 
         <footer>
             <a href="https://CedricBonjour.github.io/" target="_blank">About the founder</a>
 
-            <!-- <a href="https://github.com/nanocell-csv/nanocell-csv.github.io/issues" target="_blank"><button>Bug Reports &amp; Feature Requests</button></a> -->
 
 
             <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/" target="_blank">License <br> CC BY-NC-ND
                 3.0</a>
 
 
-            <!-- <a href="">Release Notes</a> -->
-            <!-- <a href="">Github project</a> -->
-            <!-- <a href="#">Reddit</a> -->
+
         </footer>
     </div>
-    <!-- <script type="text/javascript" src="script.js"></script> -->
 
 
     <script type="text/javascript">
         let installPrompt = null;
         window.addEventListener("beforeinstallprompt", (event) => {
-            // event.preventDefault();
             installPrompt = event;
         });
 
@@ -159,13 +113,17 @@
         }
 
         document.getElementById('install').addEventListener("click", handleInstallPrompt);
-        document.getElementById('dld_btn').addEventListener("click", handleInstallPrompt);
         if ('serviceWorker' in navigator) {
-            // console.log("trying to register sw")
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('app/sw_pwa_admin.js')
-                    .then(registration => { console.log('Service Worker is registered', registration); })
-                    .catch(err => { console.error('Registration failed:', err); });
+                    .then(registration => {
+                        console.log('Service Worker is registered', registration);
+                    })
+                    .catch(err => {
+                        console.error('Registration failed:', err);
+                        // document.getElementById('install').children[0].innerHTML = "Install not available"
+
+                    });
             });
         } else { alert("Service workers not suported by browser") }
 
@@ -176,3 +134,24 @@
 
 
 </html>
+
+<!-- do a release notes  -->
+<!-- do a projecvt issues -->
+<!-- do doc -->
+
+<!-- <span id="nc_version"> Beta_v0.0.1</span> -->
+<!-- <section id="osxNote">
+                <h3>Mac OS : Important Note</h3>
+                NanoCell - CSV's MacOS release does not have an 'Apple Installer Certificate'. <br>
+                Because of this, NanoCell - CSV cannot be distributed under its valid name. <br>
+                <b>NanoCell - CSV will still behave normally and remain 100% functional. </b> <br>
+                To install, drag the app from the .dmg to the app directory. <br>
+                <br>
+                The 'Apple Installer certificate' requires a €90/yr developer subscription. <br>
+                Please <i><a href="#support">donate</a></i> to NanoCell - CSV for Mac OS full support.
+                <br><br>
+                <button id="osxDownload">Continue to download </button>
+                <br><br>
+            </section> -->
+
+<!-- <p>We would like to give a great many thanks to <a href="https://github.com/jiggzson">Martin Donk @jiggzson</a> for his <a href="https://github.com/jiggzson/nerdamer">Nerdamer</a> project : a small and light-weight symbolic math expression evaluator enabling NanoCell's solver feature. Checkout his work at <a href="https://nerdamer.com/">nerdamer.com</a></p> -->

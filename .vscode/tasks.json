@@ -27,11 +27,20 @@
             "detail": "Remember to close all nanocell windows and tabs for changes to take effect"
         },
         {
-            "label": "Nanocell : Publish ",
+            "label": "Nanocell : Build ",
             "type": "shell",
             "command": "python",
             "args": [
-                "./dev_scripts/publish_nanocell.py"
+                "./dev_scripts/build_nanocell.py"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Nanocell : increment Version ",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "./dev_scripts/update_version.py"
             ],
             "problemMatcher": []
         }

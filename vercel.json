@@ -1,5 +1,4 @@
 {
-
-    "buildCommand": "python3 dev_scripts/publish_nanocell.py",
+    "buildCommand": "python3 dev_scripts/build_nanocell.py",
     "outputDirectory": "public"
-  }
+}
