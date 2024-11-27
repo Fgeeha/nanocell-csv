@@ -54,8 +54,8 @@ window.addEventListener('message', (event) => {
 // Known issues    =================================================================
 // potential issue when reading chunk cuts 16 bit char in 2 diff chunks, unlucky but possible, requires testing
 // ctrl+s on input tries to save the html page
-// alt arrow should move multiple row/col when slct range is active
 // Finder is under bot scrollbar
+// ctrl+ shift +e should expand horizontally
 
 // TODO Eventually =================================================================
 // col operations >> add / concat / sub / mult/ div
@@ -67,7 +67,8 @@ window.addEventListener('message', (event) => {
 // context click col menu
 // opening multiple times a file should refocus that file
 // add a more options menu icon that opens a text menu to the right with commands or an extra menu row
-// expand should work with YYYY-MM-DD date
+// expand should work with YYYY-MM-DD date 
+// add date formatting
 // strict csv format transform >> show all transforms and validate
 // slct to upper
 // slct to lower
@@ -76,7 +77,7 @@ window.addEventListener('message', (event) => {
 
 // TODO Short Term =================================================================
 // finder advanced input rework, text input click focus, copy past into input, fill with current selected cell on start ... 
-// build to public folder pipeline
+// build offuscation
 // Test on all os (OSX mostly)
 // SEO optimization
 

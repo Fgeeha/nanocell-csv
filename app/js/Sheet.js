@@ -522,13 +522,13 @@ class Sheet extends HTMLTableElement {
   }
 
   loadTopHeader(x) {
-    if (!this.fixTop) this.rows[0].cells[x + 1].innerHTML = this.baseX + x + 1;
-    else if (this.df.get(this.baseX + x, 0).length > 0) this.rows[0].cells[x + 1].innerHTML = "<div>" + this.df.get(this.baseX + x, 0) + "</div>";
+    if (this.fixTop && this.df.get(this.baseX + x, 0).length > 0) this.rows[0].cells[x + 1].innerHTML = "<div>" + this.df.get(this.baseX + x, 0) + "</div>";
+    else this.rows[0].cells[x + 1].innerHTML = this.baseX + x + 1;
   }
 
   loadLeftHeader(y) {
-    if (!this.fixLeft) this.rows[y + 1].cells[0].innerHTML = this.baseY + y + 1;
-    else if (this.df.get(0, this.baseY + y).length > 0) this.rows[y + 1].cells[0].innerHTML = "<div>" + this.df.get(0, this.baseY + y) + "</div>";
+    if (this.fixLeft && this.df.get(0, this.baseY + y).length > 0) this.rows[y + 1].cells[0].innerHTML = "<div>" + this.df.get(0, this.baseY + y) + "</div>";
+    else  this.rows[y + 1].cells[0].innerHTML = this.baseY + y + 1;
   }
 
   viewRangeRender() {
