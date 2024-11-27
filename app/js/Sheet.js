@@ -152,37 +152,43 @@ class Sheet extends HTMLTableElement {
     this.refresh();
   }
 
-
-  expand() {
-    if (this.rangeEnd === undefined) return;
+  rangeOrdered(){
+    if(this.rangeEnd===undefined) return ;
     var xStart = Math.min(this.x, this.rangeEnd.x);
     var yStart = Math.min(this.y, this.rangeEnd.y);
     var xEnd = Math.max(this.x, this.rangeEnd.x);
     var yEnd = Math.max(this.y, this.rangeEnd.y);
-    if (yStart == yEnd) {
-      var base0 = this.df.get(xStart, yStart)
-      var base1 = this.df.get(xStart + 1, yStart)
+    return {xmin:xStart, xmax:xEnd, ymin:yStart, ymax:yEnd};
+  }
+
+
+  expand() {
+    if (this.rangeEnd === undefined) return;
+    let r =this.rangeOrdered();
+    if (r.ymin == r.ymax) {
+      var base0 = this.df.get(r.xmin, r.ymin)
+      var base1 = this.df.get(r.xmin + 1, r.ymin)
       var baseN0 = Number(base0);
       var baseN1 = Number(base1);
       var d = baseN1 - baseN0;
       if (isNaN(baseN1) && !isNaN(baseN0)) d = 1;
       if (base0 == "" && base1 == "") d = 1;
-      if (isNaN(d)) for (var j = xStart; j <= xEnd; j++) this.df.edit(j, this.y, base0)
-      else for (var j = xStart; j <= xEnd; j++) this.df.edit(j, this.y, baseN0 + d * (j - xStart))
+      if (isNaN(d)) for (var j = r.xmin; j <= r.xmax; j++) this.df.edit(j, this.y, base0)
+      else for (var j = r.xmin; j <= r.xmax; j++) this.df.edit(j, this.y, baseN0 + d * (j - r.xmin))
       return this.refresh()
     }
 
     var delta = []
-    for (var i = xStart; i <= xEnd; i++) {
-      var base0 = this.df.get(i, yStart)
+    for (var i = r.xmin; i <= r.xmax; i++) {
+      var base0 = this.df.get(i, r.ymin)
       // if (base0 =="") continue;
-      var base1 = this.df.get(i, yStart + 1)
+      var base1 = this.df.get(i, r.ymin + 1)
       var baseN0 = Number(base0);
       var baseN1 = Number(base1);
       var d = baseN1 - baseN0;
       if ((isNaN(baseN1) || base1 == "") && !isNaN(baseN0)) d = 1;
-      if (isNaN(d)) for (var j = yStart; j <= yEnd; j++) this.df.edit(i, j, base0)
-      else for (var j = yStart; j <= yEnd; j++) this.df.edit(i, j, baseN0 + d * (j - yStart))
+      if (isNaN(d)) for (var j = r.ymin; j <= r.ymax; j++) this.df.edit(i, j, base0)
+      else for (var j = r.ymin; j <= r.ymax; j++) this.df.edit(i, j, baseN0 + d * (j - r.ymin))
       this.refresh()
     }
   }
@@ -193,50 +199,68 @@ class Sheet extends HTMLTableElement {
     this.x = 0; this.y = 0; this.rangeEnd = { x: this.df.width - 1, y: this.df.height - 1 }; this.slctRefresh(false)
   }
 
-  scrollOneLeft() {
-    for (var y = 0; y < this.rows.length; y++) {
-      var r = this.rows[y];
-      var c = r.cells[r.cells.length - 1];
-      if (y > 0) this.loadCell(c, this.baseX, this.baseY + y - 1);
-      r.insertBefore(c, r.cells[1]);
-    }
-    let header_value = this.df.get(this.baseX + 1, 0)
-    this.rows[0].cells[1].innerHTML = (this.fixTop && header_value != "") ? header_value : this.baseX + 1;
-  }
+  // scrollOneLeft() {
+  //   for (var y = 0; y < this.rows.length; y++) {
+  //     var r = this.rows[y];
+  //     var c = r.cells[r.cells.length - 1];
+  //     if (y > 0) this.loadCell(c, this.baseX, this.baseY + y - 1);
+  //     r.insertBefore(c, r.cells[1]);
+  //   }
+  //   let header_value = this.df.get(this.baseX + 1, 0)
+  //   this.rows[0].cells[1].innerHTML = (this.fixTop && header_value != "") ? header_value : this.baseX + 1;
+  // }
 
-  scrollOneRight() {
-    let header_value = this.df.get(this.baseX + this.width, 0)
-    this.rows[0].cells[1].innerHTML = (this.fixTop && header_value != "") ? header_value : this.baseX + this.width;
-    for (var y = 0; y < this.rows.length; y++) {
-      var r = this.rows[y];
-      var c = r.cells[1];
-      if (y > 0) this.loadCell(c, this.baseX + this.width - 1, this.baseY + y - 1);
-      r.appendChild(c);
-    }
-  }
+  // scrollOneRight() {
+  //   let header_value = this.df.get(this.baseX + this.width, 0)
+  //   this.rows[0].cells[1].innerHTML = (this.fixTop && header_value != "") ? header_value : this.baseX + this.width;
+  //   for (var y = 0; y < this.rows.length; y++) {
+  //     var r = this.rows[y];
+  //     var c = r.cells[1];
+  //     if (y > 0) this.loadCell(c, this.baseX + this.width - 1, this.baseY + y - 1);
+  //     r.appendChild(c);
+  //   }
+  // }
 
-  scrollOneUp() {
-    var r = this.rows[this.rows.length - 1];
-    for (var x = 1; x < r.cells.length; x++)  this.loadCell(r.cells[x], this.baseX + x - 1, this.baseY);
-    let header_value = this.df.get(0, this.baseY + 1)
-    r.cells[0].innerHTML = (this.fixLeft && header_value != "") ? header_value : this.baseY + 1;
-    this.insertBefore(r, this.rows[1]);
-  }
+  // scrollOneUp() {
+  //   var r = this.rows[this.rows.length - 1];
+  //   for (var x = 1; x < r.cells.length; x++)  this.loadCell(r.cells[x], this.baseX + x - 1, this.baseY);
+  //   let header_value = this.df.get(0, this.baseY + 1)
+  //   r.cells[0].innerHTML = (this.fixLeft && header_value != "") ? header_value : this.baseY + 1;
+  //   this.insertBefore(r, this.rows[1]);
+  // }
 
-  scrollOneDown() {
-    var r = this.rows[1];
-    for (var x = 1; x < r.cells.length; x++) this.loadCell(r.cells[x], this.baseX + x - 1, this.baseY + this.height - 1);
-    let header_value = this.df.get(0, this.baseY + this.height)
-    r.cells[0].innerHTML = (this.fixLeft && header_value != "") ? header_value : this.baseY + this.height;
-    this.appendChild(r);
-  }
+  // scrollOneDown() {
+  //   var r = this.rows[1];
+  //   for (var x = 1; x < r.cells.length; x++) this.loadCell(r.cells[x], this.baseX + x - 1, this.baseY + this.height - 1);
+  //   let header_value = this.df.get(0, this.baseY + this.height)
+  //   r.cells[0].innerHTML = (this.fixLeft && header_value != "") ? header_value : this.baseY + this.height;
+  //   this.appendChild(r);
+  // }
 
   shift(direction) {
-    switch (direction) {
-      case 0: this.df.shiftRow(this.y - 1); this.y--; break;
-      case 1: this.df.shiftCol(this.x); this.x++; break;
-      case 2: this.df.shiftRow(this.y); this.y++; break;
-      case 3: this.df.shiftCol(this.x - 1); this.x--; break;
+    if (this.rangeEnd== undefined){
+
+      switch (direction) {
+        case 0: this.df.shiftRow(this.y - 1); this.y--; break;
+        case 1: this.df.shiftCol(this.x); this.x++; break;
+        case 2: this.df.shiftRow(this.y); this.y++; break;
+        case 3: this.df.shiftCol(this.x - 1); this.x--; break;
+      }
+    }else{
+
+      let r  = this.rangeOrdered();
+      let bux = this.rangeEnd.x;
+      let buy = this.rangeEnd.y;
+      switch (direction) {
+        case 0: for(var y = r.ymin ; y<= r.ymax ; y++ ) this.df.shiftRow(y - 1); this.y--;this.rangeEnd = {x:bux,y:buy-1}; break;
+        case 3: for(var x = r.xmin ; x<= r.xmax ; x++ ) this.df.shiftCol(x - 1); this.x--;this.rangeEnd = {x:bux-1,y:buy}; break;
+        
+        case 1: for(var x = r.xmax ; x>= r.xmin ; x-- ) this.df.shiftCol(x ); this.x++;this.rangeEnd = {x:bux+1,y:buy}; break;
+        case 2: for(var y = r.ymax ; y>= r.ymin ; y-- ) this.df.shiftRow(y ); this.y++;this.rangeEnd = {x:bux,y:buy+1}; break;
+        // case 3: this.df.shiftCol(this.x - 1); this.x--; break;
+        // case 1: this.df.shiftCol(this.x); this.x++; break;
+        // case 2: this.df.shiftRow(this.y); this.y++; break;
+      }
     }
     this.refresh();
     this.slctRefresh();
@@ -277,15 +301,12 @@ class Sheet extends HTMLTableElement {
       let viewStart = { x: this.baseX, y: this.baseY };
       var rx = undefined;
       var ry = undefined;
-      var xStart = Math.min(this.x, this.rangeEnd.x);
-      var yStart = Math.min(this.y, this.rangeEnd.y);
-      var xEnd = Math.max(this.x, this.rangeEnd.x);
-      var yEnd = Math.max(this.y, this.rangeEnd.y);
+      let r = this.rangeOrdered();
 
-      if (viewStart.y < yStart && viewEnd.y > yStart) ry = yStart;
-      if (viewStart.y > yStart && viewStart.y <= yEnd) ry = viewStart.y;
-      if (viewStart.x < xStart && viewEnd.x > xStart) rx = xStart;
-      if (viewStart.x > xStart && viewStart.x <= xEnd) rx = viewStart.x;
+      if (viewStart.y < r.ymin && viewEnd.y > r.ymin) ry = r.ymin;
+      if (viewStart.y > r.ymin && viewStart.y <= r.ymax) ry = viewStart.y;
+      if (viewStart.x < r.xmin && viewEnd.x > r.xmin) rx = r.xmin;
+      if (viewStart.x > r.xmin && viewStart.x <= r.xmax) rx = viewStart.x;
 
       if (rx !== undefined && ry !== undefined) return this.rows[ry - this.baseY + 1].cells[rx - this.baseX + 1]
     }
@@ -407,25 +428,19 @@ class Sheet extends HTMLTableElement {
 
   rangeArray() {
     if (!this.rangeEnd) return [[this.df.get(this.x, this.y)]];
-    var xStart = Math.min(this.x, this.rangeEnd.x);
-    var yStart = Math.min(this.y, this.rangeEnd.y);
-    var xEnd = Math.max(this.x, this.rangeEnd.x);
-    var yEnd = Math.max(this.y, this.rangeEnd.y);
+    var r = this.rangeOrdered();
     var mat = [];
-    for (var y = yStart; y <= yEnd; y++) {
+    for (var y = r.ymin; y <= r.ymax; y++) {
       var row = [];
-      for (var x = xStart; x <= xEnd; x++)row.push(this.df.get(x, y));
+      for (var x = r.xmin; x <= r.xmax; x++)row.push(this.df.get(x, y));
       mat.push(row);
     }
     return mat;
   }
   rangeEdit(value) {
     if (!this.rangeEnd) return this.df.edit(this.x, this.y, value);
-    var xStart = Math.min(this.x, this.rangeEnd.x);
-    var yStart = Math.min(this.y, this.rangeEnd.y);
-    var xEnd = Math.max(this.x, this.rangeEnd.x);
-    var yEnd = Math.max(this.y, this.rangeEnd.y);
-    for (var x = xStart; x <= xEnd; x++) for (var y = yStart; y <= yEnd; y++) this.df.edit(x, y, value);
+    var r = this.rangeOrdered();
+    for (var x = r.xmin; x <= r.xmax; x++) for (var y = r.ymin; y <= r.ymax; y++) this.df.edit(x, y, value);
 
   }
 
@@ -437,11 +452,8 @@ class Sheet extends HTMLTableElement {
 
   rangeApply(cb) {
     if (!this.rangeEnd) return cb(this.x, this.y);
-    var xStart = Math.min(this.x, this.rangeEnd.x);
-    var yStart = Math.min(this.y, this.rangeEnd.y);
-    var xEnd = Math.max(this.x, this.rangeEnd.x);
-    var yEnd = Math.max(this.y, this.rangeEnd.y);
-    for (var x = xStart; x <= xEnd; x++) for (var y = yStart; y <= yEnd; y++) cb(x, y);
+    var r = this.rangeOrdered();
+    for (var x = r.xmin; x <= r.xmax; x++) for (var y = r.ymin; y <= r.ymax; y++) cb(x, y);
   }
 
   rangeTranspose() {
