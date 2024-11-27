@@ -6,6 +6,9 @@ window.addEventListener('beforeunload', function (e) {
 
 
 let sampleData = [	
+	["Hello World", "", "", "", "ds"] ,
+	["Hello World", ""] ,
+	["Hello World", ""] ,
 	["Hello World", ""] ,
 	
 
@@ -51,7 +54,8 @@ window.addEventListener('message', (event) => {
 // Known issues    =================================================================
 // potential issue when reading chunk cuts 16 bit char in 2 diff chunks, unlucky but possible, requires testing
 // ctrl+s on input tries to save the html page
-
+// alt arrow should move multiple row/col when slct range is active
+// Finder is under bot scrollbar
 
 // TODO Eventually =================================================================
 // col operations >> add / concat / sub / mult/ div

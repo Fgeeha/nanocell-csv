@@ -16,8 +16,8 @@ class Sheet extends HTMLTableElement {
     this.bx = 0;
     this.by = 0;
     this.addEventListener("mousewheel", this.scroll, { passive: true });
-    this.addEventListener("mousedown", this.click);
-    this.addEventListener("dblclick", this.dblclick);
+    // this.addEventListener("mousedown", this.click);
+    // this.addEventListener("dblclick", this.dblclick);
     this.inputField.addEventListener("focusout", e => { this.inputBlur() });
     this.inputField.addEventListener("keydown", e => {
       switch (e.key.toUpperCase()) {
@@ -50,8 +50,8 @@ class Sheet extends HTMLTableElement {
     this.bx = n;
     switch (delta) {
       case 0: break;
-      case 1: this.scrollOneRight(); break;
-      case -1: this.scrollOneLeft(); break;
+      // case 1: this.scrollOneRight(); break;
+      // case -1: this.scrollOneLeft(); break;
       default: this.refresh();
     }
   };
@@ -63,8 +63,8 @@ class Sheet extends HTMLTableElement {
     this.by = n;
     switch (delta) {
       case 0: break;
-      case 1: this.scrollOneDown(); break;
-      case -1: this.scrollOneUp(); break;
+      // case 1: this.scrollOneDown(); break;
+      // case -1: this.scrollOneUp(); break;
       default: this.refresh();
     }
   };
@@ -256,7 +256,7 @@ class Sheet extends HTMLTableElement {
   input(txt) {
     // if (!this.slct) return;
     let cell = this.bestInputCell();
-    if (cell===undefined) return ;
+    if (cell === undefined) return;
     this.inputing = true;
     this.inputField.value = txt ? txt : this.df.get(this.x, this.y);
     // this.showInputField();
@@ -270,7 +270,7 @@ class Sheet extends HTMLTableElement {
     //    }catch (e) {
 
     if (this.cellInView(this.x, this.y)) return this.rows[this.y - this.baseY + 1].cells[this.x - this.baseX + 1]
-    
+
     if (this.rangeEnd) {
 
       let viewEnd = { x: this.baseX + this.width, y: this.baseY + this.height };
@@ -288,10 +288,10 @@ class Sheet extends HTMLTableElement {
       if (viewStart.x > xStart && viewStart.x <= xEnd) rx = viewStart.x;
 
       if (rx !== undefined && ry !== undefined) return this.rows[ry - this.baseY + 1].cells[rx - this.baseX + 1]
-    } 
+    }
     return undefined;
   }
-  
+
   cellInView(x, y) {
     return x >= this.baseX && y >= this.baseY && x < this.baseX + this.width && y < this.baseY + this.height
 
@@ -310,31 +310,31 @@ class Sheet extends HTMLTableElement {
     try{this.inputField.remove()}catch (e){}
   }
 
-  dblclick(e) {
-    var t = e.target;
-    if (t.tagName === "TD") this.input();
-  }
+  // dblclick(e) {
+  //   var t = e.target;
+  //   if (t.tagName === "TD") this.input();
+  // }
 
 
-  click(e) {
-    var t = e.target;
-    if (t.tagName == "TD") {
-      var x = t.cellIndex + this.baseX - 1;
-      var y = t.parentNode.rowIndex + this.baseY - 1;
-      if (this.inputing && e.ctrlKey) {
-        // copies the content of the clicked cell into the editing input field
-        e.preventDefault();
-        this.inputField.value += this.df.get(x, y).split('=')[0];
-        this.inputField.selectionStart = this.inputField.value.length;
-        return
-      }
-      this.x = x;
-      this.y = y;
-      this.slctRefresh();
-    }
-    if (t.tagName === "TH" && t.cellIndex > 0) this.slctCol(this.baseX + t.cellIndex - 1);
-    if (t.tagName === "TH" && t.parentNode.rowIndex > 0) this.slctRow(this.baseY + t.parentNode.rowIndex - 1);
-  }
+  // click(e) {
+  //   var t = e.target;
+  //   if (t.tagName == "TD") {
+  //     var x = t.cellIndex + this.baseX - 1;
+  //     var y = t.parentNode.rowIndex + this.baseY - 1;
+  //     if (this.inputing && e.ctrlKey) {
+  //       // copies the content of the clicked cell into the editing input field
+  //       e.preventDefault();
+  //       this.inputField.value += this.df.get(x, y).split('=')[0];
+  //       this.inputField.selectionStart = this.inputField.value.length;
+  //       return
+  //     }
+  //     this.x = x;
+  //     this.y = y;
+  //     this.slctRefresh();
+  //   }
+  //   if (t.tagName === "TH" && t.cellIndex > 0) this.slctCol(this.baseX + t.cellIndex - 1);
+  //   if (t.tagName === "TH" && t.parentNode.rowIndex > 0) this.slctRow(this.baseY + t.parentNode.rowIndex - 1);
+  // }
 
 
   footerUpdate() {
@@ -354,47 +354,51 @@ class Sheet extends HTMLTableElement {
     let dfh = this.df.height;
     let dfw = this.df.width;
     let visible_minY = stg.rows / 2;
-    let visible_minX = stg.cols -2;
+    let visible_minX = stg.cols - 2;
     let dsy = dom.content.scrollerY;
     let dsx = dom.content.scrollerX;
-    
+
     dsy.style.display = (dfh < visible_minY) ? "none" : "block";
     dsx.style.display = (dfw < visible_minX) ? "none" : "block";
-    if (dfh < visible_minY) return;
-    if (dfw < visible_minX) return;
-    if (dfw < 30) dsx.style.width = "50vw";
-    else if (dfw < 100) dsx.style.width = "20vw";
-    else dsx.style.width = "10vw";
-
-    if (dfh < 100) dsy.style.height = "50vh";
-    else if (dfh < 1000) dsy.style.height = "20vh";
-    else dsy.style.height = "10vh";
-
-    let top = this.rows[1].getBoundingClientRect().top;
     let bot = this.rows[this.rows.length - 1].getBoundingClientRect().bottom;
+    if (dfh >= visible_minY){
+      if (dfh < 100) dsy.style.height = "50vh";
+      else if (dfh < 1000) dsy.style.height = "20vh";
+      else dsy.style.height = "10vh";
+      
+          let top = this.rows[1].getBoundingClientRect().top;
+          let theight = bot - top - dsy.offsetHeight;
+      
+      dsy.style.top = String(Math.round(top + theight * this.baseY / (this.df.height - 1))) + "px";
+    }
+    if (dfw >= visible_minX) {
+      
+      if (dfw < 30) dsx.style.width = "50vw";
+      else if (dfw < 100) dsx.style.width = "20vw";
+      else dsx.style.width = "10vw";
     let left = this.rows[0].cells[1].getBoundingClientRect().left;
     let right = this.getBoundingClientRect().right;
-
-    let theight = bot - top - dsy.offsetHeight;
-    let twidth  = right - left - dsx.offsetWidth;
-    dsx.style.top = (bot - dsx.offsetHeight) + "px";
-    // console.log(document.getElementById("footer").offsetHeight)
-    dsy.style.top = String(Math.round(top + theight * this.baseY / (this.df.height - 1))) + "px";
+    let twidth = right - left - dsx.offsetWidth;
     dsx.style.left = String(Math.round(left + twidth * this.baseX / (this.df.width - 1))) + "px";
+    dsx.style.top = (bot - dsx.offsetHeight) + "px";
+    }
+
+
+    // console.log(document.getElementById("footer").offsetHeight)
   }
 
-  slctCol(n) {
+  slctCol(n, m = undefined) {
     this.slctRange = true;
-    this.rangeEnd = { x: n, y: this.df.height - 1 }
+    this.rangeEnd = { x: m!==undefined ? m : n, y: this.df.height - 1 }
     this.x = n;
     this.y = 0;
     this.slctRange = false;
     this.slctRefresh(false);
   }
 
-  slctRow(n) {
+  slctRow(n, m = undefined) {
     this.slctRange = true;
-    this.rangeEnd = { x: this.df.width - 1, y: n }
+    this.rangeEnd = { x: this.df.width - 1, y: m!==undefined ? m : n }
     this.x = 0;
     this.y = n;
     this.slctRange = false;
@@ -569,7 +573,7 @@ class Sheet extends HTMLTableElement {
         for (var x = 0; x < this.width; x++)this.loadCell(this.rows[y + 1].cells[x + 1], this.baseX + x, by);
       }
       let cell = this.bestInputCell();
-      if (this.inputing ) cell.appendChild(this.inputField);
+      if (this.inputing) cell.appendChild(this.inputField);
       this.footerUpdate();
     })
   }
@@ -579,22 +583,28 @@ class Sheet extends HTMLTableElement {
     for (var y = 0; y < stg.rows + 1; y++) {
       var tr = document.createElement("tr");
       this.appendChild(tr);
-      for (var x = 0; x < stg.cols + 1; x++)tr.appendChild(document.createElement((y === 0 || x === 0) ? "th" : "td"));
-    }
-    for (var y = 0; y < this.height; y++) {
-      for (var x = 0; x < this.width; x++) {
-        this.rows[y + 1].cells[x + 1].onpointerenter = e => {
-          var t = e.target;
-          if (e.buttons === 1 && LBT &&  LBT.tagName === t.tagName) {
-            this.rangeEnd = { x: t.cellIndex - 1 + this.baseX, y: t.parentNode.rowIndex - 1 + this.baseY };
-            this.slctRefresh(false);
-          }
-        };
+      for (var x = 0; x < stg.cols + 1; x++) {
+        let cell = document.createElement("td", { is: "ui-cell" });
+        cell.setPosition(x-1,y-1);
+        tr.appendChild(cell);
+
       }
     }
-    for (var i = 0; i < this.width; i++) this.rows[0].cells[i + 1].ondblclick = e => { e.target.style.width = (e.target.style.width !== "auto") ? "auto" : "50%" };
-    this.rows[0].cells[0].onclick = e => { this.slctAll() }
+    // for (var y = 0; y < this.height; y++) {
+    //   for (var x = 0; x < this.width; x++) {
+    //     // this.rows[y + 1].cells[x + 1].onpointerenter = e => {
+    //     //   var t = e.target;
+    //     //   if (e.buttons === 1 && LBT == TargetType.cell) {
+    //     //     this.rangeEnd = { x: t.cellIndex - 1 + this.baseX, y: t.parentNode.rowIndex - 1 + this.baseY };
+    //     //     this.slctRefresh(false);
+    //     //   }
+    //     // };
+    //   }
+    // }
+    // for (var i = 0; i < this.width; i++) this.rows[0].cells[i + 1].ondblclick = e => { e.target.style.width = (e.target.style.width !== "auto") ? "auto" : "50%" };
+    // this.rows[0].cells[0].onclick = e => { this.slctAll() }
     this.refresh();
+    this.slctRefresh(false);
   }
 }
 customElements.define('ui-sheet', Sheet, { extends: 'table' });

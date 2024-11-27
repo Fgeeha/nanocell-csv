@@ -1,5 +1,3 @@
-let LBT = undefined;
-let RBT = undefined;
 
 
 let buildKeys = function () {
@@ -62,89 +60,19 @@ let buildKeys = function () {
   }
 
 
-  let mouseX = 0;
-  let mouseY = 0;
+
+
+
+
+  // this.rows[0].cells[0].onclick = e => { this.slctAll() }
+
+
 
 
   // removes any move action when set on mouse down 
-  document.addEventListener("mouseup", e => {
-    document.onmousemove = undefined;
-    if (e.buttons < 1) {
-      // sheet.scrolling = false;
-      LBT = undefined;
-      RBT = undefined;
-    }
-  });
 
 
-  document.addEventListener("mousedown", e => {
-    if (e.button === 0) LBT = e.target;
-    if (e.button === 2) RBT = e.target;
-    if (e.target != sheet.inputField) e.preventDefault(); // prevents text selection
-    if (LBT.tagName =="TD"){
 
-      let intervalId = setInterval(() => {
-        if (LBT === undefined) return clearInterval(intervalId);
-      else {
-        let rect = sheet.getBoundingClientRect();
-        if (mouseY <= rect.top) {
-          if (sheet.rangeEnd) sheet.rangeEnd.y = sheet.baseY ;
-          sheet.baseY--;
-        }
-        if (mouseX >= rect.right - 5) {
-          if (sheet.rangeEnd) sheet.rangeEnd.x = sheet.baseX + sheet.width - 1;
-          sheet.baseX++;
-        }
-        if (mouseY >= rect.bottom) {
-          if (sheet.rangeEnd) sheet.rangeEnd.y = sheet.baseY + sheet.height - 1;
-          sheet.baseY++;
-        }
-        if (mouseX <= rect.left + 5) {
-          if (sheet.rangeEnd) sheet.rangeEnd.x = sheet.baseX ;
-          sheet.baseX--;
-        }
-      }
-      sheet.slctRefresh(false);
-      
-    }, 100);
-  }
-    
-  });
-
-
-  document.addEventListener("mousemove", e => {
-    {
-
-         mouseX = e.clientX;
-         mouseY = e.clientY;
-      
-
-      if (e.buttons < 1) {
-        LBT = undefined;
-        RBT = undefined;
-      }
-      if (LBT === dom.content.scrollerY) {
-        let offset = sheet.rows[1].getBoundingClientRect().top;
-        let theight = sheet.getBoundingClientRect().bottom - offset;
-        let r = (e.clientY - offset) / theight;
-        if (r < 0) r = 0;
-        if (r > 1) r = 1;
-        sheet.baseY = Math.floor(sheet.df.height * r);
-        sheet.slctRefresh(false);
-      }
-
-      if (LBT === dom.content.scrollerX) {
-        let offset = sheet.rows[0].cells[0].getBoundingClientRect().left;
-        let tWidth = sheet.getBoundingClientRect().right - offset;
-        let r = (e.clientX - offset) / tWidth;
-        if (r < 0) r = 0;
-        if (r > 1) r = 1;
-        sheet.baseX = Math.floor(sheet.df.width * r);
-        sheet.slctRefresh(false);
-      }
-     
-    }
-  });
 
   document.addEventListener('copy', function (e) {
     if (sheet.inputing) return;
