@@ -29,7 +29,6 @@ document.addEventListener("mouseup", e => {
 
 let getTargetType = function (e) {
     let t = e.target
-    console.log(e)
     if (t.tagName == "TD" && t.parentNode.parentNode === sheet) {
         if (t.tx < 0 && t.ty < 0) return TargetType.allH;
         if (t.tx < 0) return TargetType.rowH;
