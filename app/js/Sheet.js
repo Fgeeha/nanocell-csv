@@ -152,19 +152,19 @@ class Sheet extends HTMLTableElement {
     this.refresh();
   }
 
-  rangeOrdered(){
-    if(this.rangeEnd===undefined) return ;
+  rangeOrdered() {
+    if (this.rangeEnd === undefined) return;
     var xStart = Math.min(this.x, this.rangeEnd.x);
     var yStart = Math.min(this.y, this.rangeEnd.y);
     var xEnd = Math.max(this.x, this.rangeEnd.x);
     var yEnd = Math.max(this.y, this.rangeEnd.y);
-    return {xmin:xStart, xmax:xEnd, ymin:yStart, ymax:yEnd};
+    return { xmin: xStart, xmax: xEnd, ymin: yStart, ymax: yEnd };
   }
 
 
   expand() {
     if (this.rangeEnd === undefined) return;
-    let r =this.rangeOrdered();
+    let r = this.rangeOrdered();
     if (r.ymin == r.ymax) {
       var base0 = this.df.get(r.xmin, r.ymin)
       var base1 = this.df.get(r.xmin + 1, r.ymin)
@@ -238,7 +238,7 @@ class Sheet extends HTMLTableElement {
   // }
 
   shift(direction) {
-    if (this.rangeEnd== undefined){
+    if (this.rangeEnd == undefined) {
 
       switch (direction) {
         case 0: this.df.shiftRow(this.y - 1); this.y--; break;
@@ -246,17 +246,17 @@ class Sheet extends HTMLTableElement {
         case 2: this.df.shiftRow(this.y); this.y++; break;
         case 3: this.df.shiftCol(this.x - 1); this.x--; break;
       }
-    }else{
+    } else {
 
-      let r  = this.rangeOrdered();
+      let r = this.rangeOrdered();
       let bux = this.rangeEnd.x;
       let buy = this.rangeEnd.y;
       switch (direction) {
-        case 0: for(var y = r.ymin ; y<= r.ymax ; y++ ) this.df.shiftRow(y - 1); this.y--;this.rangeEnd = {x:bux,y:buy-1}; break;
-        case 3: for(var x = r.xmin ; x<= r.xmax ; x++ ) this.df.shiftCol(x - 1); this.x--;this.rangeEnd = {x:bux-1,y:buy}; break;
-        
-        case 1: for(var x = r.xmax ; x>= r.xmin ; x-- ) this.df.shiftCol(x ); this.x++;this.rangeEnd = {x:bux+1,y:buy}; break;
-        case 2: for(var y = r.ymax ; y>= r.ymin ; y-- ) this.df.shiftRow(y ); this.y++;this.rangeEnd = {x:bux,y:buy+1}; break;
+        case 0: for (var y = r.ymin; y <= r.ymax; y++) this.df.shiftRow(y - 1); this.y--; this.rangeEnd = { x: bux, y: buy - 1 }; break;
+        case 3: for (var x = r.xmin; x <= r.xmax; x++) this.df.shiftCol(x - 1); this.x--; this.rangeEnd = { x: bux - 1, y: buy }; break;
+
+        case 1: for (var x = r.xmax; x >= r.xmin; x--) this.df.shiftCol(x); this.x++; this.rangeEnd = { x: bux + 1, y: buy }; break;
+        case 2: for (var y = r.ymax; y >= r.ymin; y--) this.df.shiftRow(y); this.y++; this.rangeEnd = { x: bux, y: buy + 1 }; break;
         // case 3: this.df.shiftCol(this.x - 1); this.x--; break;
         // case 1: this.df.shiftCol(this.x); this.x++; break;
         // case 2: this.df.shiftRow(this.y); this.y++; break;
@@ -328,7 +328,7 @@ class Sheet extends HTMLTableElement {
     }
     this.inputing = false;
     this.escape = false;
-    try{this.inputField.remove()}catch (e){}
+    try { this.inputField.remove() } catch (e) { }
   }
 
   // dblclick(e) {
@@ -378,30 +378,27 @@ class Sheet extends HTMLTableElement {
     let visible_minX = stg.cols - 2;
     let dsy = dom.content.scrollerY;
     let dsx = dom.content.scrollerX;
-
     dsy.style.display = (dfh < visible_minY) ? "none" : "block";
     dsx.style.display = (dfw < visible_minX) ? "none" : "block";
-    let bot = this.rows[this.rows.length - 1].getBoundingClientRect().bottom;
-    if (dfh >= visible_minY){
+    if (dfh >= visible_minY) {
       if (dfh < 100) dsy.style.height = "50vh";
       else if (dfh < 1000) dsy.style.height = "20vh";
       else dsy.style.height = "10vh";
-      
-          let top = this.rows[1].getBoundingClientRect().top;
-          let theight = bot - top - dsy.offsetHeight;
-      
-      dsy.style.top = String(Math.round(top + theight * this.baseY / (this.df.height - 1))) + "px";
+      let top = this.rows[1].getBoundingClientRect().top - this.getBoundingClientRect().top;
+      let bot = this.getBoundingClientRect().height;
+      let theight = bot - top - dsy.offsetHeight;
+      dsy.style.top = String(top + Math.round(theight * this.baseY / (this.df.height - 1))) + "px";
     }
     if (dfw >= visible_minX) {
-      
+
       if (dfw < 30) dsx.style.width = "50vw";
       else if (dfw < 100) dsx.style.width = "20vw";
       else dsx.style.width = "10vw";
-    let left = this.rows[0].cells[1].getBoundingClientRect().left;
-    let right = this.getBoundingClientRect().right;
-    let twidth = right - left - dsx.offsetWidth;
-    dsx.style.left = String(Math.round(left + twidth * this.baseX / (this.df.width - 1))) + "px";
-    dsx.style.top = (bot - dsx.offsetHeight) + "px";
+      let left = this.rows[0].cells[1].getBoundingClientRect().left;
+      let right = this.getBoundingClientRect().right;
+      let twidth = right - left - dsx.offsetWidth;
+      dsx.style.left = String(left+ Math.round( twidth * this.baseX / (this.df.width - 1))) + "px";
+      // dsx.style.top = (bot - dsx.offsetHeight) + "px";
     }
 
 
@@ -410,7 +407,7 @@ class Sheet extends HTMLTableElement {
 
   slctCol(n, m = undefined) {
     this.slctRange = true;
-    this.rangeEnd = { x: m!==undefined ? m : n, y: this.df.height - 1 }
+    this.rangeEnd = { x: m !== undefined ? m : n, y: this.df.height - 1 }
     this.x = n;
     this.y = 0;
     this.slctRange = false;
@@ -419,7 +416,7 @@ class Sheet extends HTMLTableElement {
 
   slctRow(n, m = undefined) {
     this.slctRange = true;
-    this.rangeEnd = { x: this.df.width - 1, y: m!==undefined ? m : n }
+    this.rangeEnd = { x: this.df.width - 1, y: m !== undefined ? m : n }
     this.x = 0;
     this.y = n;
     this.slctRange = false;
@@ -528,7 +525,7 @@ class Sheet extends HTMLTableElement {
 
   loadLeftHeader(y) {
     if (this.fixLeft && this.df.get(0, this.baseY + y).length > 0) this.rows[y + 1].cells[0].innerHTML = "<div>" + this.df.get(0, this.baseY + y) + "</div>";
-    else  this.rows[y + 1].cells[0].innerHTML = this.baseY + y + 1;
+    else this.rows[y + 1].cells[0].innerHTML = this.baseY + y + 1;
   }
 
   viewRangeRender() {
@@ -597,7 +594,7 @@ class Sheet extends HTMLTableElement {
       this.appendChild(tr);
       for (var x = 0; x < stg.cols + 1; x++) {
         let cell = document.createElement("td", { is: "ui-cell" });
-        cell.setPosition(x-1,y-1);
+        cell.setPosition(x - 1, y - 1);
         tr.appendChild(cell);
 
       }

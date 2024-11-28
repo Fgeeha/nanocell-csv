@@ -27,7 +27,7 @@ footerDiv:{
 
 
 
-dom.dialog.clear = function (e){ while(this.children.length > 0) this.children[0].remove(); dom.dialog.className=''}
+dom.dialog.clear = function (e){ while(this.children.length > 0) this.children[0].remove(); dom.dialog.className=''; sheet.scrollbarRefresh();}
 dom.dialog.push = function (e, fullscreen = false, closeButton = true){
  this.clear();
  if (fullscreen)dom.dialog.classList.add("dialog_large");

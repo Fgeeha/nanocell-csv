@@ -14,6 +14,9 @@ let sampleData = [
 
 ]
 
+// console.log (navigator.userAgent)
+let isOSX = navigator.userAgent.includes('Macintosh')
+
 
 
 // localStorage.clear();

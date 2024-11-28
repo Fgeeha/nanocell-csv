@@ -3,12 +3,16 @@
 let buildKeys = function () {
   let prevent_dflt_list = ['H', 'N', 'T'];// { H: history pop up, N: new window, T: new tab} 
   document.onkeydown = function (e) {
+
     var k = e.key.toUpperCase();
-    // console.log(k)
+    // console.log(e)
     var ctrlDown = e.metaKey || e.ctrlKey;
     var alt = e.altKey;
     var shift = e.shiftKey;
+    var meta = e.metaKey;
     sheet.slctRange = shift;
+    if (isOSX && k==="S" && meta && shift) return cmd.saveAs.run();  
+    if (isOSX && k==="S" && meta) return cmd.save.run(); 
     if (alt && k == "TAB") return; // enable switching window 
     if (ctrlDown && (k === "C" || k === "V")) return;
     if (ctrlDown && (prevent_dflt_list.includes(k))) { e.preventDefault(); } // prevent : 

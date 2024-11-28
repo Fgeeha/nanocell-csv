@@ -80,7 +80,9 @@ footer img {
 
 
 
-
+#content{
+    position:relative;
+}
 
 .scroll{overflow: scroll;white-space: nowrap;}
 .scroll::-webkit-scrollbar {display: none}
