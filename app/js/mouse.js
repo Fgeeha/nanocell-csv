@@ -29,7 +29,8 @@ document.addEventListener("mouseup", e => {
 
 let getTargetType = function (e) {
     let t = e.target
-    if (t.tagName == "TD") {
+    console.log(e)
+    if (t.tagName == "TD" && t.parentNode.parentNode === sheet) {
         if (t.tx < 0 && t.ty < 0) return TargetType.allH;
         if (t.tx < 0) return TargetType.rowH;
         if (t.ty < 0) return TargetType.colH;
@@ -44,7 +45,7 @@ let getTargetType = function (e) {
 document.addEventListener("mousedown", e => {
     if (e.button === 0) LBT = getTargetType(e);
     if (e.button === 2) RBT = getTargetType(e);
-    if (e.target != sheet.inputField) e.preventDefault(); // prevents text selection
+    if (e.target.tagName !="INPUT" && e.target.tagName !="BUTTON") e.preventDefault(); // prevents text selection
     if (LBT == TargetType.cell){
         sheet.x = e.target.tx+sheet.baseX;
         sheet.y = e.target.ty+sheet.baseY;
@@ -58,30 +59,7 @@ document.addEventListener("mousedown", e => {
 
 
 
-  // click(e) {
-  //   var t = e.target;
-  //   if (t.tagName == "TD") {
-  //     var x = t.cellIndex + this.baseX - 1;
-  //     var y = t.parentNode.rowIndex + this.baseY - 1;
-  //     if (this.inputing && e.ctrlKey) {
-  //       // copies the content of the clicked cell into the editing input field
-  //       e.preventDefault();
-  //       this.inputField.value += this.df.get(x, y).split('=')[0];
-  //       this.inputField.selectionStart = this.inputField.value.length;
-  //       return
-  //     }
-  //     this.x = x;
-  //     this.y = y;
-  //     this.slctRefresh();
-  //   }
-  //   if (t.tagName === "TH" && t.cellIndex > 0) this.slctCol(this.baseX + t.cellIndex - 1);
-  //   if (t.tagName === "TH" && t.parentNode.rowIndex > 0) this.slctRow(this.baseY + t.parentNode.rowIndex - 1);
-  // }
 
-  // dblclick(e) {
-  //   var t = e.target;
-  //   if (t.tagName === "TD") this.input();
-  // }
 
 
 document.addEventListener("mousemove", e => {

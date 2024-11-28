@@ -57,7 +57,6 @@ window.addEventListener('message', (event) => {
 // Known issues    =================================================================
 // potential issue when reading chunk cuts 16 bit char in 2 diff chunks, unlucky but possible, requires testing
 // ctrl+s on input tries to save the html page
-// Finder is under bot scrollbar
 // ctrl+ shift +e should expand horizontally
 
 // TODO Eventually =================================================================

@@ -11,40 +11,55 @@ constructor(sheet) {
   this.table            = new Table();  
   var img;
   
-  this.caseSensitive   = new BoolInput(true);
-  this.colBool         = new BoolInput();
-  this.colNum          = new NumInput(1);
-  this.rowBool         = new BoolInput();
-  this.rowNum          = new NumInput(1); 
+  this.caseSensitive   = new BoolInput(false);
+  this.caseSensitive.style.float ="right"
+  this.caseSensitive.style.marginRight =".2em"
+
+
   this.findIn          = document.createElement("input");
   this.foundInfo       = document.createElement("span")
   this.replaceIn       = document.createElement("input");
-  this.listB           = document.createElement("button");
   this.caseInfo        = document.createElement("span");
+
+  this.foundInfo.style.width      = "10em"; 
+  this.foundInfo.style.cursor      = "pointer"; 
+  this.foundInfo.style.display       = "inline-block"; 
+  this.foundInfo.style.textAlign       = "left"; 
+
 
   this.table.br();
   this.table.push(this.caseSensitive);
   this.table.push(this.caseInfo);
   this.table.br();
-  this.table.push(this.colBool);
-  this.table.push(["Col : ",this.colNum]);
-  this.table.br();
-  this.table.push(this.rowBool);
-  this.table.push(["Row : ",this.rowNum]);
-  this.table.br();
+  
   img                 = document.createElement("img");
+  img    .addEventListener('click'   ,e=>{this.find()});
+ img.style.cursor      = "pointer"; 
+
   img.src             = "icn/menu/find.svg";
+  img.style.marginLeft = "9em"
   this.table.push(img);
   this.table.push(this.findIn);
   this.table.push(this.foundInfo);
   this.table.br();
   img                 = document.createElement("img");
   img.src             = "icn/menu/replace.svg";
+  img.style.marginLeft = "9em"
+  
   this.table.push(img);
   this.table.push(this.replaceIn);    
+
+
+  this.replaceBtn                 = document.createElement("button");
+  this.replaceBtn.innerText = "Replace All"
+  this.replaceBtn.style.marginBottom = "1.5em"
   this.table.br();
   this.table.push();
-  this.table.push(this.listB);
+  this.table.push(  this.replaceBtn  );
+
+
+// this.table.style
+
   this.listTable  =new Table();
       
   this.appendChild(this.listTable);
@@ -52,20 +67,22 @@ constructor(sheet) {
   this.appendChild(this.table);
  
   this.findIn   .addEventListener('input'   ,e=>{this.find()});
-  this.findIn   .addEventListener("keydown" ,e=>{switch(e.key.toUpperCase()){case "ENTER":this.find()}});
-  this.replaceIn.addEventListener("keydown" ,e=>{switch(e.key.toUpperCase()){case "ENTER":this.replaceAll()}});
-  this.listB    .addEventListener("click"   ,e=>{this.showTable()});
+  this.foundInfo   .addEventListener('click'   ,e=>{this.find()});
+  this.replaceBtn.addEventListener('click'   ,e=>{this.replaceAll()});
+  this.findIn   .addEventListener("keydown" ,e=>{switch(e.key.toUpperCase()){
+    case "ENTER":this.find(); break;
+    case "TAB":this.replaceIn.focus(); break;
+  }});
+  this.replaceIn.addEventListener("keydown" ,e=>{switch(e.key.toUpperCase()){
+    case "ENTER":this.replaceAll();break;
+    case "TAB":this.findIn.focus(); break;
+  }});
   this.caseSensitive   .onchange= e=>{
-    this.caseInfo.innerHTML=this.caseSensitive.value?"Case sensentive ( A &ne; a )":"Case insensentive ( A = a )"  ;
+    this.caseInfo.innerHTML=this.caseSensitive.value?"A &ne; a":"A = a"  ;
     this.find(true)
   }
-  this.colBool         .onchange= e=>{this.find(true)} 
-  this.colNum          .onchange= e=>{this.find(true)} 
-  this.rowBool         .onchange= e=>{this.find(true)} 
-  this.rowNum          .onchange= e=>{this.find(true)} 
 
-  this.caseInfo.innerHTML = "Case sensentive ( A &ne; a )";
-  this.listB.innerHTML  ="No match";
+  this.caseInfo.innerHTML = "A &ne; a";
    
   this.listTable.style.maxHeight = "20em";
 
@@ -103,10 +120,10 @@ find(force = false){
     this.idx = 0;
     this.found = [];
     this.exp=  new RegExp(this.search, (this.caseSensitive.value && this.advanced)?'g':'gi');
-    var yStart = (this.advanced && this.rowBool.value)?this.rowNum.value-1:0;
-    var xStart = (this.advanced && this.colBool.value)?this.colNum.value-1:0;
-    var yEnd   = (this.advanced && this.rowBool.value)?this.rowNum.value-1:this.sheet.df.height-1;
-    var xEnd   = (this.advanced && this.colBool.value)?this.colNum.value-1:this.sheet.df.width-1;
+    var yStart = 0;
+    var xStart = 0;
+    var yEnd   = this.sheet.df.height-1;
+    var xEnd   = this.sheet.df.width-1;
     for(var y = yStart; y <=yEnd;y++ )for(var x = xStart ; x <=xEnd; x++) {
           var v = this.sheet.df.get(x,y);
           this.exp.lastIndex = 0;
@@ -116,7 +133,6 @@ find(force = false){
         
   }
   var info = (this.found.length===0)?"No match":(this.idx+1)+' / '+this.found.length;
-  this.listB.innerHTML =  info;
   this.foundInfo.innerHTML = info;
   if (this.found.length>0){
     sheet.x = this.found[this.idx].x;
@@ -128,29 +144,23 @@ find(force = false){
 
 
 findMenu(adv=false){
-
   this.listTable.style.display = "none";
   this.advanced = adv;
-  if (this.advanced){
-    for(var row of this.table.rows)row.style.display="table-row";
-    this.foundInfo.style.display = "none";
-  }
-  else{
-    for(var row of this.table.rows)if(row.rowIndex !== 3) row.style.display="none";
-    this.foundInfo.style.display = "inline-block";
-    
-  } 
+  if (this.advanced) for(var row of this.table.rows)row.style.display="table-row";
+  else for(var row of this.table.rows)if(row.rowIndex !== 1) row.style.display="none";
   dom.dialog.push(this);
   this.findIn.focus();
 }
 
 replaceAll(){
+  console.log("replace all")
   if (this.search.length <1 )return ;
   for(var e of this.found){
     this.exp.lastIndex = 0;
     this.sheet.df.edit(e.x,e.y, e.v.replace(this.exp, this.replaceIn.value));
   }
   this.sheet.refresh();
+  this.sheet.slctRefresh(focus = true);
   this.find(true);
 }
 

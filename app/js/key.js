@@ -14,12 +14,13 @@ let buildKeys = function () {
     if (isOSX && k==="S" && meta && shift) return cmd.saveAs.run();  
     if (isOSX && k==="S" && meta) return cmd.save.run(); 
     if (alt && k == "TAB") return; // enable switching window 
-    if (ctrlDown && (k === "C" || k === "V")) return;
+    if (ctrlDown && (k === "C" || k === "V")) return; // enables copy paste events
     if (ctrlDown && (prevent_dflt_list.includes(k))) { e.preventDefault(); } // prevent : 
-    if (k === "TAB") { e.preventDefault(); } // prevent : 
+    if (!dom.dialog.isBusy && k === "TAB") { e.preventDefault(); } // prevent : 
     if (!dom.dialog.isBusy && k === "ESCAPE") return dom.dialog.clear();
     if (dom.dialog.isBusy && k === "ESCAPE") return dom.dialog.clear();
-    if (dom.dialog.isBusy || sheet.inputing) return;
+    if (dom.dialog.isBusy && k.length > 1) return ;
+    if( sheet.inputing) return;
     if (e.code === "Space") k = "SPACE";
     if (k === "PAGEUP") { k = "ARROWUP"; alt = true }
     if (k === "PAGEDOWN") { k = "ARROWDOWN"; alt = true }
