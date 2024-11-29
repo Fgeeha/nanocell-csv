@@ -1,4 +1,4 @@
-const versionName = 'Beta_v0.0.4';
+const versionName = 'Beta_v0.0.5';
 const filesToCache = [
 "logo/nanocell_logo_builder.svg",
 "logo/nanocell.svg",

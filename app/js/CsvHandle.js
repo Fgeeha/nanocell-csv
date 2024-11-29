@@ -48,12 +48,19 @@ class CsvHandle {
   pipe(cmd, data) { this.sw.postMessage({ cmd: cmd, data: data }) }
 
   async open() {
-    let [fileHandle] = await window.showOpenFilePicker(CsvHandle.pickerOptions);
-    const newWindow = window.open('./home.html', "_blank", 'width=800,height=600'); // 'newWindow.html' should be the page that will handle the file
-    const channel = new MessageChannel();
-    newWindow.onload = () => {
-      newWindow.postMessage({ fileHandle }, '*', [channel.port2]);
-    };
+    try{
+
+      let [fileHandle] = await window.showOpenFilePicker(CsvHandle.pickerOptions);
+      const newWindow = window.open('./home.html', "_blank", 'width=800,height=600'); // 'newWindow.html' should be the page that will handle the file
+      const channel = new MessageChannel();
+      newWindow.onload = () => {
+        newWindow.postMessage({ fileHandle }, '*', [channel.port2]);
+      };
+    }catch(err) {
+      if (err.name === 'AbortError') return;
+      else console.error('An unexpected error occurred:', err);
+
+    }
   }
 
   reloadFile() {
@@ -67,8 +74,15 @@ class CsvHandle {
 
   async saveAs() {
     if (this.viewOnly) return;
-    this.handle = await window.showSaveFilePicker(CsvHandle.pickerOptions);
-    this.save();
+    try {
+
+      this.handle = await window.showSaveFilePicker(CsvHandle.pickerOptions);
+      this.save();
+    } catch (err) {
+      if (err.name === 'AbortError') return;
+      else console.error('An unexpected error occurred:', err);
+
+    }
   }
   async save() {
     if (this.viewOnly) return;

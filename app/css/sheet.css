@@ -54,7 +54,7 @@ background-color: var(--slct-bg)!important;
 
 .num {
 text-align: right;
-color: var(--orange);
+color: var(--num-txt);
 }
 .error{
 color: var(--red);
