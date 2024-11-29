@@ -21,19 +21,22 @@
 </head>
 
 <body>
-    <nav >
+    <nav>
 
-        <a   class="nav_element " href="#" onclick="document.getElementById('container').scrollTo({ top: 0, behavior: 'smooth' });">
+        <a class="nav_element " href="#"
+            onclick="document.getElementById('container').scrollTo({ top: 0, behavior: 'smooth' });">
             <img id="logo" src="app/logo/nanocell.svg" alt="nc_logo" />
-            <h1 id="title" >NanoCell - csv editor</h1>
-        </a >
+            <h1 id="title">NanoCell - csv editor</h1>
+        </a>
         <div class="grow"></div>
-         <div id="nav_options" class="">
-             <a class="nav_element nav_link" href="#about">About</a>
-             <a class="nav_element nav_link" href="#support">Support</a>
-             <div class="nav_element " id="install"><button>Download <br><div id="version"> Beta version </div></button>   </div>
+        <div id="nav_options" class="">
+            <a class="nav_element nav_link" href="#about">About</a>
+            <a class="nav_element nav_link" href="#support">Support</a>
+            <div class="nav_element " id="install"><button>Download <br>
+                    <div id="version"> Beta version </div>
+                </button> </div>
         </div>
-      
+
     </nav>
     <div id="container">
         <header id="header">
@@ -109,9 +112,8 @@
 
     <script type="text/javascript">
         let installPrompt = null;
-        window.addEventListener("beforeinstallprompt", (event) => {
-            installPrompt = event;
-        });
+        let installButton =  document.getElementById('install').children[0];
+        window.addEventListener("beforeinstallprompt", (event) => { installPrompt = event });
 
         async function handleInstallPrompt() {
             if (!installPrompt) return;
@@ -120,20 +122,51 @@
             if (result.outcome == "accepted") window.location.href = "app/home.html";
         }
 
-        document.getElementById('install').addEventListener("click", handleInstallPrompt);
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('app/sw_pwa_admin.js')
-                    .then(registration => {
-                        console.log('Service Worker is registered', registration);
-                    })
-                    .catch(err => {
-                        console.error('Registration failed:', err);
-                        document.getElementById('install').children[0].innerHTML = "Download not available"
+        function buildInstallButton() {
+            document.getElementById('install').addEventListener("click", handleInstallPrompt);
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('app/sw_pwa_admin.js')
+                        .then(registration => {
+                            console.log('Service Worker is registered', registration);
+                        })
+                        .catch(err => {
+                            console.error('Registration failed:', err);
+                            if (navigator.userAgent.includes("Chrome")) {
 
-                    });
+                                installButton.innerHTML = "Download not available"
+                            } else {
+                                installButton.innerHTML = "Download available on the Chrome Browser"
+
+                            }
+
+                        });
+                });
+            } else { alert("Service workers not suported by browser") }
+
+        }
+
+        function isMobile() {
+            return /Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+
+        function buildSmoothAnchorScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (this.getAttribute('href').length < 2) return;
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) targetElement.scrollIntoView({ behavior: 'smooth' });
+                });
             });
-        } else { alert("Service workers not suported by browser") }
+        }
+
+        buildSmoothAnchorScroll();
+
+        if(isMobile()) installButton.innerHTML = "Download available on Desktop only";
+        else  buildInstallButton();
 
 
     </script>
