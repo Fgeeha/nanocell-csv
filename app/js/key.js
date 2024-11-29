@@ -1,7 +1,7 @@
 
 
 let buildKeys = function () {
-  let prevent_dflt_list = ['H', 'N', 'T', 'F'];// { H: history pop up, N: new window, T: new tab} 
+  let prevent_dflt_list = ['H', 'N', 'T', 'F', 'O'];// { H: history pop up, N: new window, T: new tab} 
   document.onkeydown = function (e) {
 
     var k = e.key.toUpperCase();
@@ -20,7 +20,7 @@ let buildKeys = function () {
     if (alt && k == "TAB") return; // enable switching window 
     if (ctrlDown && (k === "C" || k === "V")) return; // enables copy paste events
     if (k === "TAB") { e.preventDefault(); } // prevent : all tab events;
-    if (inputting && !(ctrlDown && k==="F") )  return console.log("out");
+    if (inputting && !(ctrlDown && (k==="F" || k==='S'||  k==='O')) )  return ; // letting finder and save through
     // if( sheet.inputing) return;
     if (e.code === "Space") k = "SPACE";
     if (k === "PAGEUP") { k = "ARROWUP"; alt = true }
