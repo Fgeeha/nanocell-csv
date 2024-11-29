@@ -49,7 +49,7 @@ background-color: var(--slct-bg)!important;
 }
 
 
-.formula {color: var(--blue);}
+.date {color: var(--blue); text-align: center;}
 
 
 .num {
@@ -59,8 +59,12 @@ color: var(--num-txt);
 .error{
 color: var(--red);
 text-align: center;
-opacity: 0.8;
+/* opacity: 0.8; */
 }
+
+.noComply{
+    color: var(--purple);
+    }
 
 .sheet td div:nth-child(2) {color:var(--blue);float: left;text-align: left;margin-top: 1em;}
 

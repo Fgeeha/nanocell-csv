@@ -90,7 +90,9 @@ class Sheet extends HTMLTableElement {
 
 
   sort(n, ascending) {
+    // this.df.square();
     let col_items = this.df.data.map(row => row[n]).map((val, idx) => ({ val, idx }))
+    console.log(col_items);
 
     if (stg.sort_header) col_items.shift();
 
@@ -108,8 +110,10 @@ class Sheet extends HTMLTableElement {
     let num_ordered = numbers.sort((a, b) => (ascending) ? a.val - b.val : b.val - a.val).map(({ idx }) => idx);
     let new_order = stg.sort_num_first ? num_ordered.concat(str_ordered) : str_ordered.concat(num_ordered);
 
-    new_order.concat(empty);
+    new_order = new_order.concat(empty);
     if (stg.sort_header) new_order.unshift(0);
+    console.log(empty);
+    console.log(new_order);
     this.df.order(new_order)
     this.refresh();
 
@@ -441,6 +445,8 @@ class Sheet extends HTMLTableElement {
     var div = document.createElement("div");
     if (txt[0] === '!') div.classList.add("error");
     if (txt !== '' && !isNaN(txt)) div.classList.add("num");
+    if (txt !== '' && Date.isDate(txt)) div.classList.add("date");
+    if (txt !== '' && txt.includes(',')|| txt.includes('"')) div.classList.add("noComply");
     div.innerHTML = txt;
     c.appendChild(div)
   }

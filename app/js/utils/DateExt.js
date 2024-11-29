@@ -89,3 +89,11 @@ Date.prototype.isValidFormat = function(f){
     var n = new Date(2222,2,2).build(d.getFormated(f), f);
     return Boolean(n && d.getTime() === n.getTime());
 }
+
+
+Date.isDate = function(t){
+    // const regex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+    const regex = /^\d{4}-[01]\d-[0123]\d$/;
+    return regex.test(t)
+}
+
