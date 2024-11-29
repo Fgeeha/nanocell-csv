@@ -90,12 +90,8 @@ class Sheet extends HTMLTableElement {
 
 
   sort(n, ascending) {
-    // this.df.square();
     let col_items = this.df.data.map(row => row[n]).map((val, idx) => ({ val, idx }))
-    console.log(col_items);
-
     if (stg.sort_header) col_items.shift();
-
     let numbers = [];
     let strings = [];
     let empty = [];
@@ -105,18 +101,13 @@ class Sheet extends HTMLTableElement {
       else if (!isNaN(parsedNumber) && isFinite(parsedNumber)) numbers.push({ val: parsedNumber, idx: item.idx });
       else strings.push(item);
     });
-
     let str_ordered = strings.sort((a, b) => (ascending) ? a.val.localeCompare(b.val) : b.val.localeCompare(a.val)).map(({ idx }) => idx);
     let num_ordered = numbers.sort((a, b) => (ascending) ? a.val - b.val : b.val - a.val).map(({ idx }) => idx);
     let new_order = stg.sort_num_first ? num_ordered.concat(str_ordered) : str_ordered.concat(num_ordered);
-
     new_order = new_order.concat(empty);
     if (stg.sort_header) new_order.unshift(0);
-    console.log(empty);
-    console.log(new_order);
     this.df.order(new_order)
     this.refresh();
-
   }
 
   go_to_next() {
