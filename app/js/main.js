@@ -6,9 +6,6 @@ window.addEventListener('beforeunload', function (e) {
 
 
 let sampleData = [	
-	["Hello World", "", "", "", "ds"] ,
-	["Hello World", ""] ,
-	["Hello World", ""] ,
 	["Hello World", ""] ,
 	
 
