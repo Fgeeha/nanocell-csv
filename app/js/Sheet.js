@@ -84,6 +84,10 @@ class Sheet extends HTMLTableElement {
     this.yy = n < 0 ? 0 : n;
   }
 
+  getSlctFirstValue(){
+    return this.df.get(this.x, this.y)
+  }
+
 
   sort(n, ascending) {
     let col_items = this.df.data.map(row => row[n]).map((val, idx) => ({ val, idx }))
@@ -110,8 +114,6 @@ class Sheet extends HTMLTableElement {
     this.refresh();
 
   }
-
-
 
   go_to_next() {
     var d = this.df.get(this.x, this.y);
@@ -199,44 +201,6 @@ class Sheet extends HTMLTableElement {
     this.x = 0; this.y = 0; this.rangeEnd = { x: this.df.width - 1, y: this.df.height - 1 }; this.slctRefresh(false)
   }
 
-  // scrollOneLeft() {
-  //   for (var y = 0; y < this.rows.length; y++) {
-  //     var r = this.rows[y];
-  //     var c = r.cells[r.cells.length - 1];
-  //     if (y > 0) this.loadCell(c, this.baseX, this.baseY + y - 1);
-  //     r.insertBefore(c, r.cells[1]);
-  //   }
-  //   let header_value = this.df.get(this.baseX + 1, 0)
-  //   this.rows[0].cells[1].innerHTML = (this.fixTop && header_value != "") ? header_value : this.baseX + 1;
-  // }
-
-  // scrollOneRight() {
-  //   let header_value = this.df.get(this.baseX + this.width, 0)
-  //   this.rows[0].cells[1].innerHTML = (this.fixTop && header_value != "") ? header_value : this.baseX + this.width;
-  //   for (var y = 0; y < this.rows.length; y++) {
-  //     var r = this.rows[y];
-  //     var c = r.cells[1];
-  //     if (y > 0) this.loadCell(c, this.baseX + this.width - 1, this.baseY + y - 1);
-  //     r.appendChild(c);
-  //   }
-  // }
-
-  // scrollOneUp() {
-  //   var r = this.rows[this.rows.length - 1];
-  //   for (var x = 1; x < r.cells.length; x++)  this.loadCell(r.cells[x], this.baseX + x - 1, this.baseY);
-  //   let header_value = this.df.get(0, this.baseY + 1)
-  //   r.cells[0].innerHTML = (this.fixLeft && header_value != "") ? header_value : this.baseY + 1;
-  //   this.insertBefore(r, this.rows[1]);
-  // }
-
-  // scrollOneDown() {
-  //   var r = this.rows[1];
-  //   for (var x = 1; x < r.cells.length; x++) this.loadCell(r.cells[x], this.baseX + x - 1, this.baseY + this.height - 1);
-  //   let header_value = this.df.get(0, this.baseY + this.height)
-  //   r.cells[0].innerHTML = (this.fixLeft && header_value != "") ? header_value : this.baseY + this.height;
-  //   this.appendChild(r);
-  // }
-
   shift(direction) {
     if (this.rangeEnd == undefined) {
 
@@ -247,19 +211,14 @@ class Sheet extends HTMLTableElement {
         case 3: this.df.shiftCol(this.x - 1); this.x--; break;
       }
     } else {
-
       let r = this.rangeOrdered();
       let bux = this.rangeEnd.x;
       let buy = this.rangeEnd.y;
       switch (direction) {
         case 0: for (var y = r.ymin; y <= r.ymax; y++) this.df.shiftRow(y - 1); this.y--; this.rangeEnd = { x: bux, y: buy - 1 }; break;
-        case 3: for (var x = r.xmin; x <= r.xmax; x++) this.df.shiftCol(x - 1); this.x--; this.rangeEnd = { x: bux - 1, y: buy }; break;
-
         case 1: for (var x = r.xmax; x >= r.xmin; x--) this.df.shiftCol(x); this.x++; this.rangeEnd = { x: bux + 1, y: buy }; break;
         case 2: for (var y = r.ymax; y >= r.ymin; y--) this.df.shiftRow(y); this.y++; this.rangeEnd = { x: bux, y: buy + 1 }; break;
-        // case 3: this.df.shiftCol(this.x - 1); this.x--; break;
-        // case 1: this.df.shiftCol(this.x); this.x++; break;
-        // case 2: this.df.shiftRow(this.y); this.y++; break;
+        case 3: for (var x = r.xmin; x <= r.xmax; x++) this.df.shiftCol(x - 1); this.x--; this.rangeEnd = { x: bux - 1, y: buy }; break;
       }
     }
     this.refresh();
@@ -289,9 +248,6 @@ class Sheet extends HTMLTableElement {
   }
 
   bestInputCell() {
-    // try{
-    // this.rows[this.y - this.baseY + 1].cells[this.x - this.baseX + 1].appendChild(this.inputField);
-    //    }catch (e) {
 
     if (this.cellInView(this.x, this.y)) return this.rows[this.y - this.baseY + 1].cells[this.x - this.baseX + 1]
 
@@ -331,31 +287,7 @@ class Sheet extends HTMLTableElement {
     try { this.inputField.remove() } catch (e) { }
   }
 
-  // dblclick(e) {
-  //   var t = e.target;
-  //   if (t.tagName === "TD") this.input();
-  // }
 
-
-  // click(e) {
-  //   var t = e.target;
-  //   if (t.tagName == "TD") {
-  //     var x = t.cellIndex + this.baseX - 1;
-  //     var y = t.parentNode.rowIndex + this.baseY - 1;
-  //     if (this.inputing && e.ctrlKey) {
-  //       // copies the content of the clicked cell into the editing input field
-  //       e.preventDefault();
-  //       this.inputField.value += this.df.get(x, y).split('=')[0];
-  //       this.inputField.selectionStart = this.inputField.value.length;
-  //       return
-  //     }
-  //     this.x = x;
-  //     this.y = y;
-  //     this.slctRefresh();
-  //   }
-  //   if (t.tagName === "TH" && t.cellIndex > 0) this.slctCol(this.baseX + t.cellIndex - 1);
-  //   if (t.tagName === "TH" && t.parentNode.rowIndex > 0) this.slctRow(this.baseY + t.parentNode.rowIndex - 1);
-  // }
 
 
   footerUpdate() {
@@ -390,19 +322,14 @@ class Sheet extends HTMLTableElement {
       dsy.style.top = String(top + Math.round(theight * this.baseY / (this.df.height - 1))) + "px";
     }
     if (dfw >= visible_minX) {
-
       if (dfw < 30) dsx.style.width = "50vw";
       else if (dfw < 100) dsx.style.width = "20vw";
       else dsx.style.width = "10vw";
       let left = this.rows[0].cells[1].getBoundingClientRect().left;
       let right = this.getBoundingClientRect().right;
       let twidth = right - left - dsx.offsetWidth;
-      dsx.style.left = String(left+ Math.round( twidth * this.baseX / (this.df.width - 1))) + "px";
-      // dsx.style.top = (bot - dsx.offsetHeight) + "px";
+      dsx.style.left = String(left + Math.round(twidth * this.baseX / (this.df.width - 1))) + "px";
     }
-
-
-    // console.log(document.getElementById("footer").offsetHeight)
   }
 
   slctCol(n, m = undefined) {

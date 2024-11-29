@@ -54,6 +54,8 @@ document.addEventListener("mousedown", e => {
     if (LBT == TargetType.allH) cmd.slctAll.run();
     if (LBT == TargetType.colH) sheet.slctCol(e.target.tx + sheet.baseX);
     if (LBT == TargetType.rowH) sheet.slctRow(e.target.ty + sheet.baseY);
+
+    if(e.target.tagName !="INPUT" && document.activeElement.tagName == "INPUT") document.activeElement.blur();
 });
 
 

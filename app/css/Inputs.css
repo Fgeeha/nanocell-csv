@@ -11,7 +11,7 @@
 }
 
 input{
-  background-color: var(--input-bg);
+  background-color: var(--input-bg-out);
   color:var(--input-txt) ;
   border:0;
   padding:0;
@@ -25,6 +25,8 @@ input{
 }
 input:focus{
   color:var(--input-txt) ;
+  background-color: var(--input-bg);
+
 }
   
 button{

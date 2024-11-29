@@ -69,16 +69,16 @@ window.addEventListener('message', (event) => {
 // context click col menu
 // opening multiple times a file should refocus that file
 // add a more options menu icon that opens a text menu to the right with commands or an extra menu row
-// expand should work with YYYY-MM-DD date 
 // add date formatting
+// expand should work with YYYY-MM-DD date 
 // strict csv format transform >> show all transforms and validate
 // slct to upper
 // slct to lower
 // test memory (ram)
-
+//  prevent sheet inputs if the dom.diologue is not finder or empty
+// navigate settings using tab and up/down arrows
 
 // TODO Short Term =================================================================
-// finder advanced input rework, text input click focus, copy past into input, fill with current selected cell on start ... 
 // build offuscation
 // Test on all os (OSX mostly)
 // SEO optimization

@@ -1,16 +1,16 @@
 :root{
   --th-bg: #ddd;
+  --th-txt: #616161;
+  --txt: #171717;
   --body-bg: #fff;
   --slct-bg: #d4e3f1;
   --found-bg: #1c1c1c;
   --fh-bg: #e7e7e7;
-  --table-borders: #b1b1b1;
   --fh-txt: #616161;
+  --table-borders: #b1b1b1;
   --input-txt: #000;
-  --txt: #171717;/* --activeTab: var(--table-txt); */
-  /* --decimal-txt:var(--grey); */
-  /* --table-txt: #9a8d8d; */
   --input-bg: #ffe588;
+  --input-bg-out : #f5f5f5;
   --formula-txt: var(--blue);
   --unit-txt: var(--purple);
   --currency: var(--green);
@@ -18,5 +18,5 @@
   --toast-txt: var(--yellow);
   --filter: invert(40%);
   --dots : var(--blue);
-
+  --scrollBar: grey;
 }

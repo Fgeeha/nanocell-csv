@@ -26,7 +26,6 @@ footerDiv:{
   // dom.content.style.position   = "relative";
 
 
-
 dom.dialog.clear = function (e){ while(this.children.length > 0) this.children[0].remove(); dom.dialog.className=''; sheet.scrollbarRefresh();}
 dom.dialog.push = function (e, fullscreen = false, closeButton = true){
  this.clear();
@@ -51,4 +50,5 @@ dom.dialog.push = function (e, fullscreen = false, closeButton = true){
  }
 }
 Object.defineProperty(dom.dialog, 'isBusy',{get: function(){return dom.dialog.children.length>0}});
+Object.defineProperty(dom.dialog, 'isLarge',{get: function(){return dom.dialog.classList.contains("dialog_large")}});
 

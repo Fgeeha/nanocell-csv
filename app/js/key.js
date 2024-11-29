@@ -1,7 +1,7 @@
 
 
 let buildKeys = function () {
-  let prevent_dflt_list = ['H', 'N', 'T'];// { H: history pop up, N: new window, T: new tab} 
+  let prevent_dflt_list = ['H', 'N', 'T', 'F'];// { H: history pop up, N: new window, T: new tab} 
   document.onkeydown = function (e) {
 
     var k = e.key.toUpperCase();
@@ -10,17 +10,18 @@ let buildKeys = function () {
     var alt = e.altKey;
     var shift = e.shiftKey;
     var meta = e.metaKey;
+    var inputting = document.activeElement.tagName == "INPUT";
     sheet.slctRange = shift;
-    if (isOSX && k==="S" && meta && shift) return cmd.saveAs.run();  
-    if (isOSX && k==="S" && meta) return cmd.save.run(); 
+    if (ctrlDown && (prevent_dflt_list.includes(k))) { e.preventDefault(); } // prevent : 
+    if (dom.dialog.isBusy && k === "ESCAPE") return dom.dialog.clear();
+    if (dom.dialog.isLarge) return ;
+    if (isOSX && k === "S" && meta && shift) return cmd.saveAs.run();
+    if (isOSX && k === "S" && meta) return cmd.save.run();
     if (alt && k == "TAB") return; // enable switching window 
     if (ctrlDown && (k === "C" || k === "V")) return; // enables copy paste events
-    if (ctrlDown && (prevent_dflt_list.includes(k))) { e.preventDefault(); } // prevent : 
-    if (!dom.dialog.isBusy && k === "TAB") { e.preventDefault(); } // prevent : 
-    if (!dom.dialog.isBusy && k === "ESCAPE") return dom.dialog.clear();
-    if (dom.dialog.isBusy && k === "ESCAPE") return dom.dialog.clear();
-    if (dom.dialog.isBusy && k.length > 1) return ;
-    if( sheet.inputing) return;
+    if (k === "TAB") { e.preventDefault(); } // prevent : all tab events;
+    if (inputting && !(ctrlDown && k==="F") )  return console.log("out");
+    // if( sheet.inputing) return;
     if (e.code === "Space") k = "SPACE";
     if (k === "PAGEUP") { k = "ARROWUP"; alt = true }
     if (k === "PAGEDOWN") { k = "ARROWDOWN"; alt = true }
@@ -80,7 +81,8 @@ let buildKeys = function () {
 
 
   document.addEventListener('copy', function (e) {
-    if (sheet.inputing) return;
+    var inputting = document.activeElement.tagName == "INPUT";
+    if (inputting) return;
     e.preventDefault();
     console.log("copy");
     var clip = sheet.rangeArray().map(r => r.join('\t')).join('\n');
@@ -88,7 +90,8 @@ let buildKeys = function () {
   });
 
   document.addEventListener('cut', function (e) {
-    if (sheet.inputing) return;
+    var inputting = document.activeElement.tagName == "INPUT";
+    if (inputting) return;
     e.preventDefault();
     console.log("cut");
     var clip = sheet.rangeArray().map(r => r.join('\t')).join('\n');
@@ -98,7 +101,8 @@ let buildKeys = function () {
   });
 
   document.addEventListener('paste', function (e) {
-    if (sheet.inputing) return;
+    var inputting = document.activeElement.tagName == "INPUT";
+    if (inputting) return;
     e.preventDefault();
     sheet.paste((e.clipboardData).getData('text').split('\n').map(r => r.split(/[\t,]+/)));
     sheet.refresh();

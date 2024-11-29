@@ -2,7 +2,7 @@ class Scroller extends HTMLElement {
     constructor(vertical =true) {
         super();
         this.style.display = "block";
-        this.style.backgroundColor = "grey";
+        this.style.backgroundColor = "var(--scrollBar)";
         this.style.borderRadius = ".4em";
         this.style.opacity = ".5";
         this.style.zIndex = "90";

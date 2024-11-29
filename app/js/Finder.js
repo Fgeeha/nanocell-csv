@@ -143,13 +143,15 @@ find(force = false){
 }
 
 
-findMenu(adv=false){
+findMenu(prefill="", adv=false){
   this.listTable.style.display = "none";
   this.advanced = adv;
   if (this.advanced) for(var row of this.table.rows)row.style.display="table-row";
   else for(var row of this.table.rows)if(row.rowIndex !== 1) row.style.display="none";
+  if(prefill.length> 0 ) this.findIn.value=prefill;
   dom.dialog.push(this);
   this.findIn.focus();
+  if(prefill.length> 0 ) this.find(false)
 }
 
 replaceAll(){
