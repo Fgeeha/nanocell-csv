@@ -39,6 +39,7 @@ height: 100%;
 color: var(--input-txt);
 background-color: var(--input-bg);
 z-index:1;
+margin: 0;
 }
 
 
