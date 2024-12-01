@@ -1,4 +1,7 @@
-var dom = { 
+var dom = undefined;
+
+build_dom = function(){
+dom = { 
 palette:                    document.getElementById("palette"),
 theme:                      document.getElementById("theme"),
 header:                     document.getElementById("header"),
@@ -6,6 +9,7 @@ body:                       document.getElementById("body"),
 content:                    document.getElementById("content"),
 dialog:                     document.getElementById("dialog"),
 footer:                     document.getElementById("footer"),
+cmenu:                      new CMenu(),
 footerDiv:{
   left:                     document.getElementById("footerLeft"),
   center:                   document.getElementById("footerCenter"),
@@ -13,17 +17,7 @@ footerDiv:{
   lock:                     document.getElementById("lock"),
 },
 
-// menu:document.createElement("ui-menu")
-
 }
-
-
-
-
-// dom.content.appendChild( dom.menu)
-// dom.menu.init()
-
-  // dom.content.style.position   = "relative";
 
 
 dom.dialog.clear = function (e){ while(this.children.length > 0) this.children[0].remove(); dom.dialog.className=''; sheet.scrollbarRefresh();}
@@ -51,4 +45,22 @@ dom.dialog.push = function (e, fullscreen = false, closeButton = true){
 }
 Object.defineProperty(dom.dialog, 'isBusy',{get: function(){return dom.dialog.children.length>0}});
 Object.defineProperty(dom.dialog, 'isLarge',{get: function(){return dom.dialog.classList.contains("dialog_large")}});
+
+dom.content.scrollerY   = new Scroller();
+dom.content.scrollerX   = new Scroller(false);
+dom.body.appendChild(dom.cmenu);
+return dom;
+
+// menu:document.createElement("ui-menu")
+
+}
+
+
+
+
+// dom.content.appendChild( dom.menu)
+// dom.menu.init()
+
+  // dom.content.style.position   = "relative";
+
 

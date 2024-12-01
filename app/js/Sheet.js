@@ -89,6 +89,31 @@ class Sheet extends HTMLTableElement {
   }
 
 
+  deleteRows(){
+    let r = this.rangeOrdered();
+    for (let i= 0 ; i <= r.ymax-r.ymin; i++ ) this.df.deleteRow(r.ymin);
+    this.yy = r.ymin;
+    if(this.rangeEnd){
+        this.rangeEnd.y = r.ymin;
+        if(this.rangeEnd.x==this.x) this.rangeEnd= undefined;
+    }
+    this.refresh();
+    this.slctRefresh(false);
+  }
+
+  deleteCols(){
+    let r = this.rangeOrdered();
+    for (let i= 0 ; i <= r.xmax-r.xmin; i++ )this.df.deleteCol(r.xmin);
+    this.xx = r.xmin;
+    if(this.rangeEnd){
+      this.rangeEnd.x = r.xmin;
+      if(this.rangeEnd.y==this.y) this.rangeEnd= undefined;
+    }
+    this.refresh();
+    this.slctRefresh(false);
+
+    }
+
   sort(n, ascending) {
     let col_items = this.df.data.map(row => row[n]).map((val, idx) => ({ val, idx }))
     if (stg.sort_header) col_items.shift();
@@ -96,9 +121,8 @@ class Sheet extends HTMLTableElement {
     let strings = [];
     let empty = [];
     col_items.forEach(item => {
-      const parsedNumber = parseFloat(item.val);
-      if (item.val.length < 1) empty.push(item.idx);
-      else if (!isNaN(parsedNumber) && isFinite(parsedNumber)) numbers.push({ val: parsedNumber, idx: item.idx });
+      if (item.val===undefined || item.val.length < 1) empty.push(item.idx);
+      else if (!isNaN(item.val) ) numbers.push({ val: +item.val, idx: item.idx });
       else strings.push(item);
     });
     let str_ordered = strings.sort((a, b) => (ascending) ? a.val.localeCompare(b.val) : b.val.localeCompare(a.val)).map(({ idx }) => idx);
@@ -150,7 +174,7 @@ class Sheet extends HTMLTableElement {
   }
 
   rangeOrdered() {
-    if (this.rangeEnd === undefined) return;
+    if (this.rangeEnd === undefined) return{ xmin: this.x, xmax: this.x, ymin: this.y, ymax: this.y };
     var xStart = Math.min(this.x, this.rangeEnd.x);
     var yStart = Math.min(this.y, this.rangeEnd.y);
     var xEnd = Math.max(this.x, this.rangeEnd.x);
@@ -174,8 +198,6 @@ class Sheet extends HTMLTableElement {
       else for (var j = r.xmin; j <= r.xmax; j++) this.df.edit(j, this.y, baseN0 + d * (j - r.xmin))
       return this.refresh()
     }
-
-    var delta = []
     for (var i = r.xmin; i <= r.xmax; i++) {
       var base0 = this.df.get(i, r.ymin)
       // if (base0 =="") continue;
@@ -395,6 +417,7 @@ class Sheet extends HTMLTableElement {
       var n = this.df.get(x, y);
       if (!isNaN(n) && n !== '') {
         n = Number(n);
+        if(n==Number.POSITIVE_INFINITY || n==Number.NEGATIVE_INFINITY) return;
         if (!integer) n *= 100;
         n = Math.round(n + Number.EPSILON);
         if (!integer) {

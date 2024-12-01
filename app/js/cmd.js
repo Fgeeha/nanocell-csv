@@ -1,8 +1,8 @@
-var cmd = {
+const  cmd = {
     about           :{k:"H"    ,ctrl:true, run(){new About()}, description:"About"},
     new             :{k:"N"    ,ctrl:true, run(){csvHandle.new()}, description:"New sheet"},
-    deleteRow       :{k:"BACKSPACE",ctrl:true, run(){sheet.df.deleteRow(sheet.y);sheet.refresh()}, description:"Delete Row"},
-    deleteCol       :{k:"BACKSPACE",ctrl:true,shift:true, run(){sheet.df.deleteCol(sheet.x);sheet.refresh()}, description:"Delete Col"},
+    deleteRow       :{k:"BACKSPACE",ctrl:true, run(){sheet.deleteRows()}, description:"Delete Row"},
+    deleteCol       :{k:"BACKSPACE",ctrl:true,shift:true, run(){sheet.deleteCols()}, description:"Delete Col"},
     delete          :{k:"BACKSPACE",run(){sheet.rangeEdit('');sheet.refresh() }, description:"Delete Selection"},
     delete2         :{k:"DELETE",run(){sheet.rangeEdit('');sheet.refresh() }, description:"Delete Selection"},
     settings        :{k:"G"    ,ctrl:true, run(){Setting.show()}, description:"Display Settings"},

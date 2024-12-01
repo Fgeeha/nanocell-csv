@@ -69,3 +69,49 @@ text-align: center;
 .sheet td div:nth-child(2) {color:var(--blue);float: left;text-align: left;margin-top: 1em;}
 
 .sheet td div:nth-child(3) {float:right;/* line-height: normal; *//* width: 100%; */margin-top: 1em;}
+
+
+
+ui-cmenu{
+    display: block;
+    position: fixed;
+    width: 10em;
+    top: 0;
+    left: 0 ;
+    background-color:var(--th-bg);
+    line-height: 1em;
+    box-shadow:  0 0 0 1px var(--table-borders);
+    border-radius: 0 1em 1em 1em;
+}
+
+.cmenu_header{
+    text-align: center;
+    font-weight: bold;
+    margin: .5em;
+}
+
+
+
+
+.cmenu_opt{
+    text-align: right;
+}
+
+ui-cmenu div{
+ margin: .7em 1em ;
+}
+
+
+ui-cmenu table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1em;
+}
+ui-cmenu tr{
+   cursor: pointer;
+}
+
+ui-cmenu tr:hover{
+    background-color:var(--cmenuHover);
+
+}

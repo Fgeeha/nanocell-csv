@@ -15,6 +15,14 @@ const TargetType = Object.freeze({
 });
 
 
+document.addEventListener('contextmenu', (event) => {
+    if  (!event.ctrlKey){
+        event.preventDefault();
+        dom.cmenu.pop(event);
+
+    }
+    });
+
    
 
 
@@ -56,6 +64,7 @@ document.addEventListener("mousedown", e => {
     if (LBT == TargetType.rowH) sheet.slctRow(e.target.ty + sheet.baseY);
 
     if(e.target.tagName !="INPUT" && document.activeElement.tagName == "INPUT") document.activeElement.blur();
+
 });
 
 

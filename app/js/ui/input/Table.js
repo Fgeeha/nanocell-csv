@@ -1,6 +1,5 @@
 class Table extends HTMLTableElement {
 constructor() {super();  this.row = undefined;
-
  }
 
 br(){
@@ -19,10 +18,18 @@ push(ele="", eleClass  = undefined){
 }
 
 
+activeRow( ){
+    return this.row
+}
+
+
 pushRow(array){
     this.br();
     for (var a of array) this.push(a);
 }
+
+
+clear(){ while(this.children.length > 0) this.children[0].remove();}
 
 
 
