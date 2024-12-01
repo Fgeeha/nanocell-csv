@@ -14,8 +14,8 @@ class CMenu extends HTMLElement {
             {  key:"sd", txt: "Sort",  opt:"Z<br>A",  run: cmd.sort_reverse.run },
             {  key:"rn", txt: "Round" ,opt:"N",       run: cmd.integer.run  },
             {  key:"rf", txt: "Round", opt:"$",       run: cmd.decimal.run },
-            {  key:"ic", txt: "Insert", opt:"&verbar;",       run: cmd.insertRight.run },
-            {  key:"ir", txt: "Insert", opt:"&horbar;",       run: cmd.insertDown.run },
+            {  key:"ic", txt: "Insert", opt:"&verbar;",       run: cmd.insertLeft.run },
+            {  key:"ir", txt: "Insert", opt:"&horbar;",       run: cmd.insertUp.run },
             {  key:"dc", txt: "Delete", opt:"&verbar;",       run: cmd.deleteCol.run },
             {  key:"dr", txt: "Delete", opt:"&horbar;",       run: cmd.deleteRow.run },
         ]
