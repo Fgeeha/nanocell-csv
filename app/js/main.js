@@ -74,27 +74,22 @@ window.addEventListener('message', (event) => {
 // ctrl+s on input tries to save the html page
 // ctrl+ shift +e should expand horizontally
 
-// TODO Eventually =================================================================
-// col operations >> add / concat / sub / mult/ div
+
 
 
 
 // TODO Long Term =================================================================
-
-// context click col menu
 // opening multiple times a file should refocus that file
 // add a more options menu icon that opens a text menu to the right with commands or an extra menu row
-// add date formatting
 // expand should work with YYYY-MM-DD date 
 // strict csv format transform >> show all transforms and validate
 // slct to upper
 // slct to lower
 // test memory (ram)
-//  prevent sheet inputs if the dom.diologue is not finder or empty
 // navigate settings using tab and up/down arrows
 
 // TODO Short Term =================================================================
-// build offuscation
+// build offuscation ?
 // Test on all os (OSX mostly)
 // SEO optimization
 

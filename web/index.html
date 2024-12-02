@@ -150,6 +150,10 @@
             return /Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         }
 
+        function isSafari() {
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        }
+
 
         function buildSmoothAnchorScroll() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -166,6 +170,7 @@
         buildSmoothAnchorScroll();
 
         if(isMobile()) installButton.innerHTML = "Download available on Desktop only";
+        else if(isSafari()) installButton.innerHTML = "Download available on chrome based browsers";
         else  buildInstallButton();
 
 
