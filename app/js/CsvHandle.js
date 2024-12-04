@@ -114,7 +114,7 @@ class CsvHandle {
         var data = String(cell);
         var quote = false;
         for (var i = 0; i < data.length; i++) {
-          if (data[i] === ",") quote = true;
+          if (data[i] === "," || data[i] === "\n") quote = true;
           if (data[i] === '"') { quote = true; data = data.slice(0, i) + '"' + data.slice(i); i++ }
         }
         if (quote && isStrict) throw "Strict csv format not respected <br><br> save aborted";

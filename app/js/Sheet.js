@@ -20,7 +20,9 @@ class Sheet extends HTMLTableElement {
     // this.addEventListener("dblclick", this.dblclick);
     this.inputField.addEventListener("focusout", e => { this.inputBlur() });
     this.inputField.addEventListener("keydown", e => {
-      switch (e.key.toUpperCase()) {
+      var k = e.key.toUpperCase();
+      if (k== "ENTER" && e.shiftKey ) return this.inputField.value = this.inputField.value +'\u25BE';
+      switch (k) {
         case "ENTER": e.stopPropagation(); e.preventDefault(); this.inputField.blur(); this.y++; this.slctRefresh(); this.refresh(); break;
         case "TAB": e.stopPropagation(); e.preventDefault(); this.inputField.blur(); this.x++; this.slctRefresh(); this.refresh(); break;
         case "ESCAPE": this.escape = true; sheet.inputField.blur(); break;
@@ -258,7 +260,7 @@ class Sheet extends HTMLTableElement {
     let cell = this.bestInputCell();
     if (cell === undefined) return;
     this.inputing = true;
-    this.inputField.value = txt ? txt : this.df.get(this.x, this.y);
+    this.inputField.value = txt ? txt : this.df.get(this.x, this.y).replaceAll('\n','\u25BE');
     // this.showInputField();
     cell.appendChild(this.inputField);
     this.inputField.focus();
@@ -294,6 +296,7 @@ class Sheet extends HTMLTableElement {
 
   inputBlur() {
     var e = this.inputField.value;
+    e = e.replaceAll('\u25BE', '\n')
     if (!this.escape) {
       this.rangeEdit(e);
       if (!this.rangeEnd) this.loadCell(this.inputField.parentNode, this.x, this.y);
@@ -316,7 +319,7 @@ class Sheet extends HTMLTableElement {
     }
     else f.left.innerHTML = (this.x + 1) + ":" + (this.y + 1);
     f.right.innerHTML = this.df.width + ":" + this.df.height;
-    f.center.innerHTML = this.df.get(this.x, this.y).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll(' ', '<span style="color:var(--dots)">&bull;</span>');
+    f.center.innerHTML = this.df.get(this.x, this.y).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('\n', '\u25BE<br>').replaceAll(' ', '<span style="color:var(--dots)">&bull;</span>');
     f.lock.src = (this.df.isSaved) ? "icn/lock.svg" : "icn/edit.svg";
   }
 
@@ -455,7 +458,7 @@ class Sheet extends HTMLTableElement {
     c.innerHTML = "";
     var d = this.df.get(x, y);
     if (d.length < 1) return;
-    var txt = d.replace('&', '&amp;').replace('<', '&lt;');
+    var txt = d.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('\n', '<br>');
     var div = document.createElement("div");
     if (txt[0] === '!') div.classList.add("error");
     if (txt !== '' && !isNaN(txt)) div.classList.add("num");

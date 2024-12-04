@@ -54,22 +54,17 @@
         </header>
         <div id="about">
 
-            <h1>NanoCell is built for speed and simplicity.</h1>
+            <h1>Built for speed and simplicity</h1>
             <p>
-                Nanocell lets you visualize data
-                instantly, independent of the file size.
-                It is an amazing tool to quick-view large database extract on a moment's notice.
-                It is also perfect to edit smaller datasets such as config tables as it does not try to interpret or
-                compute cell values, keeping your file safe from any data-corruption.
-                When opening files that are not respecting csv format good practices, Nanocell will help you get your
-                data back into shape.
-
-                <br> <br>
-                Nanocell aims to provide a simple
-                and free alternative to proprietary spreadsheet editors
-                which are often too slow and cumbersome for the vast majority of their use-cases.
+                Nanocell lets you edit and visualize CSV files instantly, from massive datasets to small configuration
+                tables.
+                It guarentees your data stays safe and accurate by avoiding to interprete data types.
+                Designed by and for data experts, Nanocell delivers precision and performance you can trust.
             </p>
-            <!-- <a href="./app/home.html" target="_blank"><button> Test  Nanocell in the browser</button></a> -->
+
+            <p>
+                Nanocell aims to be the go-to CSV editing tool for software engineers and data experts worldwide.
+            </p>
             <br>
         </div>
         <div id="support">
@@ -88,31 +83,17 @@
             <br>
             <br>
         </div>
-
-
-
-
-
-
-
-
         <footer>
             <a href="https://CedricBonjour.github.io/" target="_blank">About the founder</a>
-
-
-
             <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/" target="_blank">License <br> CC BY-NC-ND
                 3.0</a>
-
-
-
         </footer>
     </div>
 
 
     <script type="text/javascript">
         let installPrompt = null;
-        let installButton =  document.getElementById('install').children[0];
+        let installButton = document.getElementById('install').children[0];
         window.addEventListener("beforeinstallprompt", (event) => { installPrompt = event });
 
         async function handleInstallPrompt() {
@@ -169,9 +150,9 @@
 
         buildSmoothAnchorScroll();
 
-        if(isMobile()) installButton.innerHTML = "Download available on Desktop only";
-        else if(isSafari()) installButton.innerHTML = "Download available on chrome based browsers";
-        else  buildInstallButton();
+        if (isMobile()) installButton.innerHTML = "Download available on Desktop only";
+        else if (isSafari()) installButton.innerHTML = "Download available on chrome based browsers";
+        else buildInstallButton();
 
 
     </script>

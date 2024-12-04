@@ -92,4 +92,4 @@ window.addEventListener('message', (event) => {
 // build offuscation ?
 // Test on all os (OSX mostly)
 // SEO optimization
-
+// handle line return inputs ui & shift+ENTER

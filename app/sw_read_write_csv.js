@@ -18,7 +18,44 @@ separatorDetection= function (txt){
 }
 
 
-csv_parse = function(txt, d = ","){
+csv_parse = function(s, d = ","){
+    var rows = [];
+    var lineEnd ='\n'
+    
+
+    var v = [];     //value characters;
+    var q = '"';    //quote
+    var f = false;  //force
+    var len = s.length;
+    var c,j;
+    for (var i=0;i<len;i++){
+        c =  s[i];
+        if(c===' ')continue;
+        if(c===d){v.push("");continue}
+        if(c===q){f=true;i++}
+        j=i;
+        if(f)while(j<len && s[j]!==q || s[j]===q && s[j+1]===q){
+            if(s[j]===q && s[j+1]===q)j++;
+            j++;
+        }else{
+            while(j<len && s[j]!==d && s[j]!==lineEnd)j++;
+            while(j>i && s[j-1]===' ')j--;
+        }
+        v.push(s.substring(i,j).replace(/""/g,'"'));
+        if (f) j++;
+        i=j;
+        while(i<len && s[i]!==d && s[i]!==lineEnd)i++;
+        f=false;
+        if(s[i]===lineEnd || i===len) {
+          rows.push(v);
+          v=[]
+        }
+    }
+    return rows;
+}
+
+
+csv_parse1 = function(txt, d = ","){
   return  txt.split(/[;\r]?\n/).map(s=>{
     var r = [];     //result;
     var q = '"';    //quote

@@ -7,7 +7,18 @@ border-spacing: 1px;
 }
 
 
-.sheet td{color: var(--txt);overflow: hidden;white-space: nowrap;box-sizing: border-box;position:relative;max-width: 0;background-color: var(--body-bg);padding: 0; font-weight: normal;}
+.sheet td{
+    line-height: .8em;
+    color: var(--txt);
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    position:relative;
+    max-width: 0;
+    background-color: var(--body-bg);
+    padding: 0;
+     font-weight: normal;
+}
 
 
 .sheet .tHeader{ color: var(--th-txt);background-color: var(--th-bg); padding:2px; }

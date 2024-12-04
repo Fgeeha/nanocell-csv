@@ -5,7 +5,8 @@ footer          {padding: .2em;text-align:center;}
 .flexMain       {flex-grow: 1;min-width:3em;}
 .flexCol        {display: flex;flex-flow: column; font-size:inherit;}
 .activeTab      {font-weight: bold}
-#footerCenter   { margin : 0 3em 0 3em;}
+#footerCenter   { margin : 0 3em 0 3em;       line-height: 1em;
+    display: block;}
 #dragSpace      {min-width: 1em;-webkit-app-region: drag;flex-grow: 1;height: 100%;}
 #menu           {flex-wrap: wrap; margin: .5em;}
 header img:hover, #menu img:hover {background-color: #ccc}
