@@ -238,6 +238,7 @@ footer a {
   color: #333;
   font-weight: bold;
   opacity: 0;
+  cursor: default;
   transition: opacity cubic-bezier(0.5, -4, 0.7, 0.07) 2s;
 }
 
