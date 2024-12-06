@@ -319,7 +319,7 @@ class Sheet extends HTMLTableElement {
     }
     else f.left.innerHTML = (this.x + 1) + ":" + (this.y + 1);
     f.right.innerHTML = this.df.width + ":" + this.df.height;
-    f.center.innerHTML = this.df.get(this.x, this.y).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('\n', '\u25BE<br>').replaceAll(' ', '<span style="color:var(--dots)">&bull;</span>');
+    f.center.innerHTML = this.df.get(this.x, this.y).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('\n', '<br>').replaceAll(' ', '<span style="color:var(--dots)">&bull;</span>');
     f.lock.src = (this.df.isSaved) ? "icn/lock.svg" : "icn/edit.svg";
   }
 

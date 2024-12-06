@@ -8,7 +8,7 @@ border-spacing: 1px;
 
 
 .sheet td{
-    line-height: .8em;
+    /* line-height: .8em; */
     color: var(--txt);
     overflow: hidden;
     white-space: nowrap;
@@ -33,7 +33,15 @@ border-spacing: 1px;
 .sheet .tRowHeader{text-align: end;width: 1%;max-width: 1%;padding:0 .5em 0 .5em;white-space: nowrap;}
 
 
-.sheet td div {margin: 0 .5em 0 .5em;}
+.sheet td div {
+    margin: 0 .5em 0 .5em;
+    line-height: 1em;
+    height: 0;
+    display: flex;
+    align-items: center;
+    /* position: relative; */
+    /* top: -.5em; */
+}
 
 .sheet div{pointer-events: none;}
 
