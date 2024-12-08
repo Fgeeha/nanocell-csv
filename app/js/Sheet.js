@@ -159,6 +159,7 @@ class Sheet extends HTMLTableElement {
     var dot = stg.dv_comma_num;
     var dash = stg.dv_comma_txt;
     var single_quote = stg.dv_quotes;
+    var line_return  = stg.dv_lr;
     var lower = stg.dv_lower;
     this.allApply((x, y) => {
       var d = this.df.get(x, y);
@@ -168,6 +169,7 @@ class Sheet extends HTMLTableElement {
         if (!isNaN(numberTry)) return this.df.edit(x, y, numberTry);
       }
       if (dash) d = d.replaceAll(',', '-');
+      if (line_return) d = d.replaceAll('\n', '|');
       if (single_quote) d = d.replaceAll('\"', '\'');
       if (lower) d = d.toLowerCase();
       this.df.edit(x, y, d);
@@ -458,12 +460,13 @@ class Sheet extends HTMLTableElement {
     c.innerHTML = "";
     var d = this.df.get(x, y);
     if (d.length < 1) return;
-    var txt = d.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('\n', '<br>');
+    var txt = d.replaceAll('&', '&amp;').replaceAll('<', '&lt;');
     var div = document.createElement("div");
     if (txt[0] === '!') div.classList.add("error");
     if (txt !== '' && !isNaN(txt)) div.classList.add("num");
     if (txt !== '' && Date.isDate(txt)) div.classList.add("date");
-    if (txt !== '' && txt.includes(',')|| txt.includes('"')) div.classList.add("noComply");
+    if ( stg.purple && txt !== '' &&( txt.includes(',')|| txt.includes('"')|| txt.includes('\n'))) div.classList.add("noComply");
+    txt = txt.replaceAll('\n', '<br>');
     div.innerHTML = txt;
     c.appendChild(div)
   }

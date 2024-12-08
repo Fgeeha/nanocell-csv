@@ -111,6 +111,7 @@ Object.defineProperty(Setting, 'list', {value: [
     {key:"rows"             ,dflt:25            ,name:"Rows",        min:10, max:60,cb:n=>{if (sheet)sheet.reload()}   },
     {key:"cols"             ,dflt:7             ,name:"Cols",        min:3, max:30 ,cb:n=>{if (sheet)sheet.reload()} },
     {key:"actionBar"        ,dflt:true          ,name:"Action Bar",                 cb:b=>{dom.header.style.display = b? "flex":"none"} },
+    {key:"purple"           ,dflt:true          ,name:"Warning color on line return, comma and double quote values", cb:b=>{sheet.reload()} },
 
 {title:"Csv Save"},
     {key:"encoding"                 ,dflt:"utf-8"       ,name:"Encoding"},
@@ -122,7 +123,8 @@ Object.defineProperty(Setting, 'list', {value: [
     {key:"dv_comma_num"         ,dflt:true         ,name:"In numeric values : replace commas by a dot"},
     {key:"dv_comma_txt"         ,dflt:true         ,name:"In text values : replace commas by a dash "},
     {key:"dv_quotes"            ,dflt:true         ,name:"Replace double quotes by single quotes"},
-    {key:"dv_lower"             ,dflt:false         ,name:"Force all text to lower case"},
+    {key:"dv_lr"                ,dflt:true         ,name:"Replace line returns by a pipe (|)"},
+    {key:"dv_lower"             ,dflt:false        ,name:"Force all text to lower case"},
     
 {title:"Csv View Only"},
     {key:"editMaxFileSize"  ,dflt: 10           ,name:"Max editable file size (Mo)"},

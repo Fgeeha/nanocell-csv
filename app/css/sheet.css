@@ -8,7 +8,6 @@ border-spacing: 1px;
 
 
 .sheet td{
-    /* line-height: .8em; */
     color: var(--txt);
     overflow: hidden;
     white-space: nowrap;
@@ -24,12 +23,10 @@ border-spacing: 1px;
 .sheet .tHeader{ color: var(--th-txt);background-color: var(--th-bg); padding:2px; }
 
 .sheet .tColHeader{
-    /*max-height: 1.5em;*/
     height: 1.7em;
     text-align: center;
    
 }
-/* .sheet tr:first-child div{line-height:1.5em} */
 .sheet .tRowHeader{text-align: end;width: 1%;max-width: 1%;padding:0 .5em 0 .5em;white-space: nowrap;}
 
 
@@ -39,8 +36,6 @@ border-spacing: 1px;
     height: 0;
     display: flex;
     align-items: center;
-    /* position: relative; */
-    /* top: -.5em; */
 }
 
 .sheet div{pointer-events: none;}
@@ -69,17 +64,23 @@ background-color: var(--slct-bg)!important;
 }
 
 
-.date {color: var(--blue); text-align: center;}
+.date {
+    color: var(--blue); 
+    text-align: center;
+    justify-content: center;
+}
 
 
 .num {
 text-align: right;
 color: var(--num-txt);
+justify-content: flex-end;
 }
 .error{
 color: var(--red);
 text-align: center;
 /* opacity: 0.8; */
+justify-content: center;
 }
 
 .noComply{
