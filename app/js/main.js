@@ -41,6 +41,21 @@ let overview = undefined;
 let csvHandle = new CsvHandle()
 
 
+
+launchFileOnInitDone = function(){
+	window.launchQueue.setConsumer(async (params) => {
+		console.log(params)
+		const [handle] = params.files;
+		if (handle) csvHandle.launchFile(handle)
+	});
+	
+	
+	window.addEventListener('message', (event) => {
+		console.log(event)
+		if (event.data && event.data.fileHandle) csvHandle.launchFile(event.data.fileHandle)
+	});
+}
+
 nanocell_cleanStart = function () {
 	Setting.log()
 	Setting.init();
@@ -51,19 +66,10 @@ nanocell_cleanStart = function () {
 
 	sheet = new Sheet(new Dataframe(sampleData));
 	Setting.runAll();
+	launchFileOnInitDone();
 }
 
-window.launchQueue.setConsumer(async (params) => {
-	console.log(params)
-	const [handle] = params.files;
-	if (handle) csvHandle.launchFile(handle)
-});
 
-
-window.addEventListener('message', (event) => {
-	console.log(event)
-	if (event.data && event.data.fileHandle) csvHandle.launchFile(event.data.fileHandle)
-});
 
 
 
