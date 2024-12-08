@@ -3,6 +3,8 @@
 
 A csv file viewer and editor.
 
+App download availabale at : [https://nanocell-csv.com](https://nanocell-csv.com)
+
 - fast
 - simple
 - lightweight
@@ -15,7 +17,14 @@ A csv file viewer and editor.
 - free
   
 
-App download availabale at : [https://nanocell-csv.com](https://nanocell-csv.com)
+
+
+**Built for speed and simplicity**
+
+Nanocell lets you edit and visualize CSV files instantly, from massive datasets to small configuration tables.
+It guarentees your data stays safe and accurate by avoiding to interprete data types.
+Designed by and for data experts, Nanocell delivers precision and performance you can trust.
+Nanocell aims to be the go-to CSV editing tool for software engineers and data experts worldwide.
 
 ______________
 

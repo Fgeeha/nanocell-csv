@@ -17,12 +17,9 @@
     <link rel="stylesheet" type="text/css" href="theme.css">
     <link rel="manifest" href="manifest.JSON">
     <script defer src="/_vercel/insights/script.js"></script>
-    <!-- <script src="https://js.stripe.com/v3"></script> -->
 </head>
-
 <body>
     <nav>
-
         <a class="nav_element " href="#"
             onclick="document.getElementById('container').scrollTo({ top: 0, behavior: 'smooth' });">
             <img id="logo" src="app/logo/nanocell.svg" alt="nc_logo" />
@@ -36,10 +33,14 @@
                     <div id="version"> Beta version </div>
                 </button> </div>
         </div>
-
     </nav>
     <div id="container">
         <header id="header">
+            <h1> Open Source <br> CSV viewer & editor</h1>
+            <a href="https://github.com/CedricBonjour/nanocell-csv" target="_blank">
+                <img src="https://img.shields.io/github/stars/CedricBonjour/nanocell-csv?style=social"
+                    alt="GitHub stars">
+            </a>
             <div id="screenshots" class="hide_phone">
                 <img id="lightShot" src="img/screenshot_light.png" alt="screenshot light" />
                 <img id="darkShot" src="img/screenshot_dark.png" alt="screenshot dark" />
@@ -50,10 +51,8 @@
                 <span>Open Source</span>
                 <span>Cross Platform</span>
             </section>
-
         </header>
         <div id="about">
-
             <h1>Built for speed and simplicity</h1>
             <p>
                 Nanocell lets you edit and visualize CSV files instantly, from massive datasets to small configuration
@@ -61,7 +60,6 @@
                 It guarentees your data stays safe and accurate by avoiding to interprete data types.
                 Designed by and for data experts, Nanocell delivers precision and performance you can trust.
             </p>
-
             <p>
                 Nanocell aims to be the go-to CSV editing tool for software engineers and data experts worldwide.
             </p>
@@ -71,14 +69,10 @@
             <h1>Become a sponsor</h1>
             <p>
                 Nanocell is looking for financial support to guarantee the long term maintenance and reliability of the
-                software. To become a sponsor, please contact the founder via email or via linkedin.
+                software. To become a sponsor, contact us via email.
             </p>
             <br>
-            <br>
-            <a href="https://www.linkedin.com/in/cedric-bonjour" target="_blank"><img class="support_link_img"
-                    src="img/nav/linkedin.svg"></a>
-            <br>
-            <br>
+            <br>  
             <code id="email">nanocell.csv@gmail.com</code>
             <br>
             <span id="copy_toast"> <img src="img/nav/cp.svg" alt="copy_icon"> copied to clipboard</span>
@@ -88,6 +82,9 @@
             <a href="https://CedricBonjour.github.io/" target="_blank">About the founder</a>
             <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/" target="_blank">License <br> CC BY-NC-ND
                 3.0</a>
+            <a href="https://github.com/CedricBonjour/nanocell-csv/issues/new" target="_blank">
+                <button>Bug report</button>
+            </a>
         </footer>
     </div>
 
@@ -148,24 +145,18 @@
                 });
             });
         }
-
-        buildSmoothAnchorScroll();
-
-
-
+        
         document.getElementById("email").addEventListener("click", () => {
             const toast = document.getElementById("copy_toast");
             navigator.clipboard.writeText(document.getElementById("email").innerText) // Copy to clipboard
-
             toast.style.transition = "none";
             toast.style.opacity = ".3"; // Ensure it's hidden initially
             void toast.offsetWidth;
             toast.style.transition = null;
             toast.style.opacity = "0"; // Show the toast
-
-
         });
-
+        
+        buildSmoothAnchorScroll();
         if (isMobile()) installButton.innerHTML = "Download available on Desktop only";
         else if (isSafari()) installButton.innerHTML = "Download available on chrome based browsers";
         else buildInstallButton();
@@ -175,26 +166,7 @@
 
 </body>
 
-
 </html>
 
 <!-- do a release notes  -->
-<!-- do a projecvt issues -->
 <!-- do doc -->
-
-<!-- <span id="nc_version"> Beta_v0.0.1</span> -->
-<!-- <section id="osxNote">
-                <h3>Mac OS : Important Note</h3>
-                NanoCell - CSV's MacOS release does not have an 'Apple Installer Certificate'. <br>
-                Because of this, NanoCell - CSV cannot be distributed under its valid name. <br>
-                <b>NanoCell - CSV will still behave normally and remain 100% functional. </b> <br>
-                To install, drag the app from the .dmg to the app directory. <br>
-                <br>
-                The 'Apple Installer certificate' requires a €90/yr developer subscription. <br>
-                Please <i><a href="#support">donate</a></i> to NanoCell - CSV for Mac OS full support.
-                <br><br>
-                <button id="osxDownload">Continue to download </button>
-                <br><br>
-            </section> -->
-
-<!-- <p>We would like to give a great many thanks to <a href="https://github.com/jiggzson">Martin Donk @jiggzson</a> for his <a href="https://github.com/jiggzson/nerdamer">Nerdamer</a> project : a small and light-weight symbolic math expression evaluator enabling NanoCell's solver feature. Checkout his work at <a href="https://nerdamer.com/">nerdamer.com</a></p> -->

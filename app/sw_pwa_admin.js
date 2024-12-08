@@ -77,7 +77,6 @@ const filesToCache = [
 "css/overview.css",
 "css/Inputs.css",
 "css/Inconsolata-Regular.ttf",
-"css/Inconsolata-Bold.ttf",
 "sw_pwa_admin.js",
 "home.html",
 ];
