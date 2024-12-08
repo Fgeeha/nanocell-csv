@@ -3,6 +3,8 @@ test/csv_files/
 test/
 public/
 
+*TODO.md
+
 # Ignore all .csv files except demo.csv
 *.csv
 !demo*.csv

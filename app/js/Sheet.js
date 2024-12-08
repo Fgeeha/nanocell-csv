@@ -21,7 +21,7 @@ class Sheet extends HTMLTableElement {
     this.inputField.addEventListener("focusout", e => { this.inputBlur() });
     this.inputField.addEventListener("keydown", e => {
       var k = e.key.toUpperCase();
-      if (k== "ENTER" && e.shiftKey ) return this.inputField.value = this.inputField.value +'\u25BE';
+      if (k == "ENTER" && e.shiftKey) return this.inputField.value = this.inputField.value + '\u25BE';
       switch (k) {
         case "ENTER": e.stopPropagation(); e.preventDefault(); this.inputField.blur(); this.y++; this.slctRefresh(); this.refresh(); break;
         case "TAB": e.stopPropagation(); e.preventDefault(); this.inputField.blur(); this.x++; this.slctRefresh(); this.refresh(); break;
@@ -86,35 +86,35 @@ class Sheet extends HTMLTableElement {
     this.yy = n < 0 ? 0 : n;
   }
 
-  getSlctFirstValue(){
+  getSlctFirstValue() {
     return this.df.get(this.x, this.y)
   }
 
 
-  deleteRows(){
+  deleteRows() {
     let r = this.rangeOrdered();
-    for (let i= 0 ; i <= r.ymax-r.ymin; i++ ) this.df.deleteRow(r.ymin);
+    for (let i = 0; i <= r.ymax - r.ymin; i++) this.df.deleteRow(r.ymin);
     this.yy = r.ymin;
-    if(this.rangeEnd){
-        this.rangeEnd.y = r.ymin;
-        if(this.rangeEnd.x==this.x) this.rangeEnd= undefined;
+    if (this.rangeEnd) {
+      this.rangeEnd.y = r.ymin;
+      if (this.rangeEnd.x == this.x) this.rangeEnd = undefined;
     }
     this.refresh();
     this.slctRefresh(false);
   }
 
-  deleteCols(){
+  deleteCols() {
     let r = this.rangeOrdered();
-    for (let i= 0 ; i <= r.xmax-r.xmin; i++ )this.df.deleteCol(r.xmin);
+    for (let i = 0; i <= r.xmax - r.xmin; i++)this.df.deleteCol(r.xmin);
     this.xx = r.xmin;
-    if(this.rangeEnd){
+    if (this.rangeEnd) {
       this.rangeEnd.x = r.xmin;
-      if(this.rangeEnd.y==this.y) this.rangeEnd= undefined;
+      if (this.rangeEnd.y == this.y) this.rangeEnd = undefined;
     }
     this.refresh();
     this.slctRefresh(false);
 
-    }
+  }
 
   sort(n, ascending) {
     let col_items = this.df.data.map(row => row[n]).map((val, idx) => ({ val, idx }))
@@ -123,8 +123,8 @@ class Sheet extends HTMLTableElement {
     let strings = [];
     let empty = [];
     col_items.forEach(item => {
-      if (item.val===undefined || item.val.length < 1) empty.push(item.idx);
-      else if (!isNaN(item.val) ) numbers.push({ val: +item.val, idx: item.idx });
+      if (item.val === undefined || item.val.length < 1) empty.push(item.idx);
+      else if (!isNaN(item.val)) numbers.push({ val: +item.val, idx: item.idx });
       else strings.push(item);
     });
     let str_ordered = strings.sort((a, b) => (ascending) ? a.val.localeCompare(b.val) : b.val.localeCompare(a.val)).map(({ idx }) => idx);
@@ -159,7 +159,7 @@ class Sheet extends HTMLTableElement {
     var dot = stg.dv_comma_num;
     var dash = stg.dv_comma_txt;
     var single_quote = stg.dv_quotes;
-    var line_return  = stg.dv_lr;
+    var line_return = stg.dv_lr;
     var lower = stg.dv_lower;
     this.allApply((x, y) => {
       var d = this.df.get(x, y);
@@ -178,7 +178,7 @@ class Sheet extends HTMLTableElement {
   }
 
   rangeOrdered() {
-    if (this.rangeEnd === undefined) return{ xmin: this.x, xmax: this.x, ymin: this.y, ymax: this.y };
+    if (this.rangeEnd === undefined) return { xmin: this.x, xmax: this.x, ymin: this.y, ymax: this.y };
     var xStart = Math.min(this.x, this.rangeEnd.x);
     var yStart = Math.min(this.y, this.rangeEnd.y);
     var xEnd = Math.max(this.x, this.rangeEnd.x);
@@ -262,7 +262,7 @@ class Sheet extends HTMLTableElement {
     let cell = this.bestInputCell();
     if (cell === undefined) return;
     this.inputing = true;
-    this.inputField.value = txt ? txt : this.df.get(this.x, this.y).replaceAll('\n','\u25BE');
+    this.inputField.value = txt ? txt : this.df.get(this.x, this.y).replaceAll('\n', '\u25BE');
     // this.showInputField();
     cell.appendChild(this.inputField);
     this.inputField.focus();
@@ -422,7 +422,7 @@ class Sheet extends HTMLTableElement {
       var n = this.df.get(x, y);
       if (!isNaN(n) && n !== '') {
         n = Number(n);
-        if(n==Number.POSITIVE_INFINITY || n==Number.NEGATIVE_INFINITY) return;
+        if (n == Number.POSITIVE_INFINITY || n == Number.NEGATIVE_INFINITY) return;
         if (!integer) n *= 100;
         n = Math.round(n + Number.EPSILON);
         if (!integer) {
@@ -465,7 +465,7 @@ class Sheet extends HTMLTableElement {
     if (txt[0] === '!') div.classList.add("error");
     if (txt !== '' && !isNaN(txt)) div.classList.add("num");
     if (txt !== '' && Date.isDate(txt)) div.classList.add("date");
-    if ( stg.purple && txt !== '' &&( txt.includes(',')|| txt.includes('"')|| txt.includes('\n'))) div.classList.add("noComply");
+    if (stg.purple && txt !== '' && (txt.includes(',') || txt.includes('"') || txt.includes('\n'))) div.classList.add("noComply");
     txt = txt.replaceAll('\n', '<br>');
     div.innerHTML = txt;
     c.appendChild(div)

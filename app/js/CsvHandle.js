@@ -21,13 +21,11 @@ class CsvHandle {
     this.read(this.file)
   }
 
-
   file_chunk_loaded(d) {
     document.getElementById("footerCenter").innerHTML = Math.round(d.status * 100) + "%"
     if (d.chunk != null) this.file_chunks.push(d.chunk)
     if (d.status >= 1 && d.chunk != null) this.readSuccess();
   }
-
 
   readSuccess() {
     let matrix = this.file_chunks.flat(1);
@@ -42,16 +40,13 @@ class CsvHandle {
     let mbSize = file.size / 1000000
     this.viewOnly = mbSize > Number(stg.editMaxFileSize);
     console.log(file)
-    // console.log("mbSize : ",mbSize)
-    // console.log("stg : ",Number(stg.editMaxFileSize))
-    // console.log(this.viewOnly)
     this.pipe("read", { file: file, viewOnly: this.viewOnly, n_chunks: stg.vo_n_chunks, n_rows: stg.vo_n_rows })
   }
 
   pipe(cmd, data) { this.sw.postMessage({ cmd: cmd, data: data }) }
 
   async open() {
-    try{
+    try {
 
       let [fileHandle] = await window.showOpenFilePicker(CsvHandle.pickerOptions);
       const newWindow = window.open('./home.html', "_blank", 'width=800,height=600'); // 'newWindow.html' should be the page that will handle the file
@@ -59,7 +54,7 @@ class CsvHandle {
       newWindow.onload = () => {
         newWindow.postMessage({ fileHandle }, '*', [channel.port2]);
       };
-    }catch(err) {
+    } catch (err) {
       if (err.name === 'AbortError') return;
       else console.error('An unexpected error occurred:', err);
 

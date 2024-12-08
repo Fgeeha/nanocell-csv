@@ -51,29 +51,29 @@ const  cmd = {
 }
 
 
-function buildCommands(){
-  for (var c of Object.values(cmd)){
-      if(!c.ctrl)c.ctrl=false;
-      if(!c.shift)c.shift=false;
-      if(!c.alt)c.alt=false;
-  } 
+function buildCommands() {
+  for (var c of Object.values(cmd)) {
+    if (!c.ctrl) c.ctrl = false;
+    if (!c.shift) c.shift = false;
+    if (!c.alt) c.alt = false;
+  }
 }
 
 
-function buildMenu(){
+function buildMenu() {
   var menuItems = [
-  "new","open","save" , "reloadFile","",
-  "undo","redo","fixLeft","fixTop", "sort", "sort_reverse","transpose","trim","date","integer","decimal","validate_data",
-  "","find","about","settings","shortcuts"];
-  function buildMenuItem(item){ 
-      if (item==="")return dom.header.appendChild(document.createElement("hr"));   
-      var img = document.createElement("img");
-      img.src = "icn/menu/"+item+".svg";
-      img.setAttribute("title",item);
-      img.addEventListener("click",function(){cmd[item].run()})
-      dom.header.appendChild(img);   
+    "new", "open", "save", "reloadFile", "",
+    "undo", "redo", "fixLeft", "fixTop", "sort", "sort_reverse", "transpose", "trim", "date", "integer", "decimal", "validate_data",
+    "", "find", "about", "settings", "shortcuts"];
+  function buildMenuItem(item) {
+    if (item === "") return dom.header.appendChild(document.createElement("hr"));
+    var img = document.createElement("img");
+    img.src = "icn/menu/" + item + ".svg";
+    img.setAttribute("title", item);
+    img.addEventListener("click", function () { cmd[item].run() })
+    dom.header.appendChild(img);
   }
-  for (var m of menuItems )buildMenuItem(m); 
+  for (var m of menuItems) buildMenuItem(m);
 
 }
 

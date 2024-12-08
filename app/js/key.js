@@ -3,7 +3,6 @@
 let buildKeys = function () {
   let prevent_dflt_list = ['H', 'N', 'T', 'F', 'O'];// { H: history pop up, N: new window, T: new tab} 
   document.onkeydown = function (e) {
-
     var k = e.key.toUpperCase();
     // console.log(e)
     var ctrlDown = e.metaKey || e.ctrlKey;
@@ -14,14 +13,13 @@ let buildKeys = function () {
     sheet.slctRange = shift;
     if (ctrlDown && (prevent_dflt_list.includes(k))) { e.preventDefault(); } // prevent : 
     if (dom.dialog.isBusy && k === "ESCAPE") return dom.dialog.clear();
-    if (dom.dialog.isLarge) return ;
+    if (dom.dialog.isLarge) return;
     if (isOSX && k === "S" && meta && shift) return cmd.saveAs.run();
     if (isOSX && k === "S" && meta) return cmd.save.run();
     if (alt && k == "TAB") return; // enable switching window 
     if (ctrlDown && (k === "C" || k === "V")) return; // enables copy paste events
     if (k === "TAB") { e.preventDefault(); } // prevent : all tab events;
-    if (inputting && !(ctrlDown && (k==="F" || k==='S'||  k==='O')) )  return ; // letting finder and save through
-    // if( sheet.inputing) return;
+    if (inputting && !(ctrlDown && (k === "F" || k === 'S' || k === 'O'))) return; // letting finder and save through
     if (e.code === "Space") k = "SPACE";
     if (k === "PAGEUP") { k = "ARROWUP"; alt = true }
     if (k === "PAGEDOWN") { k = "ARROWDOWN"; alt = true }
@@ -54,9 +52,6 @@ let buildKeys = function () {
     }
   }
 
-
-
-
   document.onkeyup = function (e) {
     var k = e.key.toUpperCase();
     switch (k) {
@@ -64,21 +59,6 @@ let buildKeys = function () {
       case "SHIFT": sheet.slctRange = false; return;
     }
   }
-
-
-
-
-
-
-  // this.rows[0].cells[0].onclick = e => { this.slctAll() }
-
-
-
-
-  // removes any move action when set on mouse down 
-
-
-
 
   document.addEventListener('copy', function (e) {
     var inputting = document.activeElement.tagName == "INPUT";

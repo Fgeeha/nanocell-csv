@@ -1,163 +1,163 @@
 .sheet {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: var(--table-borders);
-    border-spacing: 1px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--table-borders);
+  border-spacing: 1px;
 }
 
 
 .sheet td {
-    color: var(--txt);
-    overflow: hidden;
-    white-space: nowrap;
-    box-sizing: border-box;
-    position: relative;
-    max-width: 0;
-    background-color: var(--body-bg);
-    padding: 0;
-    font-weight: normal;
+  color: var(--txt);
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  position: relative;
+  max-width: 0;
+  background-color: var(--body-bg);
+  padding: 0;
+  font-weight: normal;
 }
 
 
 .sheet .tHeader {
-    color: var(--th-txt);
-    background-color: var(--th-bg);
-    padding: 2px;
+  color: var(--th-txt);
+  background-color: var(--th-bg);
+  padding: 2px;
 }
 
 .sheet .tColHeader {
-    height: 1.7em;
-    text-align: center;
+  height: 1.7em;
+  text-align: center;
 
 }
 
 .sheet .tRowHeader {
-    text-align: end;
-    width: 1%;
-    max-width: 1%;
-    padding: 0 .5em 0 .5em;
-    white-space: nowrap;
+  text-align: end;
+  width: 1%;
+  max-width: 1%;
+  padding: 0 .5em 0 .5em;
+  white-space: nowrap;
 }
 
 
 .sheet td div {
-    margin: 0 .5em 0 .5em;
-    line-height: 1em;
-    height: 0;
-    display: flex;
-    align-items: center;
+  margin: 0 .5em 0 .5em;
+  line-height: 1em;
+  height: 0;
+  display: flex;
+  align-items: center;
 }
 
 .sheet div {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .sheet input:focus {
-    box-sizing: border-box;
-    position: absolute;
-    padding: 0 .5em 0 .5em;
-    font-size: inherit;
-    top: 0;
-    left: 0;
-    width: 100%;
-    border-radius: 0;
-    height: 100%;
-    color: var(--input-txt);
-    background-color: var(--input-bg);
-    z-index: 1;
-    margin: 0;
+  box-sizing: border-box;
+  position: absolute;
+  padding: 0 .5em 0 .5em;
+  font-size: inherit;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-radius: 0;
+  height: 100%;
+  color: var(--input-txt);
+  background-color: var(--input-bg);
+  z-index: 1;
+  margin: 0;
 }
 
 
 
 .slct {
-    color: inherit;
-    background-color: var(--slct-bg) !important;
+  color: inherit;
+  background-color: var(--slct-bg) !important;
 }
 
 
 .date {
-    color: var(--blue);
-    text-align: center;
-    justify-content: center;
+  color: var(--blue);
+  text-align: center;
+  justify-content: center;
 }
 
 
 .num {
-    text-align: right;
-    color: var(--num-txt);
-    justify-content: flex-end;
+  text-align: right;
+  color: var(--num-txt);
+  justify-content: flex-end;
 }
 
 .error {
-    color: var(--red);
-    text-align: center;
-    /* opacity: 0.8; */
-    justify-content: center;
+  color: var(--red);
+  text-align: center;
+  /* opacity: 0.8; */
+  justify-content: center;
 }
 
 .noComply {
-    color: var(--purple);
+  color: var(--purple);
 }
 
 .sheet td div:nth-child(2) {
-    color: var(--blue);
-    float: left;
-    text-align: left;
-    margin-top: 1em;
+  color: var(--blue);
+  float: left;
+  text-align: left;
+  margin-top: 1em;
 }
 
 .sheet td div:nth-child(3) {
-    float: right;
-    /* line-height: normal; */
-    /* width: 100%; */
-    margin-top: 1em;
+  float: right;
+  /* line-height: normal; */
+  /* width: 100%; */
+  margin-top: 1em;
 }
 
 
 
 ui-cmenu {
-    display: block;
-    position: fixed;
-    width: 10em;
-    top: 0;
-    left: 0;
-    background-color: var(--th-bg);
-    line-height: 1em;
-    box-shadow: 0 0 0 1px var(--table-borders);
-    border-radius: 0 1em 1em 1em;
+  display: block;
+  position: fixed;
+  width: 10em;
+  top: 0;
+  left: 0;
+  background-color: var(--th-bg);
+  line-height: 1em;
+  box-shadow: 0 0 0 1px var(--table-borders);
+  border-radius: 0 1em 1em 1em;
 }
 
 .cmenu_header {
-    text-align: center;
-    font-weight: bold;
-    margin: .5em;
+  text-align: center;
+  font-weight: bold;
+  margin: .5em;
 }
 
 
 
 
 .cmenu_opt {
-    text-align: right;
+  text-align: right;
 }
 
 ui-cmenu div {
-    margin: .7em 1em;
+  margin: .7em 1em;
 }
 
 
 ui-cmenu table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1em;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1em;
 }
 
 ui-cmenu tr {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 ui-cmenu tr:hover {
-    background-color: var(--cmenuHover);
+  background-color: var(--cmenuHover);
 
 }
