@@ -29,6 +29,17 @@ Nanocell aims to be the go-to CSV editing tool for software engineers and data e
 ______________
 
 
+## Contribute
+
+- The best way to contribute currently is to test the app in every way possible and provide bug reports when required.
+- Nanocell is also open to feature requests.
+- The code is not currently not open to contribution. 
+
+
+
+
+______________
+
 
 ## About the licensing terms
 
