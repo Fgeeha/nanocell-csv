@@ -1,4 +1,4 @@
-:root{
+:root {
   --th-bg: #0d0d0d;
   --th-txt: #888888;
   --txt: #ccc;
@@ -9,10 +9,10 @@
   --table-borders: #5a5a5a;
   --input-txt: #000;
   --input-bg: #aaa;
-  --input-bg-out :#555;
+  --input-bg-out: #555;
   --num-txt: var(--orange);
   --filter: invert(40%);
-  --dots:var(--orange);
-  --scrollBar:#5a5a5a;
+  --dots: var(--orange);
+  --scrollBar: #5a5a5a;
   --cmenuHover: #222;
 }

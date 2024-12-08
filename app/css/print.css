@@ -1,44 +1,52 @@
 @media print {
 
-html, body, #main,#body,table{
-  page-break-inside:auto;
-  display:block;
-  flex-flow: inherit;
-  overflow:visible;
-  flex:none;
-  width : auto;
-}
+  html,
+  body,
+  #main,
+  #body,
+  table {
+    page-break-inside: auto;
+    display: block;
+    flex-flow: inherit;
+    overflow: visible;
+    flex: none;
+    width: auto;
+  }
 
 
-#tabs div:not(.activeTab){
-  display:none;
-  
-}
-.activeTab{
-    display:block;
+  #tabs div:not(.activeTab) {
+    display: none;
+
+  }
+
+  .activeTab {
+    display: block;
     font-weight: bold;
     color: black;
-}
+  }
 
 
-footer, header{
-  display:none;
-}
+  footer,
+  header {
+    display: none;
+  }
 
-table, td, th {
-  border: 1px solid black;
-}
+  table,
+  td,
+  th {
+    border: 1px solid black;
+  }
 
-table {
-  border-collapse: collapse;
-  break-inside:auto
-}
+  table {
+    border-collapse: collapse;
+    break-inside: auto
+  }
 
-tr    {
-  break-inside:avoid!important;
-  break-after:always!important;
-  
-}
-   
-   
+  tr {
+    break-inside: avoid !important;
+    break-after: always !important;
+
+  }
+
+
 }

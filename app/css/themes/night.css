@@ -1,4 +1,4 @@
-:root{
+:root {
   --th-bg: #0d0d0d;
   --th-txt: #888888;
   --txt: #ccc;
@@ -15,4 +15,4 @@
   --dots: var(--orange);
   --scrollBar: #5a5a5a;
   --cmenuHover: #222;
-} 
+}
