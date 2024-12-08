@@ -32,7 +32,7 @@ ______________
 ## Contribute
 
 - The best way to contribute currently is to test the app in every way possible and provide bug reports when required.
-- Nanocell is also open to feature requests.
+- Open to feature requests.
 - The code is not currently not open to contribution. 
 
 

@@ -26,9 +26,14 @@
 }
 
 
-h1 {
+
+h1, h2 {
+  font-size: 2em;
   line-height: 1.3em;
   margin: .8em;
+}
+h1{
+  font-size: 3em;
 }
 
 code {
@@ -228,8 +233,13 @@ footer a {
   margin: 1em;
 }
 
+footer img{
+  height: 2em;
+}
+
 #email {
   cursor: pointer;
+  font-weight: bold;
 }
 
 #copy_toast {
