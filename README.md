@@ -10,12 +10,12 @@ App download availabale at : [https://nanocell-csv.com](https://nanocell-csv.com
 - lightweight
 - open-source
 - cross platform
+- PWA (Progressive Web App)
 - quick-view large files
-- is a PWA (Progressive Web App)
 - works 100% offline
 - custommizable
 - free
-  
+
 
 
 
