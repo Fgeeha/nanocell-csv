@@ -2,6 +2,7 @@ app/test/
 test/csv_files/
 test/
 public/
+private/
 
 *TODO.md
 

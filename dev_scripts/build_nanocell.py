@@ -2,6 +2,7 @@ import re
 import os
 import shutil
 from pathlib import Path
+import markdown
 
 def get_file_lines (fpath):
     with open(fpath, 'r') as file:
@@ -94,10 +95,57 @@ def update_sw_pwa_admin():
     with open(sw_path, 'w') as file:
         file.write("\n".join(sw_text))
 
+def md_to_html(md_file_path, html_file_path):
+
+    try:
+        with open(md_file_path, 'r', encoding='utf-8') as md_file:
+            md_content = md_file.read()
+
+        html_body = markdown.markdown(md_content)
+        
+        # Add basic styling
+        html_content = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Nanocell-csv | Terms of use & Licence</title>
+    <style>
+        body {{
+            text-align:justify;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            padding: 0;
+            max-width:50em;
+            
+        }}
+  
+    </style>
+</head>
+<body>
+ <a  href="./"><button> return to homepage</button></a>
+<br>
+{html_body}
+<br>
+ <a  href="./"><button> return to homepage</button></a>
+
+
+</body>
+</html>"""
+        
+
+        with open(html_file_path, 'w', encoding='utf-8') as html_file:
+            html_file.write(html_content)
+    except FileNotFoundError:
+        print(f"Error: The file '{md_file_path}' was not found.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
 
 frm("public")
 copy_web_to_public()
 mk_dir("./public/app/")
+md_to_html("README.md", "./public/terms_of_use_and_license.html" )
 concat_js_files("app/js", "public/app/nc_script.js")
 fcp_dir("app/css","", "public" )
 fcp_dir("app/icn","", "public" )

@@ -120,6 +120,13 @@ nav a:hover {
   text-decoration-thickness: 2px;
 }
 
+footer a:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: var(--green);
+  text-decoration-thickness: 2px;
+}
+
 #title {
   font-size: inherit;
   font-weight: inherit;
@@ -223,10 +230,13 @@ footer {
   min-height: 20vh;
   display: flex;
   background-color: var(--grey);
-  text-align: center;
-  justify-content: space-evenly;
-  align-items: center;
+  text-align: left;
+  justify-content: flex-start;
+  align-items: flex-start;
   flex-wrap: wrap;
+  padding: 3em;
+  flex-direction: column;
+  align-content: flex-start;
 }
 
 footer a {
