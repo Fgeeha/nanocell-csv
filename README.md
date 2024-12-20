@@ -37,7 +37,7 @@ Welcome to Nanocell-csv ! These Terms of Use ("Terms") govern your access to and
 
 ![Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License](https://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png)
 
-The Software is provided under the **Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License**, which governs your rights to use, modify, and distribute the Software. The full licensing terms are available [here](http://creativecommons.org/licenses/by-nc-nd/3.0/). Under this license, you are free to Share (copy and redistribute the material in any medium or format) under the following terms:
+The Software is provided under the **Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License**, which governs your rights to use, modify, and distribute the Software. The full licensing terms are available [here](http://creativecommons.org/licenses/by-nc-nd/3.0/). In the instance of conflict between these Terms of Use and the licensing terms, the Terms of Use shall prevail. Under this license, you are free to Share (copy and redistribute the material in any medium or format) under the following terms:
 
 - Attribution - You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
 - NonCommercial - You may not use the material for commercial purposes.
@@ -68,7 +68,13 @@ YOU USE THE SOFTWARE AT YOUR OWN RISK.
 
 ### V - Limitation of Liability
 
-TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.THE SOFTWARE SHALL NOT BE HELD RESPONSIBLE FOR ANY DATA LOSS OR DATA CORRUPTION RESULTING FROM ITS USE.
+UNLESS OTHERWISE MUTUALLY AGREED TO BY THE PARTIES IN WRITING AND TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, WE OFFER THE SOFTWARE AND OUR SERVICES AS-IS AND MAKE NO REPRESENTATIONS OR WARRANTIES OF ANY KIND CONCERNING THOSE, EXPRESS, IMPLIED, STATUTORY OR OTHERWISE, INCLUDING, WITHOUT LIMITATION, WARRANTIES OF TITLE, MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON INFRINGEMENT, OR THE ABSENCE OF LATENT OR OTHER DEFECTS, ACCURACY, OR THE PRESENCE OF ABSENCE OF ERRORS, WHETHER OR NOT DISCOVERABLE. SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES, SO THIS EXCLUSION MAY NOT APPLY TO YOU.
+
+EXCEPT TO THE EXTENT REQUIRED BY APPLICABLE LAW, IN NO EVENT WILL WE BE LIABLE TO YOU ON ANY LEGAL THEORY FOR ANY SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE OR EXEMPLARY DAMAGES, LOSS OR CORRUPTION OF DATA ARISING OUT OF THIS LICENSE OR THE USE OF THE SOFTWARE AND OUR SERVICES, EVEN IF YOU HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. 
+
+SAVE FOR ANY CLAIM THAT CANNOT BE LIMITED OR EXCLUDED BY APPLICABLE LAW, DEATH OR PERSONAL INJURY CAUSED BY OUR NEGLIGENCE OR FRAUD, YOU AGREE THAT OUR LIABILITY SHALL AT ALL TIMES BE LIMITED TO A SUM EQUAL TO EUR 1,000.
+
+Should a clause be deemed invalid, such clause shall be deemed modified to the minimum extent necessary to make it valid whilst keeping its intended meaning.
 
 ### VI - Privacy
 

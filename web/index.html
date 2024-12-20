@@ -38,10 +38,10 @@
   </nav>
   <div id="container">
     <header id="header">
-      <h1>  CSV Viewer & Editor</h1>
+      <h1>CSV Viewer & Editor</h1>
       <a href="https://github.com/CedricBonjour/nanocell-csv" target="_blank">
         <img src="https://img.shields.io/github/stars/CedricBonjour/nanocell-csv?style=social" alt="GitHub stars">
-        
+
       </a>
       <div id="screenshots" class="hide_phone">
         <img id="lightShot" src="img/screenshot_light.png" alt="screenshot light" />
@@ -80,9 +80,9 @@
       <span id="copy_toast"> <img src="img/nav/cp.svg" alt="copy_icon"> copied to clipboard</span>
     </div>
     <footer>
-      <a href="./terms_of_use_and_license.html">Terms of use & License  <br> CC BY-NC-ND  3.0</a>
+      <a href="./terms_of_use_and_license.html">Terms of use & License <br> CC BY-NC-ND 3.0</a>
       <a href="https://CedricBonjour.github.io/" target="_blank">About the author</a>
-        <a href="https://github.com/CedricBonjour/nanocell-csv/issues/new" target="_blank">Bug report </a>
+      <a href="https://github.com/CedricBonjour/nanocell-csv/issues/new" target="_blank">Bug report </a>
       <a href="https://github.com/CedricBonjour/nanocell-csv" target="_blank"> <img src="img/sup/github.svg"
           alt="GitHub link"></a>
     </footer>
@@ -108,17 +108,33 @@
           navigator.serviceWorker.register('app/sw_pwa_admin.js')
             .then(registration => {
               console.log('Service Worker is registered', registration);
+              // TODO >> test the following update system ... also checkout :periodicSync.register() for 24 h sync 
+              // if ('SyncManager' in window){
+              //  await registration.sync.register('check for update');
+
+              // Add an event listener for the `sync` event in your service worker.
+              // self.addEventListener('sync', event => {
+
+              // Check for correct tag on the sync event.
+              // if (event.tag === 'check for update') {
+
+              // Execute the desired behavior with waitUntil().
+              // event.waitUntil(
+
+              // This is just a hypothetical function for the behavior we desire.
+              // pushLocalDataToDatabase();
+              // );
+              // }
+              //   }
+              // });
+
+
+
             })
             .catch(err => {
               console.error('Registration failed:', err);
-              if (navigator.userAgent.includes("Chrome")) {
-
-                installButton.innerHTML = "Download not available"
-              } else {
-                installButton.innerHTML = "Download available on the Chrome Browser"
-
-              }
-
+              if (navigator.userAgent.includes("Chrome")) installButton.innerHTML = "Download not available";
+              else installButton.innerHTML = "Download available on the Chrome Browser";
             });
         });
       } else { alert("Service workers not suported by browser") }

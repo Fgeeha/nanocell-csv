@@ -4,7 +4,7 @@ const n_chars_for_separator_detection = 500;
 
 separatorDetection = function (txt) {
   if (txt.length > n_chars_for_separator_detection) txt = txt.substring(0, n_chars_for_separator_detection)
-  d = [',', '\t', ';', ':']
+  d = [',', '\t', ';', ':', '|']
   n = [0, 0, 0, 0]
   for (var i = 0; i < txt.length; i++) {
     for (var j = 0; j < d.length; j++) {
