@@ -33,10 +33,9 @@
     <div id="nav_options" class="">
       <a class="nav_element nav_link" href="#about">About</a>
       <a class="nav_element nav_link" href="#contribute">Contribute</a>
-      <a class="nav_element nav_link" href="#support">Contact</a>
       <div class="nav_element " id="install"><button>Download <br>
           <div id="version"> Beta version </div>
-        </button> </div>
+        </button> </div>     
     </div>
   </nav>
   <div id="container">
@@ -118,11 +117,11 @@
     </div>
     <div id="support">
       <h2>Contact</h2>
-      <p>
+      <!-- <p>
         <b>Become a sponsor </b> - Nanocell-csv is looking for financial support to guarantee the long term maintenance
         and
         reliability of the software. To become a sponsor, contact us via email.
-      </p>
+      </p> -->
       <br>
       <br>
       <code id="email">nanocell.csv@gmail.com</code>
@@ -226,7 +225,10 @@
     });
 
     buildSmoothAnchorScroll();
-    if (isMobile()) installButton.innerHTML = "Download available on Desktop only";
+    if (isMobile()){
+      installButton.classList.add("isMobileDnld");
+      installButton.innerHTML = "Download available on Desktop only";
+    } 
     else if (isSafari()) installButton.innerHTML = "Download available on chrome based browsers";
     else if (isFirefox()) installButton.innerHTML = "Download available on chrome based browsers";
     else buildInstallButton();
@@ -240,3 +242,4 @@
 
 <!-- do a release notes  -->
 <!-- do doc -->
+<!-- do FAQ -->

@@ -145,7 +145,7 @@ def md_to_html(md_file_path, html_file_path):
 frm("public")
 copy_web_to_public()
 mk_dir("./public/app/")
-md_to_html("README.md", "./public/terms_of_use_and_license.html" )
+md_to_html("TERMS_OF_USE.md", "./public/terms_of_use_and_license.html" )
 concat_js_files("app/js", "public/app/nc_script.js")
 fcp_dir("app/css","", "public" )
 fcp_dir("app/icn","", "public" )
