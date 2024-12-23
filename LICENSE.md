@@ -1,3 +1,6 @@
+Copyright (c) 2024 Cedric Bonjour
+
+
 Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported
 ----------------------------------------------------------------
 

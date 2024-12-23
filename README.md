@@ -23,14 +23,14 @@ ______________
 
 
 
-### Built for speed and simplicity
+## Built for speed and simplicity
 Nanocell-csv lets you edit and visualize CSV files instantly, from massive datasets to small configuration tables. It guarantees your data stays safe and accurate by avoiding to interpret data types. Designed by and for data experts, Nanocell-csv delivers precision and performance you can trust.
 
 Nanocell-csv aims to be the go-to CSV editing tool for software engineers and data experts worldwide.
 
 
 
-### Key features
+## Key features
 
 
 **Data privacy** - Nanocell-csv works 100% off-line, your data is never leaving your computer. Nanocell-csv.com runs on a static server which, by design, only sends data on request but cannot register any data. This is very easy for the anyone to validate as the code open source and available [here].
@@ -41,7 +41,7 @@ Nanocell-csv aims to be the go-to CSV editing tool for software engineers and da
 
 
 
-### Contribute
+## Contribute
 
 **Grow the community** - Star the github repo and talk about Nanocell-csv to people around you! Link it on relevant reddit posts or show how useful its been to you on social media!
 
