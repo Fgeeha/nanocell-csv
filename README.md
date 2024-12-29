@@ -8,7 +8,6 @@ App download availabale on the website : [https://nanocell-csv.com](https://nano
 - fast
 - simple
 - lightweight
-- open-source
 - cross platform
 - PWA (Progressive Web App)
 - quick-view large files
@@ -33,7 +32,7 @@ Nanocell-csv aims to be the go-to CSV editing tool for software engineers and da
 ## Key features
 
 
-**Data privacy** - Nanocell-csv works 100% off-line, your data is never leaving your computer. Nanocell-csv.com runs on a static server which, by design, only sends data on request but cannot register any data. This is very easy for the anyone to validate as the code open source and available [here].
+**Data privacy** - Nanocell-csv works 100% off-line, your data is never leaving your computer. Nanocell-csv.com runs on a static server which, by design, only sends data on request but cannot register any data. This is very easy for the anyone to validate as the source code is available [here](https://github.com/CedricBonjour/nanocell-csv).
 
 **Data accuracy** - CSV data is text and Nanocell-csv makes sure values are being handled as such. Leading zeros and '+' signs are kept. No more data corruption of phone numbers, zipcodes, etc. Pasting data also finally works as you would expect, no more paste reformatting or column split action to perform !
 
@@ -47,7 +46,7 @@ Nanocell-csv aims to be the go-to CSV editing tool for software engineers and da
 
 **Give feedback: missing features & bugs** - Nanocell-csv still has a bit to go before being stable and mature. Help us get there faster by reporting on the github issue tracker.
 
-**Submit pull requests** - To whom it may concern, you know what I'm talking about 😉.
+
 
 
 

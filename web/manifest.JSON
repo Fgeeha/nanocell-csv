@@ -9,7 +9,7 @@
   "id": "/app/",
   "prefer_related_applications": false,
   "display": "standalone",
-  "description": "Nanocell - CSV file viewer & editor : fast, simple, lightweight, open-source, PWA (Progressive Web App), offline, cross platform, free, custommizable, data accurate",
+  "description": "Nanocell - CSV file viewer & editor : fast, simple, lightweight, PWA (Progressive Web App), offline, cross platform, free, custommizable, data accurate",
   "capture_links": "new-client",
   "file_handlers": [
     {

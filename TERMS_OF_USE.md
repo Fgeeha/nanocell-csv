@@ -1,6 +1,6 @@
 # Terms of Use
 
-Welcome to Nanocell-csv ! These Terms of Use ("Terms") govern your access to and use of our open-source csv editor software ("Software"). By using the Software, you agree to be bound by these Terms. If you do not agree, please refrain from using the Software.
+Welcome to Nanocell-csv ! These Terms of Use ("Terms") govern your access to and use of our csv editor software ("Software"). By using the Software, you agree to be bound by these Terms. If you do not agree, please refrain from using the Software.
 
 ### I - License
 
