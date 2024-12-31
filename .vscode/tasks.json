@@ -31,7 +31,7 @@
             "type": "shell",
             "command": "python",
             "args": [
-                "./dev_scripts/build_nanocell.py"
+                "./build.py"
             ],
             "problemMatcher": []
         },
@@ -40,7 +40,7 @@
             "type": "shell",
             "command": "python",
             "args": [
-                "./dev_scripts/update_version.py"
+                "./update_version.py"
             ],
             "problemMatcher": []
         }
