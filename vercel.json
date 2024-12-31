@@ -1,4 +1,4 @@
 {
-    "buildCommand": "python3 dev_scripts/build_nanocell.py",
+    "buildCommand": "python3 build.py",
     "outputDirectory": "public"
 }
