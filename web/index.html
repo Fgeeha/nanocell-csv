@@ -26,17 +26,15 @@
   <nav>
     <a class="nav_element " href="#"
       onclick="document.getElementById('container').scrollTo({ top: 0, behavior: 'smooth' });">
-      <img id="logo" src="app/logo/nanocell.svg" alt="nc_logo" />
-      <h1 id="title">NanoCell - csv editor</h1>
+      <img id="navLogo" src="app/logo/nanocell.svg" alt="nc_logo" />
+      <h1 id="navTitle">NanoCell - csv editor</h1>
     </a>
     <div class="grow"></div>
-    <div id="nav_options" class="">
-      <a class="nav_element nav_link" href="#about">About</a>
-      <a class="nav_element nav_link" href="#contribute">Contribute</a>
-      <div class="nav_element " id="install"><button>Download <br>
-          <div id="version"> Beta version </div>
-        </button> </div>     
-    </div>
+    <a class="nav_element nav_link" href="#about">About</a>
+    <a class="nav_element nav_link" href="#contribute">Contribute</a>
+    <div class="nav_element" id="install"><button>Download<br>
+        <div id="version">Beta version</div>
+      </button> </div>
   </nav>
   <div id="container">
     <header id="header">
@@ -48,14 +46,14 @@
         <img id="lightShot" src="img/screenshot_light.png" alt="screenshot light" />
         <img id="darkShot" src="img/screenshot_dark.png" alt="screenshot dark" />
       </div>
-      <section id="subtitle">
+      <div id="keyWords">
         <span>Free</span>
         <span>Fast</span>
         <span>Data Accurate</span>
         <span>Cross Platform</span>
-      </section>
+      </div>
     </header>
-    <div id="about">
+    <section id="about">
       <h2>Built for speed and simplicity</h2>
       <p>
         Nanocell-csv lets you edit and visualize CSV files instantly, from massive datasets to small configuration
@@ -63,70 +61,42 @@
         It guarantees your data stays safe and accurate by avoiding to interpret data types.
         Designed by and for data experts, Nanocell-csv delivers precision and performance you can trust.
       </p>
-      <p>
-        Nanocell-csv aims to be the go-to CSV editing tool for software engineers and data experts worldwide.
-      </p>
-      <br>
-      <!-- <div style=" position: relative; max-width: 60em; width: 100%;"><iframe > placeholder promotion Video  </iframe></div> -->
-      <br>
-
-    </div>
-    <div id="features">
+      <p>Nanocell-csv aims to be the go-to CSV editing tool for software engineers and data experts worldwide.</p>
+    </section>
+    <section id="features">
       <h2>Key features</h2>
-
-
       <p><b>Data privacy</b> - Nanocell-csv works 100% off-line, your data is never leaving your computer.
-        Nanocell-csv.com runs on a static
-        server which, by design, only sends data on request but cannot register any data. This is very easy for the
+        Nanocell-csv.com runs on a static server which, by design, only sends data on request but cannot register any
+        data. This is very easy for the
         anyone to validate as the source code is available <a
           href="https://github.com/CedricBonjour/nanocell-csv">[here]</a>.</p>
-
       <p><b>Data accuracy</b> - CSV data is text and Nanocell-csv makes sure values are being handled as such. Leading
         zeros and '+' signs are
         kept. No more data corruption of phone numbers, zipcodes, etc. Pasting data also finally works as
         you would expect, no more paste reformatting or column split action to perform ! </p>
-
       <p><b>Instant view large files</b> - O(1) &#128521;. This is achieved by sampling the header,
         the footer and a few rows at regular intervals without parsing the entire file. The goal here is for data
-        experts to
-        quickly understand what they are dealing with when first opening a file. That is before they start using heavier Big-Data
-        tools like pandas, pyspark, powerBI, R etc... </p>
-
-      <br>
-      <br>
-
-    </div>
-    <div id="contribute">
+        experts to quickly understand what they are dealing with when first opening a file. That is before they start
+        using heavier
+        Big-Data tools like pandas, pyspark, powerBI, R etc... </p>
+    </section>
+    <section id="contribute">
       <h2>Contribute</h2>
-
       <a href="https://github.com/CedricBonjour/nanocell-csv" target="_blank">
         <img src="https://img.shields.io/github/stars/CedricBonjour/nanocell-csv?style=social" alt="GitHub stars">
       </a>
-
       <p><b>Grow the community</b> - Star the github repo and talk about Nanocell-csv to people around you! Link it on
         relevant reddit posts or show how useful its been to you on social media!</p>
 
       <p><b>Give feedback: missing features & bugs</b> - Nanocell-csv still has a bit to go before being stable and
-        mature. Help
-        us get there faster by reporting on the github issue tracker <a
+        mature. Help us get there faster by reporting on the github issue tracker <a
           href="https://github.com/CedricBonjour/nanocell-csv/issues/new" target="_blank">[here].</a> </p>
-
-  
-
-    </div>
-    <div id="support">
+    </section>
+    <section id="support">
       <h2>Contact</h2>
-      <!-- <p>
-        <b>Become a sponsor </b> - Nanocell-csv is looking for financial support to guarantee the long term maintenance
-        and
-        reliability of the software. To become a sponsor, contact us via email.
-      </p> -->
-      <br>
-      <br>
       <code id="email">nanocell.csv@gmail.com</code>
-      <br>
       <span id="copy_toast"> <img src="img/nav/cp.svg" alt="copy_icon"> copied to clipboard</span>
-    </div>
+    </section>
     <footer>
       <a href="./terms_of_use_and_license.html">Terms of use & License <br> CC BY-NC-ND 3.0</a>
       <a href="https://CedricBonjour.github.io/" target="_blank">About the author</a>
@@ -224,10 +194,10 @@
     });
 
     buildSmoothAnchorScroll();
-    if (isMobile()){
+    if (isMobile()) {
       installButton.classList.add("isMobileDnld");
       installButton.innerHTML = "Download available on Desktop only";
-    } 
+    }
     else if (isSafari()) installButton.innerHTML = "Download available on chrome based browsers";
     else if (isFirefox()) installButton.innerHTML = "Download available on chrome based browsers";
     else buildInstallButton();
