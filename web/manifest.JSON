@@ -1,6 +1,6 @@
 {
-  "name": "Nanocell",
-  "short_name": "Nanocell",
+  "name": "Nanocell-csv",
+  "short_name": "Nanocell-csv",
   "theme_color": "#e7e7e7",
   "background_color": "#e7e7e7",
   "orientation": "portrait",
@@ -9,8 +9,17 @@
   "id": "/app/",
   "prefer_related_applications": false,
   "display": "standalone",
-  "description": "Nanocell - CSV file viewer & editor : fast, simple, lightweight, PWA (Progressive Web App), offline, cross platform, free, custommizable, data accurate",
-  "capture_links": "new-client",
+  "description": "Nanocell - CSV file viewer & editor : free, fast, simple, lightweight, offline, cross platform, data accurate, PWA (Progressive Web App)",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": [
+    "productivity",
+    "utilities",
+    "business"
+  ],
+  "launch_handler": {
+    "client_mode": "auto"
+  },
   "file_handlers": [
     {
       "action": "/app/home.html",
@@ -28,6 +37,25 @@
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
+    },
+    {
+      "src": "app/logo/nanocell.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "web/img/screenshot_light.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "label": "App spreadsheet in light mode"
+    },
+    {
+      "src": "web/img/screenshot_dark.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "label": "App spreadsheet in dark mode"
     }
   ]
 }
