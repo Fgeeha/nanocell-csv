@@ -31,6 +31,17 @@
       }
     }
   ],
+  "scope_extensions": [
+    {
+      "origin": "https://www.nanocell-csv.com/"
+    },
+    {
+      "origin": "https://nanocell-csv.com/"
+    },
+    {
+      "origin": "https://nanocell-csv.vercel.app/"
+    }
+  ],
   "icons": [
     {
       "src": "app/logo/nanocell.svg",
