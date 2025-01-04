@@ -30,7 +30,10 @@
     </section>
   </footer>
   <script type="text/javascript" src="nc_script.js"></script>
-  <script type="text/javascript">nanocell_cleanStart()</script>
+  <script type="text/javascript">
+    nanocell_cleanStart();
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register('/app/sw_pwa_admin.js');
+  </script>
 </body>
 
 </html>
