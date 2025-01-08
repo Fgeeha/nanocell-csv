@@ -12,6 +12,10 @@
   position: relative;
 }
 
+#install button {
+  min-width: 10em;
+}
+
 #version {
   position: absolute;
   bottom: -1.5em;
@@ -178,10 +182,9 @@ header {
 }
 
 
-footer {
+#footer {
   min-height: 20vh;
   display: flex;
-  background-color: var(--grey);
   text-align: left;
   justify-content: flex-start;
   align-items: flex-start;
@@ -191,11 +194,11 @@ footer {
   align-content: flex-start;
 }
 
-footer a {
+#footer a {
   margin: 1em;
 }
 
-footer img {
+#footer img {
   height: 2em;
 }
 
@@ -208,6 +211,7 @@ footer img {
   font-family: inherit;
   letter-spacing: .2em;
 }
+
 #copy_toast {
   display: flex;
   align-items: center;
@@ -222,7 +226,7 @@ footer img {
   margin: .2em;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
 
   .hide_phone,
   .nav_link,
@@ -245,11 +249,12 @@ footer img {
     min-height: auto;
   }
 
-  #install, .isMobileDnld{
+  #install,
+  .isMobileDnld {
     margin: 0;
     border: none;
     font-size: .8em;
     color: gray;
-  } 
+  }
 
 }
