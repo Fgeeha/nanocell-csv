@@ -49,6 +49,7 @@ document.addEventListener("mousedown", e => {
   if (LBT == TargetType.cell) {
     sheet.x = e.target.tx + sheet.baseX;
     sheet.y = e.target.ty + sheet.baseY;
+    if (e.ctrlKey && e.target.firstElementChild.classList.contains("url")) window.open(e.target.innerText, "_blank");
     sheet.slctRefresh();
     check_for_outofbound_scroll();
   }

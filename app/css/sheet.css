@@ -83,6 +83,10 @@
   justify-content: center;
 }
 
+.url {
+  color: var(--blue);
+}
+
 
 .num {
   text-align: right;

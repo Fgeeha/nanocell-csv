@@ -31,6 +31,15 @@ function rndStr(n = 2) {
   return r;
 }
 
+function isValidUrl(string) {
+  try {
+    new URL(string);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 
 round = function (n, integer = true) {
   if (isNaN(n) || n === '') return n;

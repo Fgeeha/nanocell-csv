@@ -465,6 +465,7 @@ class Sheet extends HTMLTableElement {
     if (txt[0] === '!') div.classList.add("error");
     if (txt !== '' && !isNaN(txt)) div.classList.add("num");
     if (txt !== '' && Date.isDate(txt)) div.classList.add("date");
+    if (isValidUrl(txt)) div.classList.add("url");
     if (stg.purple && txt !== '' && (txt.includes(',') || txt.includes('"') || txt.includes('\n'))) div.classList.add("noComply");
     txt = txt.replaceAll('\n', '<br>');
     div.innerHTML = txt;
