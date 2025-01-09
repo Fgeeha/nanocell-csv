@@ -56,8 +56,10 @@
     <section id="about">
       <h2>Built for speed and simplicity</h2>
       <p>
-        Nanocell-csv lets you edit and visualize CSV files instantly,  whether you're tackling massive datasets or fine-tuning small configuration tables. 
-        With a steadfast commitment to data integrity, it keeps your information safe and accurate—no unwanted type conversions, no surprises.
+        Nanocell-csv lets you edit and visualize CSV files instantly, whether you're tackling massive datasets or
+        fine-tuning small configuration tables.
+        With a steadfast commitment to data integrity, it keeps your information safe and accurate—no unwanted type
+        conversions, no surprises.
         Designed by and for data experts, Nanocell-csv redefines how you work with CSV files.
       </p>
       <p>Nanocell-csv aims to be the go-to CSV editing tool for software engineers and data experts worldwide.</p>
@@ -141,39 +143,39 @@
     function buildInstallButton() {
       document.getElementById('install').addEventListener("click", handleInstallPrompt);
       if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('app/sw_pwa_admin.js')
-            .then(registration => {
-              console.log('Service Worker is registered', registration);
-              // TODO >> test the following update system ... also checkout :periodicSync.register() for 24 h sync 
-              // if ('SyncManager' in window){
-              //  await registration.sync.register('check for update');
 
-              // Add an event listener for the `sync` event in your service worker.
-              // self.addEventListener('sync', event => {
+        navigator.serviceWorker.register('app/sw_pwa_admin.js')
+          .then(registration => {
+            console.log('Service Worker is registered', registration);
+            // TODO >> test the following update system ... also checkout :periodicSync.register() for 24 h sync 
+            // if ('SyncManager' in window){
+            //  await registration.sync.register('check for update');
 
-              // Check for correct tag on the sync event.
-              // if (event.tag === 'check for update') {
+            // Add an event listener for the `sync` event in your service worker.
+            // self.addEventListener('sync', event => {
 
-              // Execute the desired behavior with waitUntil().
-              // event.waitUntil(
+            // Check for correct tag on the sync event.
+            // if (event.tag === 'check for update') {
 
-              // This is just a hypothetical function for the behavior we desire.
-              // pushLocalDataToDatabase();
-              // );
-              // }
-              //   }
-              // });
+            // Execute the desired behavior with waitUntil().
+            // event.waitUntil(
+
+            // This is just a hypothetical function for the behavior we desire.
+            // pushLocalDataToDatabase();
+            // );
+            // }
+            //   }
+            // });
 
 
 
-            })
-            .catch(err => {
-              console.error('Registration failed:', err);
-              if (navigator.userAgent.includes("Chrome")) installButton.innerHTML = "Download not available";
-              else installButton.innerHTML = "Download available on the Chrome Browser";
-            });
-        });
+          })
+          .catch(err => {
+            console.error('Registration failed:', err);
+            if (navigator.userAgent.includes("Chrome")) installButton.innerHTML = "Download not available";
+            else installButton.innerHTML = "Download available on the Chrome Browser";
+          });
+
       } else { alert("Service workers not suported by browser") }
 
     }
