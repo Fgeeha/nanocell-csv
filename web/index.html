@@ -133,6 +133,23 @@
     let installButton = document.getElementById('install').children[0];
     window.addEventListener("beforeinstallprompt", (event) => { installPrompt = event });
 
+    document.getElementById('install').addEventListener("click", handleInstallPrompt);
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('app/sw_pwa_admin.js')
+        .then(registration => {
+          console.log('Service Worker is registered', registration);
+        })
+        .catch(err => {
+          console.error('Registration failed:', err);
+          if (navigator.userAgent.includes("Chrome")) installButton.innerHTML = "Download not available";
+          else installButton.innerHTML = "Download available on the Chrome Browser";
+        });
+
+    } else { alert("Service workers not suported by browser") }
+
+
+
+
     async function handleInstallPrompt() {
       if (!installPrompt) return;
       const result = await installPrompt.prompt();
@@ -140,45 +157,6 @@
       if (result.outcome == "accepted") window.location.href = "app/home.html";
     }
 
-    function buildInstallButton() {
-      document.getElementById('install').addEventListener("click", handleInstallPrompt);
-      if ('serviceWorker' in navigator) {
-
-        navigator.serviceWorker.register('app/sw_pwa_admin.js')
-          .then(registration => {
-            console.log('Service Worker is registered', registration);
-            // TODO >> test the following update system ... also checkout :periodicSync.register() for 24 h sync 
-            // if ('SyncManager' in window){
-            //  await registration.sync.register('check for update');
-
-            // Add an event listener for the `sync` event in your service worker.
-            // self.addEventListener('sync', event => {
-
-            // Check for correct tag on the sync event.
-            // if (event.tag === 'check for update') {
-
-            // Execute the desired behavior with waitUntil().
-            // event.waitUntil(
-
-            // This is just a hypothetical function for the behavior we desire.
-            // pushLocalDataToDatabase();
-            // );
-            // }
-            //   }
-            // });
-
-
-
-          })
-          .catch(err => {
-            console.error('Registration failed:', err);
-            if (navigator.userAgent.includes("Chrome")) installButton.innerHTML = "Download not available";
-            else installButton.innerHTML = "Download available on the Chrome Browser";
-          });
-
-      } else { alert("Service workers not suported by browser") }
-
-    }
 
     function isMobile() {
       return /Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -221,7 +199,6 @@
     }
     else if (isSafari()) installButton.innerHTML = "Download available on chrome based browsers";
     else if (isFirefox()) installButton.innerHTML = "Download available on chrome based browsers";
-    else buildInstallButton();
 
 
   </script>
