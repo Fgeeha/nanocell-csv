@@ -116,7 +116,7 @@ nav {
   margin: 0 .5em;
 }
 
-button {
+button , .anchorButton{
   position: relative;
   cursor: pointer;
   margin: 1em;
@@ -132,9 +132,11 @@ button {
   letter-spacing: inherit;
 }
 
-button:hover {
+button:hover, .anchorButton:hover {
   box-shadow: var(--green) inset 0 0 2px;
+  text-decoration: none !important;
 }
+
 
 header {
   display: flex;
