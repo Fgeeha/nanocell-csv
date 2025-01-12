@@ -1,7 +1,7 @@
 
 # Nanocell - CSV
 
-A csv file viewer and editor.
+A free csv file viewer and editor.
 
 App download availabale on the website : [https://nanocell-csv.com](https://nanocell-csv.com)
 
