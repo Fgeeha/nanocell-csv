@@ -137,6 +137,21 @@ class Sheet extends HTMLTableElement {
     this.refresh();
   }
 
+  validate_headers() {
+    console.log("validating headers")
+
+    for (var x = 0; x < this.df.width; x++) {
+      var h = this.df.get(x, 0);
+      if (h === undefined || h === "") h = `col_${x + 1}`
+      h = h.toLowerCase();
+      h = h.replace(/[^a-zA-Z0-9]/g, '_');
+      for (var i = 0; i < x; i++) if (h == this.df.get(i, 0)) h = h + `_c${x + 1}`;
+      this.df.edit(x, 0, h);
+    }
+
+    this.refresh();
+  }
+
   go_to_next() {
     var d = this.df.get(this.x, this.y);
     var i = this.x;

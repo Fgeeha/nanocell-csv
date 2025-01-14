@@ -1,7 +1,10 @@
 window.addEventListener('beforeunload', function (e) { if (!sheet.df.isSaved) e.preventDefault() });
 
 let sampleData = [
-  ["Hello World", ""],
+  ["Hello World", ""]
+  //   , "a", "a",  "a_éC", "dsiuh IUZASH", "siudch", "a", "", "b"],
+  // ["Hello World", "", "a", "a",  "a_éC", "dsiuh IUZASH", "siudch", "a", "", "b"],
+  // ["Hello World", "" , "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
 
   // [ "Numbers", "Text","Not csv compliant", "Date", "Important"] ,
   // [ "3.14159", "null","not csv, compliant", "2024-11-29", "!cheers!"] ,

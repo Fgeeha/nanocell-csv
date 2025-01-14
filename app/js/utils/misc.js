@@ -1,7 +1,9 @@
 
 function signOf(value) { if (value >= 0) return 1; return -1; }
 
-
+function isAlphanumeric(char) {
+  return /^[a-zA-Z0-9_]$/.test(char);
+}
 
 function Timer(name) {
   this.init = new Date().getTime();

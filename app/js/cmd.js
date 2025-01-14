@@ -27,6 +27,7 @@ const  cmd = {
     reloadFile      :{k:"R"    ,ctrl:true, run(){csvHandle.reloadFile()}, description:"Reload file from last save"},
     expand          :{k:"E"    ,ctrl:true, run(){sheet.expand()}, description:"Expand first row to selection"},
     validate_data   :{k:"P"    ,ctrl:true, run(){sheet.validate_data()}, description:"Validate and format data to respect csv standards"},
+    validate_headers:{k:"H"    ,ctrl:true, shift:true, run(){sheet.validate_headers()}, description:"Validate and format header to respect SQL standards"},
     next_occurance  :{k:"D"    ,ctrl:true, run(){sheet.go_to_next()}, description:"Go to next occurence of cell value"},
     sort            :{k:"L"    ,ctrl:true, run(){sheet.sort(sheet.x, true)}, description:"Sort rows based on active column (ascending order)"},
     sort_reverse    :{k:"L"    ,ctrl:true, shift:true, run(){sheet.sort(sheet.x, false)}, description:"Sort rows based on active column (descending order)"},
@@ -63,7 +64,7 @@ function buildCommands() {
 function buildMenu() {
   var menuItems = [
     "new", "open", "save", "reloadFile", "",
-    "undo", "redo", "fixLeft", "fixTop", "sort", "sort_reverse", "transpose", "trim", "date", "integer", "decimal", "validate_data",
+    "undo", "redo", "fixLeft", "fixTop", "sort", "sort_reverse", "transpose", "trim", "date", "integer", "decimal","validate_headers",  "validate_data",
     "", "find", "about", "settings", "shortcuts"];
   function buildMenuItem(item) {
     if (item === "") return dom.header.appendChild(document.createElement("hr"));
