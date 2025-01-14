@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NanoCell - CSV Editor</title>
+  <title>NanoCell - CSV file Viewer & Editor</title>
   <link rel="stylesheet" type="text/css" href="theme.css">
   <link rel="icon" href="app/logo/nanocell.svg">
   <link rel="manifest" href="manifest.JSON">
@@ -55,7 +55,7 @@
     </header>
     <section id="about">
       <h2>Built for speed and simplicity</h2>
-      <p>
+      <p id="about_p">
         Nanocell-csv lets you edit and visualize CSV files instantly, whether you're tackling massive datasets or
         fine-tuning small configuration tables.
         With a steadfast commitment to data integrity, it keeps your information safe and accurate—no unwanted type
@@ -189,12 +189,12 @@
 
     document.getElementById("email").addEventListener("click", () => {
       const toast = document.getElementById("copy_toast");
-      navigator.clipboard.writeText(document.getElementById("email").innerText) // Copy to clipboard
+      navigator.clipboard.writeText(document.getElementById("email").innerText);
       toast.style.transition = "none";
-      toast.style.opacity = ".3"; // Ensure it's hidden initially
+      toast.style.opacity = ".3";
       void toast.offsetWidth;
       toast.style.transition = null;
-      toast.style.opacity = "0"; // Show the toast
+      toast.style.opacity = "0";
     });
 
     buildSmoothAnchorScroll();
