@@ -11,6 +11,7 @@ class Sheet extends HTMLTableElement {
     this.fixLeft = false;
     this.slctRange = false;
     this.rangeEnd = undefined;
+    this.colWidthList = [];
     this.xx = 0;
     this.yy = 0;
     this.bx = 0;
@@ -473,8 +474,12 @@ class Sheet extends HTMLTableElement {
   }
 
   loadTopHeader(x) {
-    if (this.fixTop && this.df.get(this.baseX + x, 0).length > 0) this.rows[0].cells[x + 1].innerHTML = "<div>" + this.df.get(this.baseX + x, 0) + "</div>";
-    else this.rows[0].cells[x + 1].innerHTML = this.baseX + x + 1;
+    if (this.fixTop && this.df.get(this.baseX + x, 0).length > 0)
+      this.rows[0].cells[x + 1].firstChild.innerHTML = this.df.get(this.baseX + x, 0);
+    else this.rows[0].cells[x + 1].firstChild.innerHTML = this.baseX + x + 1;
+    var w = this.colWidthList.find(obj => obj.idx === this.baseX + x);
+    this.rows[0].cells[x + 1].style.width = w ? w.width : "auto";
+
   }
 
   loadLeftHeader(y) {
@@ -549,6 +554,13 @@ class Sheet extends HTMLTableElement {
       for (var x = 0; x < stg.cols + 1; x++) {
         let cell = document.createElement("td", { is: "ui-cell" });
         cell.setPosition(x - 1, y - 1);
+        if (y === 0 && x > 0) {
+          var hdrTxt = document.createElement("span");
+          var hdrHandle = document.createElement("span");
+          hdrHandle.classList.add("headerHandle");
+          cell.append(hdrTxt);
+          cell.append(hdrHandle);
+        }
         tr.appendChild(cell);
 
       }

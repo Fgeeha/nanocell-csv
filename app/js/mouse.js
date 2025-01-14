@@ -4,6 +4,10 @@ let RBT = undefined;
 let mouseX = 0;
 let mouseY = 0;
 
+let mouseXstart = 0;
+let mouseYstart = 0;
+let mouseTargetStart = 0;
+
 const TargetType = Object.freeze({
   na: undefined,
   cell: 0,
@@ -12,6 +16,14 @@ const TargetType = Object.freeze({
   allH: 3,
   scrollBarX: 4,
   scrollBarY: 5,
+  headerHandle: 6,
+});
+
+document.addEventListener('dblclick', (e) => {
+  if (getTargetType(e) == TargetType.allH) {
+    sheet.colWidthList = [];
+    sheet.refresh();
+  }
 });
 
 document.addEventListener('contextmenu', (event) => {
@@ -22,6 +34,11 @@ document.addEventListener('contextmenu', (event) => {
 });
 
 document.addEventListener("mouseup", e => {
+  if (LBT == TargetType.headerHandle) {
+    var th = mouseTargetStart.parentNode;
+    var w = th.style.width;
+    sheet.colWidthList.push({ idx: th.tx + sheet.baseX, width: w })
+  }
   document.onmousemove = undefined;
   if (e.buttons < 1) {
     LBT = undefined;
@@ -39,10 +56,14 @@ let getTargetType = function (e) {
   }
   if (t === dom.content.scrollerY) return TargetType.scrollBarY;
   if (t === dom.content.scrollerX) return TargetType.scrollBarX;
+  if (t.classList.contains("headerHandle")) return TargetType.headerHandle;
   return TargetType.na
 }
 
 document.addEventListener("mousedown", e => {
+  mouseXstart = e.clientX;
+  mouseYstart = e.clientY;
+  mouseTargetStart = e.target;
   if (e.button === 0) LBT = getTargetType(e);
   if (e.button === 2) RBT = getTargetType(e);
   if (e.target.tagName != "INPUT" && e.target.tagName != "BUTTON") e.preventDefault(); // prevents text selection
@@ -85,6 +106,13 @@ document.addEventListener("mousemove", e => {
       if (r > 1) r = 1;
       sheet.baseX = Math.floor(sheet.df.width * r);
       sheet.slctRefresh(false);
+    }
+    if (LBT == TargetType.headerHandle) {
+      var th = mouseTargetStart.parentNode;
+      var startX = th.getBoundingClientRect().left;
+      var newWidth = 100 * (mouseX - startX) / th.parentNode.offsetWidth;
+      if (newWidth < 0) newWidth = 0;
+      th.style.width = `${newWidth}%`;
     }
 
   }

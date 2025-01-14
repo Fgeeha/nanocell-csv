@@ -18,7 +18,7 @@ class TCell extends HTMLTableCellElement {
 
     this.addEventListener("dblclick", e => {
       if (this.tx >= 0 && this.ty >= 0) sheet.input();
-      if (this.ty < 0) this.style.width = (this.style.width !== "50%") ? "50%" : "auto"
+      if (this.ty < 0) this.style.width = "auto"
     });
   }
 
