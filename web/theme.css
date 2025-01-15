@@ -192,8 +192,21 @@ header {
   align-items: flex-start;
   flex-wrap: wrap;
   padding: 3em;
-  flex-direction: column;
+  flex-direction: row;
   align-content: flex-start;
+}
+
+#footer div{
+    /* min-height: 20vh; */
+    display: inline-flex
+;
+    text-align: left;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: flex-start;
+    width: 20em;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
 #footer a {
