@@ -17,7 +17,7 @@ App download availabale on the website : [https://nanocell-csv.com](https://nano
 
 
 
-![screenshot](web/img/screenshot_light.png)
+![screenshot](web/img/screenshot/screenshot_light.webp)
 
 
 
