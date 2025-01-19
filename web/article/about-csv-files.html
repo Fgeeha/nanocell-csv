@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html  lang="en">
+<head>
+<meta charset='utf-8'>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSV Files: The one data file format to rule them all!</title>
+<meta property="og:title" content="CSV Files: The one data file format to rule them all!" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="CSV files are the backbone of data exchange—simple, universal, and incredibly versatile.  It’s not flashy, it’s not trendy, and yet, it is everywhere. But if CSV files are so simple, important and universal then why do they feel so painful to work with?">
+<meta name="description" content="CSV files are the backbone of data exchange—simple, universal, and incredibly versatile.  It’s not flashy, it’s not trendy, and yet, it is everywhere. But if CSV files are so simple, important and universal then why do they feel so painful to work with?">
+
+<meta property="og:image" content="https://www.nanocell-csv.com/img/meme/csv-to-rule-them-all.webp" />
+<style>
+body {
+  
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+p{
+    text-align: justify;
+}
+section{
+    margin: 0 1em;
+
+    margin-bottom: 25vh;
+max-width: 40em;
+}
+code, strong{
+background: #eeeeee;
+padding: 2px .5em;
+border-radius: .2em;
+}
+#banner{
+width: 100%;
+max-width: 40em !important;
+margin:0;
+}
+img{
+max-width: 100%;
+display:block;
+margin:2em auto;
+}
+ul{
+      list-style-type: none;
+}
+h1{
+margin: 2em 0;
+text-align: left;
+border-bottom: solid 1px;
+padding-bottom: 1em;
+}
+
+
+pre,  blockquote{
+  margin: 0;
+  padding: .5em 1em;
+  background-color: #eeeeee;
+}
+
+blockquote{
+  border-left: .5em solid green;
+}
+
+#article_metadata{
+font-style: italic;
+font-size: .8em;
+}
+
+pre{
+    margin: 1em 0;
+    line-height: .8EM;
+}
+
+pre code {
+  padding : 0;
+}
+
+</style>
+</head>
+<body>
+<img id="banner" src="https://www.nanocell-csv.com/img/meme/csv-to-rule-them-all.webp" alt="article banner image" />
+<section>
+<div id="article_metadata"><date>2025-01-19</date> by Cedric Bonjour  </div>
+<!-- https://www.nanocell-csv.com/img/meme/csv-to-rule-them-all.webp -->
+
+<h1>CSV Files: The one data file format to rule them all!</h1>
+<blockquote>
+<p>CSV files are the backbone of data exchange—simple, universal, and incredibly versatile.  It’s not flashy, it’s not trendy, and yet, it is everywhere. But if CSV files are so simple, important and universal then why do they feel so painful to work with?</p>
+</blockquote>
+<h2>What Are CSV Files (a quick reminder) ?</h2>
+<p>The origins of the CSV file date back to the early days of computing when simplicity was key. Developers needed a lightweight, platform-agnostic way to store and share tabular data, and the CSV was born. </p>
+<p>CSV stands for <strong>Comma-Separated Values</strong>. At its core, it’s a simple text file where data is organized into rows and columns, with commas acting as the dividers. Think of it as a digital version of a grocery list: one line per item, with commas separating the details. </p>
+<p>For example:</p>
+<pre><code class="language-csv">
+Name, Age, Favorite Food
+
+Alice, 30, Pizza
+
+Bob, 25, Sushi
+
+</code></pre>
+<blockquote>
+<p>A text file of tabular data</p>
+<p>Columns of each row are delimited by commas</p>
+<p>Hence the name, CSV: Comma-Separated Values</p>
+</blockquote>
+<h2>What Are CSV Files Used for Today ?</h2>
+<p>Fast forward to today, and CSV files are everywhere. They are a cornerstone of the digital world, acting as a universal format for data portability across systems. Whether it's accessing massive datasets from the company cloud, or transferring contacts from a phone, CSV files have you covered. Widely used in the ETL (Extract, Transform, Load) field, they enable seamless data transfer between databases with differing proprietary formats. data-engineers take advantage of their simplicity for storing and retrieving tabular data as backups. CSV files integrate well with tools like Excel, Python, or R for data-analists and data-scientists use them as input to machine learning models. Many APIs offer CSV as an exchange format due to its simplicity, and their text-based structure makes them a popular choice on platforms like GitHub, where developers use them to store configurations or small datasets in repositories. Finally, they are the go-to file format when trying to broadcast data publicly. </p>
+<blockquote>
+<p>Database import/export, backup &amp; API </p>
+<p>Input format to data analysis/modeling tools</p>
+<p>Configuration tables for code  </p>
+<p>... Just about anything</p>
+</blockquote>
+<h2>Why do CSV files remain truly indispensable</h2>
+<p>What makes the CSV file truly indispensable is its combination of simplicity, age-old reliability, and non-proprietary nature. There’s beauty in its straightforwardness. You don’t need fancy software to open, read and understand a CSV—a text editor will do. It’s the only guaranteed file format that will interface seamlessly with almost any existing data handling software, from legacy systems to cutting-edge platforms. Sure, XML and JSON formats have their moments in the spotlight, but when it comes to reliability that will stand the test of time, the CSV is unmatched.</p>
+<blockquote>
+<p>Simple</p>
+<p>Reliable</p>
+<p>Timeless </p>
+<p>Human-Readable</p>
+<p>Universal</p>
+</blockquote>
+<h2>Common Problems with CSV Files</h2>
+<p>Working with CSVs isn’t always smooth sailing. Here are some common gripes:</p>
+<p><strong>Encoding Nightmares:</strong> Non-ASCII characters (such as é and ü) can wreak havoc if encoding isn’t detected properly. It is worth mentioning that the recommended default encoding for CSV files is <code>utf-8</code>.</p>
+<p><strong>Comma Confusion:</strong> What happens when your data values contain commas? (Spoiler: It can get messy if not handled with the right standard.)</p>
+<p><strong>Standard misalignment:</strong> Over time, people have tweaked the CSV standards to better fit their needs. An example of this is in european countries where the  commas are used for decimal numbers in european countries, the comma was replaced by a semicolon.  </p>
+<p><strong>Misuse of Excel:</strong> Microsoft Excel is a great data analysis tool but poorly suited for CSV files. This holds especially true in the fields of ETL and data-engineering. It often misinterprets CSV standards or value data-types. This often ends up in data corruption and even more so when users have the <code>auto-save</code> mode activated. Furthermore, CSV files or often database extracts that are too large to be handled by Excel making it feel clunky or even crash upon opening a file. What hold for Excel is also true of other major spreadsheet editors such as Google Sheets, Libre Office Calc, or Mac's Numbers.</p>
+<blockquote>
+<p>Poor tooling due to negligence in following standards</p>
+</blockquote>
+<h2>Essential Yet Painful to work with – Why?</h2>
+<p>If CSV files are so important and universal then why does it always feels unnecessarily complicated to open them in a any spreadsheet editor?</p>
+<p>Here is a hypothesis: </p>
+<blockquote>
+<ol>
+<li>
+<p>A spreadsheet editor needs a fancy feature to differentiate itself and be competitive. </p>
+</li>
+<li>
+<p>Fancy features require complexity that CSV files can't handle.</p>
+</li>
+<li>
+<p>Editors come up with a proprietary file format to enable this differenciation.</p>
+</li>
+<li>
+<p>Editors leave out CSV file handling (more or less purposly) to push their user base towards their proprietary format.</p>
+</li>
+<li>
+<p>Users can't find a descent CSV file editor.</p>
+</li>
+</ol>
+</blockquote>
+<h2>The solution: An alternative spreadsheet editor dedicated to CSV files</h2>
+<p><a href="https://www.nanocell-csv.com/">Nanocell-csv</a> is a free, cross platform, spreadsheet editor dedicated to CSV files. Its source code is available on <a href="https://github.com/CedricBonjour/nanocell-csv">Github</a> to be community driven. <a href="https://www.nanocell-csv.com/">Nanocell-csv</a>, pledges to focus only on CSV files and their real-world use cases. </p>
+<blockquote>
+<p>The <a href="https://www.nanocell-csv.com/">Nanocell-csv</a> file editor strives to embrace CSV core values: </p>
+<ul>
+<li>
+<p>Simple </p>
+</li>
+<li>
+<p>Reliable</p>
+</li>
+<li>
+<p>Universal </p>
+</li>
+</ul>
+</blockquote>
+<p><img alt="nanocell-logo" src="https://www.nanocell-csv.com/img/screenshot/screenshot_light_logo.webp" /></p>
+<p>Find out more at <a href="https://www.nanocell-csv.com/">https://www.nanocell-csv.com/</a></p>
+</section>
+</body>
+</html>
