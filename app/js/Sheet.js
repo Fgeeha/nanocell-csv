@@ -572,6 +572,7 @@ class Sheet extends HTMLTableElement {
         if (y === 0 && x > 0) {
           var hdrTxt = document.createElement("span");
           var hdrHandle = document.createElement("span");
+          hdrTxt.classList.add("noclick");
           hdrHandle.classList.add("headerHandle");
           cell.append(hdrTxt);
           cell.append(hdrHandle);

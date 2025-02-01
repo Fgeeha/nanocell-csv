@@ -221,20 +221,28 @@ header {
 
 #email {
   cursor: pointer;
-  font-weight: bold;
-  font-size: inherit;
-  font-family: inherit;
-  letter-spacing: .2em;
+  letter-spacing: .07em;
+  position: relative;
 }
 
 #copy_toast {
+  position: relative;
   display: flex;
-  align-items: center;
+  bottom: -2em;
   color: #333;
-  font-weight: bold;
   opacity: 0;
   cursor: default;
+  height: 0;
+  width: 100%;
   transition: opacity cubic-bezier(0.5, -4, 0.7, 0.07) 2s;
+  align-items: center;
+  text-decoration: none!important;
+  font-size: .8em;
+  justify-content: center;
+}
+#copy_toast:hover{
+  text-decoration: none!important;
+
 }
 
 #copy_toast img {

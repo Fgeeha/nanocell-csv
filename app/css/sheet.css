@@ -47,6 +47,9 @@
   justify-content: center;
   cursor: col-resize;
 }
+.noclick{
+  pointer-events: none;
+}
 
 
 

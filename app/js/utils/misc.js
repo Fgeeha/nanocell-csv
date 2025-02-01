@@ -33,13 +33,10 @@ function rndStr(n = 2) {
   return r;
 }
 
-function isValidUrl(string) {
-  try {
-    new URL(string);
-    return true;
-  } catch (e) {
-    return false;
-  }
+function isValidUrl(txt) {
+  if (typeof txt !== "string") return false;
+  let url = txt.toLowerCase();
+  return url.startsWith("https://")||url.startsWith("http://")
 }
 
 
