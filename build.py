@@ -106,9 +106,9 @@ def add_seo_pages():
 # todo
   index_lines = get_file_lines("public/index.html")
   seo_data = get_file_lines("misc/seo-pages.md")
-  name_list=[]
   index_content = "\n".join(index_lines)
   index_content =  re.sub(r'<p id="about_p">.*?</p>', '###', index_content, flags=re.DOTALL)
+  name_list = [( seo_data[i][2:], seo_data[i + 1]) for i in range(0, len(seo_data), 2)]
   for name, desc in name_list : 
      content = index_content.replace("CSV file Viewer & Editor", name)
      content = content.replace("<h1>CSV Viewer & Editor</h1>", f"<h1>{name}</h1>") 

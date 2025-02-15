@@ -31,7 +31,7 @@ Double clicking on any CSV file should thus open it in Nanocell-csv.
 
 If that is not the case: 
 - right click on a csv file 
-- select :  `Open with...` 
+- select : `Open with...` 
 - select : `Choose another app`
 - select : `Nanocell-csv` and click on `Always`
 

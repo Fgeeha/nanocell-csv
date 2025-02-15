@@ -1,10 +1,10 @@
 # CSV file Data Import Tool
 Nanocell-csv is your reliable CSV file data import tool, designed to seamlessly handle data integrity and accuracy when importing large or small datasets. With built-in data validation and offline functionality, it ensures your CSV data remains untouched, whether it's for quick inspection or preparation for database import. Experience hassle-free data management with Nanocell-csv’s commitment to clean and accurate CSV handling. 
-# CSV file Database Preview Tool
+# CSV file Database Preview and Cleanup Tool
 When preparing data for database import, Nanocell-csv acts as the ultimate CSV file database preview tool. Instantly visualize your data, identify inconsistencies, and validate headers and encoding to ensure smooth database integration. With no surprises, you can quickly clean up any issues and proceed with your data workflow without interruptions.
 # CSV file Big Data Visualization Tool
 Nanocell-csv isn't just about editing—it's also a powerful CSV file data visualization tool. Whether you're dealing with complex datasets or simple tables, this tool provides an instant overview without parsing the entire file. You can quickly identify patterns, detect errors, and prepare data for further analysis, all while ensuring accuracy and integrity.
-# CSV file Data Cleanup & Exploration Tool
+# CSV file Data Exploration Tool
 For data professionals looking to explore their CSV files before diving into heavier analysis tools, Nanocell-csv is the perfect data exploration tool. With its ability to instantly display file previews and sample data, it enables you to quickly assess large datasets, understand the structure, and get to work with confidence—all while maintaining complete data accuracy.
 # CSV file Viewer and Editor for Windows
 Nanocell-csv brings you a fast, lightweight CSV file viewer and editor designed for Windows users. With a user-friendly interface, you can instantly view and edit CSV files of any size without worrying about unwanted type conversions. Whether you’re cleaning up data or making quick edits, Nanocell-csv delivers a seamless experience on your Windows machine.
@@ -28,4 +28,3 @@ Nanocell-csv is a lightweight CSV file viewer and editor that doesn’t weigh do
 Nanocell-csv is an open-source CSV file viewer and editor that gives you full control over your data management process. Built by and for data experts, it ensures complete transparency, and you can even contribute to its development. Enjoy the benefits of an open-source tool while ensuring data integrity and security with every use.
 # Free CSV file Viewer and Editor
 Nanocell-csv is a free CSV file viewer and editor that provides powerful features without the price tag. Whether you need to inspect, edit, or validate CSV data, this tool gives you everything you need without the hassle of paid subscriptions. Keep your data safe, accurate, and accessible with this free solution.
- 
