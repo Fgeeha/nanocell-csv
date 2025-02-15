@@ -103,9 +103,11 @@ def update_sw_pwa_admin():
 
 
 def add_seo_pages():
+# todo
+  index_lines = get_file_lines("public/index.html")
+  seo_data = get_file_lines("misc/seo-pages.md")
   name_list=[]
-  flines = get_file_lines("public/index.html")
-  index_content = "\n".join(flines)
+  index_content = "\n".join(index_lines)
   index_content =  re.sub(r'<p id="about_p">.*?</p>', '###', index_content, flags=re.DOTALL)
   for name, desc in name_list : 
      content = index_content.replace("CSV file Viewer & Editor", name)
@@ -207,6 +209,7 @@ def md_to_html(md_file_path, html_file_path):
   html_content = html_content.replace("{tag_img_banner}", tag_img_banner)
   html_content = html_content.replace("{html_body}", html_body)
   html_content = html_content.replace("{style}", style)
+  html_content = html_content.replace("{first_p}", first_p)
 
   with open(html_file_path, 'w', encoding='utf-8') as html_file:
       html_file.write(html_content)

@@ -4,13 +4,13 @@
 
 # Why Does Editing CSV Files Always Feel So Difficult?
 
-> CSV files are the backbone of data exchange—simple, universal, and incredibly versatile.  It’s not flashy, it’s not trendy, and yet, it is everywhere. But if CSV files are so simple, important and universal then why do they feel so painful to work with?
+> CSV files are the backbone of data exchange—simple, universal, and incredibly versatile.  It's not flashy, it's not trendy, and yet, it is everywhere. But if CSV files are so simple, important and universal then why do they feel so painful to work with?
 
 ## What Are CSV Files (a quick reminder) ?
 
 The origins of the CSV file date back to the early days of computing when simplicity was key. Developers needed a lightweight, platform-agnostic way to store and share tabular data, and the CSV was born. 
 
-CSV stands for **Comma-Separated Values**. At its core, it’s a simple text file where data is organized into rows and columns, with commas acting as the dividers. For example:
+CSV stands for **Comma-Separated Values**. At its core, it's a simple text file where data is organized into rows and columns, with commas acting as the dividers. For example:
 
 ```csv
 Name, Age, Favorite Food
@@ -36,7 +36,7 @@ Fast forward to today, and CSV files are everywhere. They are a cornerstone of t
 
 ## Why do CSV files remain truly indispensable?
 
-What makes the CSV file truly indispensable is its combination of simplicity, age-old reliability, and non-proprietary nature. There’s beauty in its straightforwardness. You don’t need fancy software to open, read and understand a CSV file—the most lightweight text editors will do (notyepad, fim, emacs...). You can even check their content from the system's command line: `cat ./path-to/filename.csv`. It’s the only file format that is guaranteed to interface seamlessly with any existing data handling software, from legacy systems to cutting-edge platforms. Sure, XML and JSON formats have their moments in the spotlight, but when it comes to reliability that will stand the test of time, the CSV is unmatched.
+What makes the CSV file truly indispensable is its combination of simplicity, age-old reliability, and non-proprietary nature. There's beauty in its straightforwardness. You don't need fancy software to open, read and understand a CSV file—the most lightweight text editors will do (notyepad, fim, emacs...). You can even check their content from the system's command line: `cat ./path-to/filename.csv`. It's the only file format that is guaranteed to interface seamlessly with any existing data handling software, from legacy systems to cutting-edge platforms. Sure, XML and JSON formats have their moments in the spotlight, but when it comes to reliability that will stand the test of time, the CSV is unmatched.
 
 > Simple
 > Reliable
@@ -46,9 +46,9 @@ What makes the CSV file truly indispensable is its combination of simplicity, ag
 
 ##  Common Problems Working with CSV Files
 
-Working with CSVs isn’t always smooth sailing. Here are some common gripes:
+Working with CSVs isn't always smooth sailing. Here are some common gripes:
 
-**Encoding Nightmares:** Non-ASCII characters (such as é and ü) can wreak havoc if encoding isn’t detected properly. It is worth mentioning that the recommended default encoding for CSV files is *utf-8*.
+**Encoding Nightmares:** Non-ASCII characters (such as é and ü) can wreak havoc if encoding isn't detected properly. It is worth mentioning that the recommended default encoding for CSV files is *utf-8*.
 **Comma Confusion:** What happens when your data values contain commas? (Spoiler: It can get messy if not handled with the right standard.)
 **Standard misalignment:** Over time, people have tweaked the CSV standards to better fit their needs. An example of this is in european countries where the  commas were already used for in decimal numbers (instead of dots) so they decided to use a semicolon as the column delimiter instead.  
 **Misuse of Excel:** Microsoft Excel is a great data analysis tool but poorly suited for CSV files. This holds especially true in the fields of ETL and data-engineering. It often misinterprets CSV standards or value data-types. This often ends up in data corruption and even more so when users have the *auto-save* mode activated. Furthermore, CSV files are often database extracts that are too large to be handled by Excel making it feel clunky or even crash upon opening a file. What holds for Excel is also true of other major spreadsheet editors such as Google Sheets, Libre Office Calc, or Mac's Numbers.
