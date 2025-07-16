@@ -45,6 +45,7 @@ csv_parse = function (s, d = ",") {
       v = []
     }
   }
+  if (s[len-1]=== '\n') rows.push([[""]]) //can only be the case if this is the final chun
   return rows;
 }
 
