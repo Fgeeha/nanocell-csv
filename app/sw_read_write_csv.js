@@ -33,7 +33,7 @@ csv_parse = function (s, d = ",") {
       j++;
     } else {
       while (j < len && s[j] !== d && s[j] !== lr) j++;
-      while (j > i && s[j - 1] === ' ') j--;
+      while (j > i && s[j - 1] === ' ' &&  s[j - 1] === '\r' ) j--;
     }
     v.push(s.substring(i, j).replace(/""/g, '"'));
     if (f) j++;
