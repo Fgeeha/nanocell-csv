@@ -16,7 +16,7 @@ class Sheet extends HTMLTableElement {
     this.yy = 0;
     this.bx = 0;
     this.by = 0;
-    this.addEventListener("mousewheel", this.scroll, { passive: true });
+    this.addEventListener("mousewheel", this.scroll, { passive: false });
     // this.addEventListener("mousedown", this.click);
     // this.addEventListener("dblclick", this.dblclick);
     this.inputField.addEventListener("focusout", e => { this.inputBlur() });
@@ -459,8 +459,18 @@ class Sheet extends HTMLTableElement {
     for (var y = 0; y < mat.length; y++)for (var x = 0; x < mat[y].length; x++)this.df.edit(minX + x, minY + y, mat[y][x]);
   }
 
-
   scroll(e) {
+    if(e.ctrlKey){
+      e.preventDefault();
+      if (e.shiftKey){
+        if (e.deltaY > 0) stg.rows++;
+        if (e.deltaY < 0) stg.rows--;
+      }else{
+        if (e.deltaY > 0) stg.cols++;
+        if (e.deltaY < 0) stg.cols--;
+      }
+      return ;
+    }
     var coef = 16;
     if (e.altKey) this.baseX += (e.deltaY > 0) ? Math.floor(e.deltaY / coef) : Math.ceil(e.deltaY / coef);
     else {
