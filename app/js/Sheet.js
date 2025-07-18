@@ -464,10 +464,10 @@ class Sheet extends HTMLTableElement {
       e.preventDefault();
       if (e.shiftKey){
         if (e.deltaY > 0) stg.rows++;
-        if (e.deltaY < 0) stg.rows--;
+        if (e.deltaY < 0 &&  Setting.list.find(item => item.key === "rows").min < stg.rows) stg.rows--;
       }else{
         if (e.deltaY > 0) stg.cols++;
-        if (e.deltaY < 0) stg.cols--;
+        if (e.deltaY < 0 &&  Setting.list.find(item => item.key === "cols").min < stg.cols) stg.cols--;
       }
       return ;
     }
