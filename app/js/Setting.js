@@ -8,7 +8,7 @@ class Setting {
     if (stored_val == "true") stored_val = true;
     if (stored_val == "false") stored_val = false;
     this.key = s.key;
-    this.value = (stored_val == null) ? s.dflt : stored_val;
+    this.value = (stored_val === null) ? s.dflt : stored_val;
     this.cb = s.cb;
     Object.defineProperty(stg, this.key, {
       get: () => { return this.value },
@@ -18,6 +18,7 @@ class Setting {
         if (this.cb) this.cb(this.value);
       }
     });
+    if(s.key=="theme" && stored_val===null && window.matchMedia('(prefers-color-scheme: dark)').matches) this.value = "night";
   }
 
 
