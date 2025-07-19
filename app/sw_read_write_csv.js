@@ -33,7 +33,7 @@ csv_parse = function (s, d = ",") {
       j++;
     } else {
       while (j < len && s[j] !== d && s[j] !== lr) j++;
-      while (j > i && s[j - 1] === ' ' &&  s[j - 1] === '\r' ) j--;
+      while (j > i && (s[j - 1] === ' ' ||  s[j - 1] === '\r' )  ) j--;
     }
     v.push(s.substring(i, j).replace(/""/g, '"'));
     if (f) j++;
@@ -45,7 +45,11 @@ csv_parse = function (s, d = ",") {
       v = []
     }
   }
-  if (s[len-1]=== '\n') rows.push([[""]]) //can only be the case if this is the final chun
+  if (s[len-1]=== '\n') rows.push([[""]]) 
+  if (v.length >0) rows.push(v);
+  console.log(rows);
+  console.log("ghrfvb");
+
   return rows;
 }
 
