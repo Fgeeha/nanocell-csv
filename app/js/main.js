@@ -42,7 +42,7 @@ launchFileOnInitDone = function () {
   });
 
   window.addEventListener('message', (event) => {
-    console.log(event)
+    // console.log(event)
     if (event.data && event.data.fileHandle) csvHandle.launchFile(event.data.fileHandle)
   });
 }

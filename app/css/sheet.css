@@ -74,7 +74,9 @@
   pointer-events: none;
 }
 
-.sheet input:focus {
+
+
+.sheet input, .sheet input:focus {
   box-sizing: border-box;
   position: absolute;
   padding: 0 .5em 0 .5em;

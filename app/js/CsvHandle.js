@@ -39,7 +39,7 @@ class CsvHandle {
     this.file_chunks = [];
     let mbSize = file.size / 1000000
     this.viewOnly = mbSize > Number(stg.editMaxFileSize);
-    console.log(file)
+    // console.log(file)
     this.pipe("read", { file: file, viewOnly: this.viewOnly, n_chunks: stg.vo_n_chunks, n_rows: stg.vo_n_rows })
   }
 
@@ -61,10 +61,12 @@ class CsvHandle {
     }
   }
 
-  reloadFile() {
+  reloadFile(force = false) {
     if (this.handle === null) return Msg.quick("No file to reload from.")
-    if (!sheet.df.isSaved) {
+    if (!sheet.df.isSaved && !force) {
       Msg.choice("Changes will be lost ? ", () => { this.launchFile(this.handle) })
+    }else{
+      this.launchFile(this.handle);
     }
   }
 

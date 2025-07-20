@@ -64,7 +64,6 @@ let buildKeys = function () {
     var inputting = document.activeElement.tagName == "INPUT";
     if (inputting) return;
     e.preventDefault();
-    console.log("copy");
     var clip = sheet.rangeArray().map(r => r.join('\t')).join('\n');
     e.clipboardData.setData('text/plain', clip);
   });
@@ -73,7 +72,6 @@ let buildKeys = function () {
     var inputting = document.activeElement.tagName == "INPUT";
     if (inputting) return;
     e.preventDefault();
-    console.log("cut");
     var clip = sheet.rangeArray().map(r => r.join('\t')).join('\n');
     e.clipboardData.setData('text/plain', clip);
     sheet.rangeEdit('');

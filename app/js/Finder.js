@@ -154,7 +154,6 @@ class Finder extends HTMLElement {
   }
 
   replaceAll() {
-    console.log("replace all")
     if (this.search.length < 1) return;
     for (var e of this.found) {
       this.exp.lastIndex = 0;

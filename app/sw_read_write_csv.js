@@ -47,9 +47,6 @@ csv_parse = function (s, d = ",") {
   }
   if (s[len-1]=== '\n') rows.push([[""]]) 
   if (v.length >0) rows.push(v);
-  console.log(rows);
-  console.log("ghrfvb");
-
   return rows;
 }
 

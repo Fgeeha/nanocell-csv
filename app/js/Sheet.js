@@ -138,8 +138,6 @@ class Sheet extends HTMLTableElement {
   }
 
   validate_headers() {
-    console.log("validating headers")
-
     for (var x = 0; x < this.df.width; x++) {
       var h = this.df.get(x, 0);
       if (h === undefined || h === "") h = `col_${x + 1}`
