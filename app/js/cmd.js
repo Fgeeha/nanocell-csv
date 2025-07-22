@@ -14,6 +14,7 @@ const  cmd = {
     decimal         :{k:"$"    ,ctrl:true, run(){sheet.round(false);sheet.refresh()}, description:"Round selection to decimal"},
     fixTop          :{k:"B"    ,ctrl:true, run(){sheet.fixTop = !sheet.fixTop;sheet.refresh()}, description:"Fix Header Top"},
     fixLeft         :{k:"B"    ,ctrl:true, shift:true, run(){sheet.fixLeft = !sheet.fixLeft;sheet.refresh()}, description:"Fix Header Left"},
+    fit_width       :{k:"W"    ,ctrl:true, run(){sheet.fitWidth();sheet.refresh()}, description:"Fix Header Left"},
     undo            :{k:"Z"    ,ctrl:true, run(){sheet.df.undo();sheet.refresh()}, description:"Undo"},
     redo            :{k:"Z"    ,ctrl:true, shift:true, run(){sheet.df.redo();sheet.refresh()}, description:"Redo"},
     redo2           :{k:"Y"    ,ctrl:true, run(){sheet.df.redo();sheet.refresh()}, description:"Redo"},
@@ -64,7 +65,7 @@ function buildCommands() {
 function buildMenu() {
   var menuItems = [
     "new", "open", "save", "reloadFile", "",
-    "undo", "redo", "fixLeft", "fixTop", "sort", "sort_reverse", "transpose", "trim", "date", "integer", "decimal","validate_headers",  "validate_data",
+    "undo", "redo", "fixLeft", "fixTop","fit_width", "sort", "sort_reverse", "transpose", "trim", "date", "integer", "decimal","validate_headers",  "validate_data",
     "", "find", "about", "settings", "shortcuts"];
   function buildMenuItem(item) {
     if (item === "") return dom.header.appendChild(document.createElement("hr"));

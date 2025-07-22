@@ -449,6 +449,26 @@ class Sheet extends HTMLTableElement {
       this.df.edit(x, y, n);
     })
   }
+  fitWidth() {
+    var wl = []
+    this.colWidthList = [];
+    stg.cols = Math.max(5, this.df.width + 1);
+    this.baseX = 0;
+
+    for (var x = 0; x < this.width; x++) {
+      var maxWidth = 12;
+      for (var y = 0; y < this.height; y++) {
+        var w = this.df.get(x, this.baseY + y).length;
+        if (w > maxWidth) maxWidth = w;
+      }
+      wl.push(maxWidth);
+    }
+    var totalWidth = wl.reduce((acc, val) => acc + val, 0);
+    for (var i = 0; i < wl.length; i++) {
+      this.colWidthList.push({ idx: i, width: (100 * wl[i] / totalWidth).toString() + "%" });
+    }
+    this.reload();
+  }
 
   paste(mat) {
     var minX = this.x;
@@ -458,16 +478,16 @@ class Sheet extends HTMLTableElement {
   }
 
   scroll(e) {
-    if(e.ctrlKey){
+    if (e.ctrlKey) {
       e.preventDefault();
-      if (e.shiftKey){
+      if (e.shiftKey) {
         if (e.deltaY > 0) stg.rows++;
-        if (e.deltaY < 0 &&  Setting.list.find(item => item.key === "rows").min < stg.rows) stg.rows--;
-      }else{
+        if (e.deltaY < 0 && Setting.list.find(item => item.key === "rows").min < stg.rows) stg.rows--;
+      } else {
         if (e.deltaY > 0) stg.cols++;
-        if (e.deltaY < 0 &&  Setting.list.find(item => item.key === "cols").min < stg.cols) stg.cols--;
+        if (e.deltaY < 0 && Setting.list.find(item => item.key === "cols").min < stg.cols) stg.cols--;
       }
-      return ;
+      return;
     }
     var coef = 16;
     if (e.altKey) this.baseX += (e.deltaY > 0) ? Math.floor(e.deltaY / coef) : Math.ceil(e.deltaY / coef);
