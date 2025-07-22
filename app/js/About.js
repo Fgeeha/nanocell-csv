@@ -36,6 +36,9 @@ class About extends HTMLElement {
 
     homeLink.style.textDecoration = "none"
     homeLink.style.color = "royalblue"
+    buttonBugReport.style.color =  "royalblue"
+    buttonBugReport.style.opacity = 1
+    buttonBugReport.style.setProperty("box-shadow", "none", "important");
     this.getVersion(e => { version.innerHTML = e });
     this.appendChild(logo)
     this.appendChild(title);
