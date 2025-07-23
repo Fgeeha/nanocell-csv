@@ -32,6 +32,9 @@ class CsvHandle {
     sheet = new Sheet(new Dataframe(matrix))
     sheet.df.isSaved = true;
     sheet.df.lock = this.viewOnly;
+    if(stg.trim) sheet.df.trimAll();
+    sheet.fixTop = stg.set_headers;
+    if(stg.fit_col_width) sheet.fitWidth();
   }
 
   read(file) {

@@ -5,6 +5,8 @@ class Sheet extends HTMLTableElement {
     this.finder = new Finder(this);
     this.inputField = document.createElement("input");
     this.inputing = false;
+    this.nViewCols = stg.cols;
+    this.nViewRows = stg.rows;
     // this.scrolling = false;
     this.escape = false;
     this.fixTop = false;
@@ -342,8 +344,8 @@ class Sheet extends HTMLTableElement {
   scrollbarRefresh() {
     let dfh = this.df.height;
     let dfw = this.df.width;
-    let visible_minY = stg.rows / 2;
-    let visible_minX = stg.cols - 2;
+    let visible_minY = this.nViewRows / 2;
+    let visible_minX = this.nViewCols - 2;
     let dsy = dom.content.scrollerY;
     let dsx = dom.content.scrollerX;
     dsy.style.display = (dfh < visible_minY) ? "none" : "block";
@@ -452,7 +454,7 @@ class Sheet extends HTMLTableElement {
   fitWidth() {
     var wl = []
     this.colWidthList = [];
-    stg.cols = Math.max(5, this.df.width + 1);
+    this.nViewCols = Math.max(5, this.df.width + 1);
     this.baseX = 0;
 
     for (var x = 0; x < this.width; x++) {
@@ -481,12 +483,14 @@ class Sheet extends HTMLTableElement {
     if (e.ctrlKey) {
       e.preventDefault();
       if (e.shiftKey) {
-        if (e.deltaY > 0) stg.rows++;
-        if (e.deltaY < 0 && Setting.list.find(item => item.key === "rows").min < stg.rows) stg.rows--;
+        console.log("ok")
+        if (e.deltaY > 0) this.nViewRows++;
+        if (e.deltaY < 0 && Setting.list.find(item => item.key === "rows").min < this.nViewRows) this.nViewRows--;
       } else {
-        if (e.deltaY > 0) stg.cols++;
-        if (e.deltaY < 0 && Setting.list.find(item => item.key === "cols").min < stg.cols) stg.cols--;
+        if (e.deltaY > 0) this.nViewCols++;
+        if (e.deltaY < 0 && Setting.list.find(item => item.key === "cols").min < this.nViewCols) this.nViewCols--;
       }
+      this.reload();
       return;
     }
     var coef = 16;
@@ -521,7 +525,7 @@ class Sheet extends HTMLTableElement {
       this.rows[0].cells[x + 1].firstChild.innerHTML = this.df.get(this.baseX + x, 0);
     else this.rows[0].cells[x + 1].firstChild.innerHTML = this.baseX + x + 1;
     var w = this.colWidthList.find(obj => obj.idx === this.baseX + x);
-    this.rows[0].cells[x + 1].style.width = w ? w.width : "auto";
+    this.rows[0].cells[x + 1].style.width = w ? w.width : "7%";
 
   }
 
@@ -591,10 +595,10 @@ class Sheet extends HTMLTableElement {
 
   reload() {
     while (this.rows[0]) this.rows[0].remove();
-    for (var y = 0; y < stg.rows + 1; y++) {
+    for (var y = 0; y < this.nViewRows + 1; y++) {
       var tr = document.createElement("tr");
       this.appendChild(tr);
-      for (var x = 0; x < stg.cols + 1; x++) {
+      for (var x = 0; x < this.nViewCols + 1; x++) {
         let cell = document.createElement("td", { is: "ui-cell" });
         cell.setPosition(x - 1, y - 1);
         if (y === 0 && x > 0) {

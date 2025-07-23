@@ -119,6 +119,10 @@ Object.defineProperty(Setting, 'list', {value: [
     {key:"delimiter"                ,dflt:","           ,name:"Delimiter", list:[",", ";" , "TAB"],hide:true},
     {key:"save_fixed_width_size"    ,dflt:0             ,name:"Minimum column size",        min:0, max: 100  },
     {key:"save_strict"              ,dflt:false         ,name:"Save-Strict (error on comma  or double quotes)"},
+{title:"Csv Open"},
+    {key:"fit_col_width"            ,dflt:true          ,name:"Fit column width" },
+    {key:"set_headers"              ,dflt:true          ,name:"Set headers" },
+    {key:"trim"                     ,dflt:false          ,name:"Remove empty rows and columns" },
 
 {title:"Data Validation"},
     {key:"dv_comma_num"             ,dflt:true          ,name:"In numeric values : replace commas by a dot"},
