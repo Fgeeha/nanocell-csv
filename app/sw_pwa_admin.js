@@ -1,4 +1,4 @@
-const versionName = 'Beta_v0.0.18';
+const versionName = 'Beta_v0.0.19';
 const filesToCache = [
 //  auto input
 ];
