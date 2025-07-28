@@ -43,7 +43,12 @@ class CsvHandle {
     let mbSize = file.size / 1000000
     this.viewOnly = mbSize > Number(stg.editMaxFileSize);
     // console.log(file)
-    this.pipe("read", { file: file, viewOnly: this.viewOnly, n_chunks: stg.vo_n_chunks, n_rows: stg.vo_n_rows })
+    if(file.size ==0){
+      this.file_chunks = [[[]]]
+      this.readSuccess()
+    }else{
+      this.pipe("read", { file: file, viewOnly: this.viewOnly, n_chunks: stg.vo_n_chunks, n_rows: stg.vo_n_rows })
+    }
   }
 
   pipe(cmd, data) { this.sw.postMessage({ cmd: cmd, data: data }) }
