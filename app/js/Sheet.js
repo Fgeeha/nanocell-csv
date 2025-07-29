@@ -457,7 +457,7 @@ class Sheet extends HTMLTableElement {
     this.nViewCols = Math.max(5, this.df.width + 1);
     this.baseX = 0;
 
-    for (var x = 0; x < this.width; x++) {
+    for (var x = 0; x < this.nViewCols; x++) {
       var maxWidth = 12;
       for (var y = 0; y < this.height; y++) {
         var w = this.df.get(x, this.baseY + y).length;
