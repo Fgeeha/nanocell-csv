@@ -458,7 +458,7 @@ class Sheet extends HTMLTableElement {
     this.baseX = 0;
 
     for (var x = 0; x < this.nViewCols; x++) {
-      var maxWidth = 12;
+      var maxWidth = 6;
       for (var y = 0; y < this.height; y++) {
         var w = this.df.get(x, this.baseY + y).length;
         if (w > maxWidth) maxWidth = w;
@@ -524,8 +524,9 @@ class Sheet extends HTMLTableElement {
     if (this.fixTop && this.df.get(this.baseX + x, 0).length > 0)
       this.rows[0].cells[x + 1].firstChild.innerHTML = this.df.get(this.baseX + x, 0);
     else this.rows[0].cells[x + 1].firstChild.innerHTML = this.baseX + x + 1;
+
     var w = this.colWidthList.find(obj => obj.idx === this.baseX + x);
-    this.rows[0].cells[x + 1].style.width = w ? w.width : "7%";
+    this.rows[0].cells[x + 1].style.width = w ? w.width : String(100.0/this.nViewCols) + "%";
 
   }
 
