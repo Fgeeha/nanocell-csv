@@ -103,6 +103,8 @@ class CsvHandle {
         await writableStream.close();
         sheet.df.isSaved = true;
         sheet.refresh();
+        this.file = await this.handle.getFile();
+        document.title = this.file.name;
       } catch (err) {
         Msg.confirm(err);
       }
