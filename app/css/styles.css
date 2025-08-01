@@ -14,6 +14,7 @@ b {
 footer {
   padding: .2em;
   text-align: center;
+  flex-wrap: wrap;
 }
 
 .flexMain {
@@ -82,7 +83,7 @@ header img:hover,
 }
 
 
-header,
+/* header, */
 section,
 .flexRow {
   display: flex;
@@ -92,7 +93,11 @@ section,
 }
 
 header {
-  height: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  /* height: 2em; */
 }
 
 body {
@@ -140,6 +145,7 @@ footer img {
 
 #content {
   position: relative;
+  overflow:hidden;
 }
 
 .scroll {
