@@ -1,0 +1,49 @@
+name: Sync & Build
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Add upstream
+        run: git remote add upstream https://github.com/CedricBonjour/nanocell-csv.git
+
+      - name: Fetch & merge
+        run: |
+          git fetch upstream
+          git checkout main
+          git merge upstream/main
+
+      - name: Push to fork
+        env:
+          GH_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        run: |
+          git push https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }} main
+
+      - name: Build on Windows
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      # повторяем шаги как в build-windows
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run build.py
+        run: python build.py
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sync-build-windows
+          path: build_output/
